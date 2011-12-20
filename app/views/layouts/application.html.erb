@@ -3,12 +3,50 @@
 <head>
   <title>RMonitor</title>
   <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<div class="topbar">
+  <div class="fill">
+    <div class="container">
+      <a class="brand" href="#">RMonitor</a>
+      <ul class="nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="#servers">Servers</a></li>
+        <li><a href="#admin">Administration</a></li>
+      </ul>
+
+      <ul class="nav secondary-nav">
+        <li class="dropdown" data-dropdown="dropdown">
+          <a href="#" class="dropdown-toggle">Dropdown</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Secondary link</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Another link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <%= yield %>
+
+  <footer>
+    <p>&copy; <%= link_to "nicolas-brousse.fr", "http://nicolas-brousse.fr" %> 2011</p>
+  </footer>
+
+</div> <!-- /container -->
+
+<%= javascript_include_tag "application" %>
 
 </body>
 </html>

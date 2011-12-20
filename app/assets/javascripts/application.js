@@ -6,4 +6,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require ./bootstrap/bootstrap-twipsy.js
+//= require_tree ./bootstrap
+
+$('#topbar').dropdown()
+
+$('.tabs').tabs()
