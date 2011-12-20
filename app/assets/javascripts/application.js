@@ -11,4 +11,4 @@
 
 $('#topbar').dropdown()
 
-$('.tabs').tabs()
+$('.tabs.dynamic').tabs()

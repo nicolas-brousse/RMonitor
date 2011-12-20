@@ -14,21 +14,20 @@
 <div class="topbar">
   <div class="fill">
     <div class="container">
-      <a class="brand" href="#">RMonitor</a>
+      <%= link_to 'RMonitor', :root, :class => "brand" %>
       <ul class="nav">
-        <li class="active"><a href="#">Dashboard</a></li>
-        <li><a href="#servers">Servers</a></li>
-        <li><a href="#admin">Administration</a></li>
+        <li class="active"><%= link_to 'Dashboard', :root %></li>
+        <li><a href="<%= url_for(:projects) %>">Servers</a></li>
       </ul>
 
       <ul class="nav secondary-nav">
         <li class="dropdown" data-dropdown="dropdown">
-          <a href="#" class="dropdown-toggle">Dropdown</a>
+          <a href="#" class="dropdown-toggle">pseudo</a>
           <ul class="dropdown-menu">
-            <li><a href="#">Secondary link</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Personnalisation</a></li>
+            <li><a href="#">Administration</a></li>
             <li class="divider"></li>
-            <li><a href="#">Another link</a></li>
+            <li><a href="#">Déconnexion</a></li>
           </ul>
         </li>
       </ul>

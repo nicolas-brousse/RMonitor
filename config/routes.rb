@@ -2,6 +2,9 @@ RMonitor::Application.routes.draw do
 
   root :to => "default#index"
 
+  get "projects" => "default#projects_list", :as => :projects
+  get "projects/d4w" => "default#project_show", :as => :project_show
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
