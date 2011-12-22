@@ -1,4 +1,5 @@
 class DefaultController < ApplicationController
+
   def index
   end
 
@@ -6,5 +7,6 @@ class DefaultController < ApplicationController
   end
 
   def project_show
+  	render :layout => "serveur"
   end
 end
