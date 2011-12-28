@@ -1,5 +1,7 @@
 RMonitor::Application.routes.draw do
 
+  devise_for :users
+
   root :to => "default#index"
 
   get "projects" => "default#projects_list", :as => :projects
