@@ -19,11 +19,13 @@ namespace :rmonitor do
 
   desc "Execute ping for all servers"
   task :ping => :environment do
-    servers = ["80.248.216.62", "dev.opsone.net", "hosting.opsone.net"]
+    servers = Server.all
 
     servers.each do |server|
-      puts "Ping #{server}"
-      puts ping(server.to_s) ? "OK" : "NOT OK"
+      puts " -- Ping #{server.name}"
+      server.status = ping(server.host.to_s)
+      server.synchronized_at = Time.now
+      server.save
     end
   end
 

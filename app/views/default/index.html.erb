@@ -4,17 +4,18 @@
 </div>
 
 <!-- Example row of columns -->
+<% @servers.each do |server| %>
 <div class="server">
   <div class="row">
     <div class="span12">
-      <h2><i class="icon-hdd"></i> <%= link_to "Server 1", "#" %></h2>
+      <h2><i class="icon-hdd"></i> <%= link_to server.name, "#" %></h2>
     </div>
   </div>
   <div class="row">
     <div class="span1">&nbsp;</div>
     <div class="span3">
       <h2>Status</h2>
-      <p><span style="color: green;">green</span></p>
+      <p><span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span></p>
       <p>Uptime: 99.99%</p>
     </div>
 
@@ -24,24 +25,4 @@
     </div>
   </div>
 </div>
-
-<div class="server">
-  <div class="row">
-    <div class="span12">
-      <h2><i class="icon-hdd"></i> <%= link_to "Server 2", "#" %></h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span1">&nbsp;</div>
-    <div class="span3">
-      <h2>Status</h2>
-      <p><span style="color: green;">green</span></p>
-      <p>Uptime: 99.99%</p>
-    </div>
-
-    <div class="span8">
-      <h2>Last logs</h2>
-      <p>https://devcenter.heroku.com/articles/heroku-status-uptime-calculation</p>
-    </div>
-  </div>
-</div>
+<% end %>

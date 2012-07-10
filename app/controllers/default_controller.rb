@@ -1,6 +1,7 @@
 class DefaultController < ApplicationController
 
   def index
+    @servers = Server.publics
     render :layout => "public"
   end
 
