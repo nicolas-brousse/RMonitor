@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "public" %>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container">
+
+  <div id="yield">
+    <%= yield %>
+  </div>
+
+  <hr>
+
+  <footer>
+    <p>&copy; <%= link_to "nicolas-brousse.fr", "http://nicolas-brousse.fr" %> <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %></p>
+  </footer>
+
+</div> <!-- /container -->
+
+<%= javascript_include_tag "public" %>
+
+</body>
+</html>

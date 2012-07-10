@@ -1,28 +1,47 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
-  <h1>My RMonitor</h1>
+  <h1>Brand status</h1>
 </div>
 
 <!-- Example row of columns -->
-<div class="row">
-  <div class="span6">
-    <h2>DNS</h2>
-    <ul>
-      <li>ns-1.domaine.net</li>
-      <li>ns-2.domaine.net</li>
-      <li>ns-3.domaine.net</li>
-    </ul>
+<div class="server">
+  <div class="row">
+    <div class="span12">
+      <h2><i class="icon-hdd"></i> <%= link_to "Server 1", "#" %></h2>
+    </div>
   </div>
-  <div class="span5">
-    <h2>Backups</h2>
-    <ul>
-      <li>backups-1.domaine.net</li>
-      <li>backups-2.domaine.net</li>
-      <li>backups-3.domaine.net</li>
-    </ul>
- </div>
-  <div class="span5">
-    <h2>Last logs</h2>
-    <p>Already is done.</p>
+  <div class="row">
+    <div class="span1">&nbsp;</div>
+    <div class="span3">
+      <h2>Status</h2>
+      <p><span style="color: green;">green</span></p>
+      <p>Uptime: 99.99%</p>
+    </div>
+
+    <div class="span8">
+      <h2>Last logs</h2>
+      <p>https://devcenter.heroku.com/articles/heroku-status-uptime-calculation</p>
+    </div>
+  </div>
+</div>
+
+<div class="server">
+  <div class="row">
+    <div class="span12">
+      <h2><i class="icon-hdd"></i> <%= link_to "Server 2", "#" %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span1">&nbsp;</div>
+    <div class="span3">
+      <h2>Status</h2>
+      <p><span style="color: green;">green</span></p>
+      <p>Uptime: 99.99%</p>
+    </div>
+
+    <div class="span8">
+      <h2>Last logs</h2>
+      <p>https://devcenter.heroku.com/articles/heroku-status-uptime-calculation</p>
+    </div>
   </div>
 </div>

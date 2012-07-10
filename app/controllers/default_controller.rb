@@ -1,6 +1,7 @@
 class DefaultController < ApplicationController
 
   def index
+    render :layout => "public"
   end
 
   def projects_list
