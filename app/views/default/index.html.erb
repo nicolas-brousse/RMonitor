@@ -14,19 +14,15 @@
 </div>
 <div class="server hidden-phone">
   <div class="row">
-    <div class="span12">
-      <h2><i class="icon-hdd"></i> <%= link_to server.name, "#" %></h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span3 offset1">
-      <h2>Status</h2>
-      <p><span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span></p>
-      <p>Uptime: 99.99%</p>
+    <div class="span2">
+      <div class="full-circle <%= server.status ? 'green' : 'red' %>">
+        <span>99.99%</span>
+      </div>
     </div>
 
-    <div class="span8">
-      <h2>Last logs</h2>
+    <div class="span10">
+      <h2><%= link_to server.name, "#" %></h2>
+      <h4>Last logs</h4>
       <p>https://devcenter.heroku.com/articles/heroku-status-uptime-calculation</p>
     </div>
   </div>

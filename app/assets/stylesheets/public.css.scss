@@ -8,21 +8,24 @@
 */
 
 body {
-  padding-top: 60px;
+  background: #000 image-url("public/background.png") repeat-x;
+  color: #fff;
+  font-size: .9em;
 }
 
-#submenu {
-  width: 100%;
-  margin-top: -20px;
-  padding-left: 10px;
-  background-color: #111;
-  margin-bottom: 10px;
+
+
+.full-circle {
+  background-color: rgba(0, 0, 0, 0);
+  border: 3px solid #333;
+  height: 150px;
+  -moz-border-radius:75px;
+  -webkit-border-radius: 75px;
+  width: 150px;
+  text-align: center;
+  line-height: 150px;
+  font-size: 1.5em;
 }
-#submenu .tabs {
-  padding-top: 30px;
-  margin-bottom: -1px;
-}
-#submenu .tabs li.active > a, #submenu .tabs li.active > a:hover {
-  color: gray;
-}
-#submenu .tabs li a { color: #fff; }
+
+.full-circle.green { border-color: green; }
+.full-circle.red   { border-color: red; }
