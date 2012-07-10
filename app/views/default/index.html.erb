@@ -5,15 +5,21 @@
 
 <!-- Example row of columns -->
 <% @servers.each do |server| %>
-<div class="server">
+<div class="server visible-phone">
+  <div class="row">
+    <div class="span12">
+      <h2><i class="icon-hdd"></i> <%= link_to server.name, "#" %> <span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span></h2>
+    </div>
+  </div>
+</div>
+<div class="server hidden-phone">
   <div class="row">
     <div class="span12">
       <h2><i class="icon-hdd"></i> <%= link_to server.name, "#" %></h2>
     </div>
   </div>
   <div class="row">
-    <div class="span1">&nbsp;</div>
-    <div class="span3">
+    <div class="span3 offset1">
       <h2>Status</h2>
       <p><span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span></p>
       <p>Uptime: 99.99%</p>
