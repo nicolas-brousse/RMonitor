@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-RMonitor::Application.config.secret_token = 'b29fd1d6424de5ca23c7843a919f1cca34a1fda7be593b35c83cd13149418262bd89f1946391531c3b2402cdbb61dd8d849b7e6a6e04c3f6e5232124a33ac885'
+RMonitor::Application.config.secret_token = 'b930d4f12b0f21a8f02872948caae7747eacf9d0f34e887b916a1973ad0743d505b91d76e1f307731899efcbdfabea6f5a368482c7297603319bd109ffdfce8e'
