@@ -10,4 +10,3 @@
 
 $('#topbar').dropdown()
 
-$('.tabs.dynamic').tabs()
