@@ -11,6 +11,10 @@ RMonitor::Application.routes.draw do
     resources :servers
   end
 
+  namespace :api, :defaults => {:format => :json} do
+    get "/"       => "index#index"
+  end
+
   get "projects" => "default#projects_list", :as => :projects
   get "projects/d4w" => "default#project_show", :as => :project_show
 
