@@ -26,7 +26,7 @@ module RMonitor
         begin
           f = File.open(entries_path, 'r')
           entries = f.read
-          if entries.match(%r{.+\/(.+)$})
+          if entries.match(%r{^ref: refs\/heads\/(.+)$})
             branch = $1.to_s
           end
         rescue
