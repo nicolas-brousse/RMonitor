@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Host</th>
+      <th>Last synchronization</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @servers.each do |server| %>
+    <tr>
+      <td><%= server.id %></td>
+      <td><%= link_to server.name, admin_server_path(server) %></td>
+      <td><%= server.host %></td>
+      <td><%= server.synchronized_at %></td>
+      <td>
+        <%= link_to "edit", edit_admin_server_path(server) %>
+        <%= link_to "delete", admin_server_path(server), :confirm => "Are you sure?", :method => :delete %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

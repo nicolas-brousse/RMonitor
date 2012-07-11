@@ -1,0 +1,18 @@
+<h2><%= @server.name %></h2>
+
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td>Host</td>
+      <td><%= @server.host %></td>
+    </tr>
+    <tr>
+      <td>Last synchronization</td>
+      <td><%= @server.synchronized_at %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><%= @server.status %></td>
+    </tr>
+  </tbody>
+</table>

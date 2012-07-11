@@ -4,6 +4,13 @@ RMonitor::Application.routes.draw do
 
   root :to => "public#index"
 
+  namespace :admin do
+    get "/"       => "index#dashboard"
+    get "/info"   => "index#info"
+
+    resources :servers
+  end
+
   get "projects" => "default#projects_list", :as => :projects
   get "projects/d4w" => "default#project_show", :as => :project_show
 
