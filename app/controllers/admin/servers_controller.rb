@@ -18,6 +18,12 @@ class Admin::ServersController < Admin::BaseController
     @server = Server.new
   end
 
+  # GET /admin/servers/:id/edit
+  def edit
+    @server = Server.find(params[:id])
+    add_breadcrumb "#{@server.name} \##{@server.id}", edit_admin_server_path(@server)
+  end
+
   # POST /admin/servers/
   def create
     @server = Server.new(params[:server])
@@ -29,12 +35,6 @@ class Admin::ServersController < Admin::BaseController
         format.html { render :action => "new" }
       end
     end
-  end
-
-  # GET /admin/servers/:id/edit
-  def edit
-    @server = Server.find(params[:id])
-    add_breadcrumb "#{@server.name} \##{@server.id}", edit_admin_server_path(@server)
   end
 
   # PUT /admin/servers/:id
