@@ -1,22 +1,24 @@
 
 <% @servers.each do |server| %>
-<div class="server visible-phone">
-  <div class="row">
+<div class="server">
+  <div class="row visible-phone">
     <div class="span12">
       <h2><i class="icon-hdd"></i> <%= link_to server.name, "#" %> <span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span></h2>
     </div>
   </div>
-</div>
-<div class="server hidden-phone">
-  <div class="row">
-    <div class="span2">
+
+  <div class="row hidden-phone">
+    <div class="span1 offset1">
       <div class="full-circle <%= server.status ? 'green' : 'red' %>">
-        <span>99.99%</span>
+        <span class="uptime">99.99%</span>
       </div>
     </div>
 
-    <div class="span10">
-      <h2><%= link_to server.name, "#" %></h2>
+    <div class="span3">
+      <h2 class="name">— <%= link_to server.name, "#" %> </h2>
+    </div>
+
+    <div class="span7">
       <h4>Last logs</h4>
       <p>https://devcenter.heroku.com/articles/heroku-status-uptime-calculation</p>
     </div>

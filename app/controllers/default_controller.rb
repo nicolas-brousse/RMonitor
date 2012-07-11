@@ -1,7 +1,7 @@
 class DefaultController < ApplicationController
 
   def index
-    @servers = Server.publics
+    @servers = Server.publics.order('status, name')
     render :layout => "public"
   end
 
@@ -9,6 +9,6 @@ class DefaultController < ApplicationController
   end
 
   def project_show
-  	render :layout => "serveur"
+    render :layout => "serveur"
   end
 end

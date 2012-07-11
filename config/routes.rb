@@ -2,7 +2,7 @@ RMonitor::Application.routes.draw do
 
   devise_for :users
 
-  root :to => "default#index"
+  root :to => "public#index"
 
   get "projects" => "default#projects_list", :as => :projects
   get "projects/d4w" => "default#project_show", :as => :project_show
