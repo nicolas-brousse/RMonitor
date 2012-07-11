@@ -24,13 +24,13 @@
 
       <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="icon-user"></i> Username
+          <i class="icon-user"></i> <%= current_user.email %>
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
           <li><a href="#">Profile</a></li>
           <li class="divider"></li>
-          <li><a href="#">Sign Out</a></li>
+          <li><%= link_to "Sign Out", :destroy_user_session, :method => :delete %></li>
         </ul>
       </div>
 
@@ -63,9 +63,9 @@
   <!-- Alert -->
   <% [:alert, :notice, :info, :error, :success].each do |key| %>
     <% if flash[key] %>
-    <div class="alert-message <%= key %> fade in" data-alert="alert">
-      <a class="close" href="#">×</a>
-      <p><%= flash[key] %></p>
+    <div class="alert alert-block <%= format_flash_class(key) %> fade in" data-alert="alert">
+      <a class="close" data-dismiss="alert" href="#">×</a>
+      <%= flash[key] %>
     </div>
     <% end %>
   <% end %>

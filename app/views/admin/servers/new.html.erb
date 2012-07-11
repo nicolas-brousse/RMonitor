@@ -1,2 +1,11 @@
-<h1>Admin::Servers#new</h1>
-<p>Find me in app/views/admin/servers/new.html.erb</p>
+<h2>New server</h2>
+
+<%= form_for(@server, :url => admin_servers_path()) do |f| %>
+  <div><%= f.label :name %><br />
+  <%= f.text_field :name %></div>
+
+  <div><%= f.label :host %><br />
+  <%= f.text_field :host %></div>
+
+  <div><%= f.submit "Create" %></div>
+<% end %>
