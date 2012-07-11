@@ -3,7 +3,10 @@
 <div class="server">
   <div class="row visible-phone">
     <div class="span12">
-      <h2><i class="icon-hdd"></i> <%= link_to server.name, "#" %> <span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span></h2>
+      <h2>
+        <%= link_to server.name, "#", :title => "Last synchronization at #{server.synchronized_at}" %>
+        <span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span>
+      </h2>
     </div>
   </div>
 
@@ -15,7 +18,7 @@
     </div>
 
     <div class="span3">
-      <h2 class="name">— <%= link_to server.name, "#" %> </h2>
+      <h2 class="name">— <%= link_to server.name, "#", :title => "Last synchronization at #{server.synchronized_at}" %></h2>
     </div>
 
     <div class="span7">

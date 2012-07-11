@@ -29,13 +29,15 @@
 <div class="container">
 
   <div id="yield">
+
     <%= yield %>
-  </div>
+
+  </div> <!-- /yield -->
 
   <hr>
 
   <footer>
-    <p>&copy; <%= link_to "nicolas-brousse.fr", "http://nicolas-brousse.fr" %> <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %></p>
+    <p>&copy; <%= link_to "nicolas-brousse.fr", "http://nicolas-brousse.fr" %> <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %> — v <%= RMonitor::VERSION::ARRAY[0,3].join('.') %></p>
   </footer>
 
 </div> <!-- /container -->
