@@ -1,32 +1,17 @@
-require 'rexml/document'
-
 module RMonitor
   module VERSION #:nodoc:
     MAJOR = 0
     MINOR = 1
     TINY  = 0
 
-    # Branch values:
-    # * official release: nil
-    # * stable branch:    stable
-    # * trunk:            devel
-    BRANCH = 'devel'
-
     def self.revision
       revision = nil
-      entries_path = "#{Rails.root}/.svn/entries"
+      entries_path = "#{Rails.root}/.git/ORIG_HEAD"
       if File.readable?(entries_path)
         begin
           f = File.open(entries_path, 'r')
           entries = f.read
-          f.close
-          if entries.match(%r{^\d+})
-            revision = $1.to_i if entries.match(%r{^\d+\s+dir\s+(\d+)\s})
-          else
-            xml = REXML::Document.new(entries)
-            revision =
-              xml.elements['wc-entries'].elements[1].attributes['revision'].to_i
-          end
+          revision = entries[0, 8]
         rescue
           # Could not find the current revision
         end
@@ -34,9 +19,27 @@ module RMonitor
       revision
     end
 
-    REVISION = self.revision
-    ARRAY    = [MAJOR, MINOR, TINY, BRANCH, REVISION].compact
-    STRING   = ARRAY.join('.')
+    def self.branch
+      branch = nil
+      entries_path = "#{Rails.root}/.git/HEAD"
+      if File.readable?(entries_path)
+        begin
+          f = File.open(entries_path, 'r')
+          entries = f.read
+          if entries.match(%r{.+\/(.+)$})
+            branch = $1.to_s
+          end
+        rescue
+          # Could not find the current revision
+        end
+      end
+      branch
+    end
+
+    REVISION = self.revision.freeze
+    BRANCH   = self.branch.freeze
+    ARRAY    = [MAJOR, MINOR, TINY, BRANCH, REVISION].compact.freeze
+    STRING   = ARRAY.join('.').freeze
 
     def self.to_a; ARRAY  end
     def self.to_s; STRING end
