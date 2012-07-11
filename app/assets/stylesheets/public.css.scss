@@ -27,18 +27,18 @@ body {
 
 .server .uptime,
 .server .name {
-  line-height: 70px;
+  line-height: 95px;
   font-family: "Actor", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .full-circle {
   background-color: rgba(0, 0, 0, 0);
   border: 3px solid #333;
-  height: 70px;
-  -moz-border-radius: 35px;
-  -webkit-border-radius: 35px;
-  border-radius: 35px;
-  width: 70px;
+  -moz-border-radius: 47.5px;
+  -webkit-border-radius: 47.5px;
+  border-radius: 47.5px;
+  width: 95px;
+  height: 95px;
   text-align: center;
   font-size: 1.2em;
 }
