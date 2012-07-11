@@ -22,6 +22,7 @@
       </a>
       <%= link_to 'RMonitor', :admin, :class => "brand" %>
 
+    <% if user_signed_in? %>
       <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
           <i class="icon-user"></i> <%= current_user.email %>
@@ -33,6 +34,11 @@
           <li><%= link_to "Sign Out", :destroy_user_session, :method => :delete %></li>
         </ul>
       </div>
+    <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
+      <ul class="nav pull-right"><li><%= link_to "Sign up", :new_user_registration %></li></ul>
+    <% else %>
+      <ul class="nav pull-right"><li><%= link_to "Sign in", :new_user_session %></li></ul>
+    <% end %>
 
       <div class="nav-collapse">
         <ul class="nav">
