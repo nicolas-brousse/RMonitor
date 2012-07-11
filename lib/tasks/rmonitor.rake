@@ -12,9 +12,10 @@ namespace :rmonitor do
     #    * rake db:migrate
     #
 
-    # puts "Install RMonitor Database"
-    # Rake::Task['db:setup'].invoke
-    # Rake::Task['db:migrate'].invoke
+    puts "Install RMonitor Database for #{Rails.env} env"
+    Rake::Task['db:setup'].invoke
+    Rake::Task['db:migrate'].invoke
+    Rake::Task['db:seed'].invoke
 
     # puts "Now configure your cronjob"
     # puts "  5 * * * * cd /data/my_app/current && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:ping"

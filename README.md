@@ -6,6 +6,5 @@ RMonitor is a Project of Monitoring application based on RubyOnRails framework.
 
 ```ruby
 $ bundle install
-$ rake db:setup
-$ rake db:migrate
+$ rake rmonitor:install
 ```
