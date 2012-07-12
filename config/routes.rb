@@ -4,12 +4,15 @@ RMonitor::Application.routes.draw do
 
   root :to => "public#index"
 
-  namespace :admin, :path => "/" do
-    get "/"           => "index#dashboard"
-    get "/dashboard"  => "index#dashboard", :as => :dashboard
-    get "/info"       => "index#info"
+  get "/"           => "index#dashboard"
+  get "/dashboard"  => "index#dashboard", :as => :dashboard
 
-    resources :servers
+  resources :servers
+
+  namespace :admin do
+    get "/"           => "index#index"
+    get "/info"       => "index#info"
+    get "/servers"    => "index#servers"
   end
 
   namespace :api, :defaults => {:format => :json} do
