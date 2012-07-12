@@ -3,7 +3,7 @@ require 'socket'
 
 module RMonitor
   module Modules
-    module Monitoring
+    module Monitorings
       class Ping #:nodoc:
 
         def self.execute(host)

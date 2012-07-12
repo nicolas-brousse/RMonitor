@@ -4,7 +4,7 @@ require "timeout"
 
 module RMonitor
   module Modules
-    module Monitoring
+    module Monitorings
       class HTTP #:nodoc:
 
         def self.execute(host)

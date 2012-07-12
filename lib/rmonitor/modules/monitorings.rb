@@ -1,6 +1,6 @@
 module RMonitor
   module Modules
-    module Monitoring
+    module Monitorings
     end
   end
 end
