@@ -17,9 +17,13 @@
       <td><%= server.synchronized_at %></td>
       <td>
         <%= link_to "edit", edit_server_path(server) %>
-        <%# link_to "delete", admin_server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete %>
+        <%= link_to "#", :data => {:confirm => "Are you sure?"}, :method => :delete, :class => "btn btn-mini btn-danger" do %>
+          <i class="icon-trash icon-white"></i> Delete
+        <% end %>
       </td>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<a class="btn btn-success" href="<%= url_for new_server_path() %>"><i class="icon-plus icon-white"></i> New server</a>
