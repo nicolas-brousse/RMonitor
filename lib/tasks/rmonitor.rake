@@ -57,6 +57,11 @@ namespace :rmonitor do
       server.synchronized_at = Time.now
       server.save
     end
+
+    # Prevent users
+    User.all.each do |user|
+      # MonitoringMailer.alert_email(user).deliver
+    end
   end
 
 end
