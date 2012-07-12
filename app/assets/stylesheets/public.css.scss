@@ -7,19 +7,12 @@
  *= require_self
 */
 
-@import url(http://fonts.googleapis.com/css?family=Actor|Ubuntu|Imprima);
-
-body {
+body.public {
   background: #000 image-url("public/background.png") repeat-x;
   color: #fff;
-  font-size: .9em;
   margin-top: 60px;
+  padding-top: 0;
 }
-
-.navbar .navbar-inner {
-  background-color: #000;
-}
-
 
 .server {
   margin-bottom: 20px;

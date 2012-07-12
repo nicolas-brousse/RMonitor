@@ -3,28 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag "public" %>
+  <%= stylesheet_link_tag "application" %>
 
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="public">
 
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <%= link_to 'RMonitor', :root, :class => "brand" %>
-    </div>
-  </div>
-</div>
-
+<%= render "layouts/navbar" %>
 
 <div class="container">
 
@@ -32,7 +20,7 @@
 
     <%= yield %>
 
-  </div> <!-- /yield -->
+  </div> <!-- /.yield -->
 
   <hr>
 
@@ -40,9 +28,9 @@
     <p>&copy; <%= link_to "nicolas-brousse.fr", "http://nicolas-brousse.fr" %> <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %> — v <%= RMonitor::VERSION::ARRAY[0,3].join('.') %></p>
   </footer>
 
-</div> <!-- /container -->
+</div> <!-- /.container -->
 
-<%= javascript_include_tag "public" %>
+<%= javascript_include_tag "application" %>
 
 </body>
 </html>

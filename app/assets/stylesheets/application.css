@@ -5,11 +5,15 @@
  *= require bootstrap
  *= require bootstrap-responsive
  *= require_self
+ *= require_tree
 */
+
+@import url(http://fonts.googleapis.com/css?family=Actor|Ubuntu|Imprima);
 
 body {
   padding-top: 60px;
 }
+
 
 #submenu {
   width: 100%;
@@ -26,3 +30,20 @@ body {
   color: gray;
 }
 #submenu .tabs li a { color: #fff; }
+
+
+.navbar .navbar-inner {
+  background-color: #000;
+}
+
+.navbar-fixed-top .brand {
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+  -webkit-transition: all .2s linear;
+     -moz-transition: all .2s linear;
+          transition: all .2s linear;
+}
+.navbar-fixed-top .brand:hover {
+  text-decoration: none;
+}
