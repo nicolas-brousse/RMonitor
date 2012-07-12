@@ -12,13 +12,13 @@
   <![endif]-->
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body<%= current_server ? raw(' class="with-subnav"') : nil %>>
 
 <%= render "layouts/navbar" %>
 
 <div class="container">
 
-  <ul class="breadcrumb">
+  <!-- <ul class="breadcrumb">
     <li><%= link_to "RMonitor", :root %> <span class="divider">&rarr;</span></li>
     
     <% if @breadcrumbs %>
@@ -29,7 +29,7 @@
     <% else %>
       <li class="active">Home</li>
     <% end %>
-  </ul>
+  </ul> -->
 
   <!-- Alert -->
   <% [:alert, :notice, :info, :error, :success].each do |key| %>

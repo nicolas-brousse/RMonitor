@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th width="5">#</th>
-      <th width="10">Status</th>
       <th width="">Name</th>
       <th width="">Host</th>
       <th width="">Last synchronization</th>
@@ -13,7 +12,6 @@
     <% @servers.each do |server| %>
     <tr>
       <td><%= server.id %></td>
-      <td><span class="badge badge-<%= server.status ? 'success' : 'important' %>">&nbsp;</span></td>
       <td><%= link_to server.name, admin_server_path(server) %></td>
       <td><%= server.host %></td>
       <td><%= server.synchronized_at %></td>

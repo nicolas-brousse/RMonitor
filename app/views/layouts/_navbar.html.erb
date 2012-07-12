@@ -17,7 +17,7 @@
         <ul class="dropdown-menu">
           <li><%= link_to "Profile", :edit_user_registration %></li>
           <li class="divider"></li>
-          <li><%= link_to "Application", :admin_info %></li>
+          <li><%= link_to "Administration", :admin %></li>
           <li class="divider"></li>
           <li><%= link_to "Sign Out", :destroy_user_session, :method => :delete %></li>
         </ul>
@@ -31,12 +31,28 @@
     <% if user_signed_in? %>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class="active"><%= link_to 'Dashboard', :admin_dashboard %></li>
-          <li><%= link_to "Servers", :admin_servers %></li>
-          <li><%= link_to "Monitoring", :admin_servers %></li>
+          <li class="active"><%= link_to 'Dashboard', :dashboard %></li>
+          <li><%= link_to "Servers", :servers %></li>
         </ul>
       </div> <!--/.nav-collapse -->
     <% end %>
     </div>
   </div>
 </div>
+
+<!-- Todo subnav -->
+<% if current_server %>
+<div class="subnav subnav-fixed">
+  <div class="container">
+    <ul class="nav nav-pills">
+      <li class="brand"><span><%= current_server.name %></span></li>
+      <li class="divider-vertical"></li>
+      <li class="active"><%= link_to "Overview", server_path(current_server) %></li>
+      <li><a href="#badges">Monitoring</a></li>
+      <li><a href="#typography">Graphs or Activity</a></li>
+      <li><a href="#thumbnails">Backups</a></li>
+      <li><a href="#misc">Configuration</a></li>
+    </ul>
+  </div>
+</div>
+<% end %>
