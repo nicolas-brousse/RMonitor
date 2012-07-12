@@ -34,7 +34,7 @@ namespace :rmonitor do
     # Rake::Task['db:seed'].invoke
 
     # puts "Now configure your cronjob"
-    # puts "  5 * * * * cd /data/my_app/current && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:ping"
+    # puts "  5 * * * * cd /data/my_app/current && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
   end
 
   desc "Version of RMonitor"
@@ -47,30 +47,39 @@ namespace :rmonitor do
     puts ""
   end
 
-  desc "Execute ping for all servers"
-  task :ping => :environment do
-    servers = Server.includes(:monitorings).all
-    alerts  = []
+  desc "Execute monitoring for all servers"
+  task :monitoring => :environment do
+    puts ""
+
+    servers       = Server.includes(:monitorings).all
+    server_status = true
+    alerts        = []
 
     servers.each do |server|
-      puts " -- Ping #{server.name}"
+      puts " -- Server #{server.name}"
 
-      monitoring = server.monitorings.last
-      status     = RMonitor::Modules::Monitorings::Ping.execute(server.host.to_s)
+      protocols = ["Ping"]
 
-      if monitoring.nil? || monitoring.status != status
-        first_alert = monitoring.nil? ? true : false
+      protocols.each do |p|
+        monitoring = server.monitorings.last
+        status     = (("RMonitor::Modules::Monitorings::#{p}").constantize).execute(server.host.to_s)
+        server_status = false if !status
 
-        monitoring = Monitoring.new
-        monitoring.server   = server
-        monitoring.protocol = "Ping"
-        monitoring.status = status
-        monitoring.save
+        if monitoring.nil? || monitoring.status != status
+          m = Monitoring.new
+          m.server   = server
+          m.protocol = p
+          m.status = status
+          m.save
 
-        alerts << monitoring unless first_alert
+          alerts << m unless monitoring.nil?
+        end
+
+        puts " ---- #{p} = #{status}"
+        puts ""
       end
 
-      server.status = status
+      server.status = server_status
       server.synchronized_at = Time.now
       server.save
     end
