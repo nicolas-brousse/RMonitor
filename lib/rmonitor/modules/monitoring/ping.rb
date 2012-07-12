@@ -8,7 +8,7 @@ module RMonitor
 
         def self.execute(host)
           begin
-            Timeout.timeout(5) do 
+            Timeout.timeout(15) do 
               s = TCPSocket.new(host, 'echo')
               s.close
               return true
