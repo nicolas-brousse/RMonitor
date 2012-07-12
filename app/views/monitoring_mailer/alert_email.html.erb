@@ -13,5 +13,17 @@
       To login to the site, just follow this link: <%= @url %>.
     </p>
     <p>Thanks for joining and have a great day!</p>
+
+
+    <table>
+    <% @monitorings.each do |m| %>
+      <tr>
+        <td><%= link_to m.server.name, m.server.host %></td>
+        <td><%= m.protocol %></td>
+        <td><%= m.status ? 'UP' : 'DOWN' %></td>
+        <td><%= m.created_at %></td>
+      </tr>
+    <% end %>
+    </table>
   </body>
 </html>

@@ -7,3 +7,9 @@ your username is: <%= @user.email %>.
 To login to the site, just follow this link: <%= @url %>.
  
 Thanks for joining and have a great day!
+
+----------------------------------------------
+<% @monitorings.each do |m| %>
+<%= "%-40s %-8s %-4s %s" % ["#{m.server.name} - #{m.server.host}", m.protocol, (m.status ? 'UP' : 'DOWN'), m.created_at] %>
+<% end %>
+----------------------------------------------

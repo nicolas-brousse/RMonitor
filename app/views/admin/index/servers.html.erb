@@ -26,4 +26,6 @@
   </tbody>
 </table>
 
-<a class="btn btn-success" href="<%= url_for new_server_path() %>"><i class="icon-plus icon-white"></i> New server</a>
+<%= link_to new_server_path(), :class => "btn btn-success" do %>
+  <i class="icon-plus icon-white"></i> New server
+<% end %>

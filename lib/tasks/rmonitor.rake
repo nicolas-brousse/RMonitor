@@ -1,5 +1,5 @@
 require 'rmonitor'
-require 'rmonitor/modules/monitoring/ping'
+require 'rmonitor/modules/monitorings/ping'
 
 
 namespace :rmonitor do
@@ -49,19 +49,45 @@ namespace :rmonitor do
 
   desc "Execute ping for all servers"
   task :ping => :environment do
-    servers = Server.all
+    servers = Server.includes(:monitorings).all
+    alerts  = []
 
     servers.each do |server|
       puts " -- Ping #{server.name}"
-      server.status = RMonitor::Modules::Monitoring::Ping.execute(server.host.to_s)
+
+      monitoring = server.monitorings.last
+      status     = RMonitor::Modules::Monitorings::Ping.execute(server.host.to_s)
+
+      if monitoring.nil? || monitoring.status != status
+        first_alert = monitoring.nil? ? true : false
+
+        monitoring = Monitoring.new
+        monitoring.server   = server
+        monitoring.protocol = "Ping"
+        monitoring.status = status
+        monitoring.save
+
+        alerts << monitoring unless first_alert
+      end
+
+      server.status = status
       server.synchronized_at = Time.now
       server.save
     end
 
     # Prevent users
-    User.all.each do |user|
-      # MonitoringMailer.alert_email(user).deliver
+    unless alerts.empty?
+      User.all.each do |user|
+        monitorings = []
+        alerts.each do |a|
+          # verif if user must be prevent and can be prevent
+          monitorings << a
+        end
+
+        MonitoringMailer.alert_email(user, monitorings).deliver
+      end
     end
+
   end
 
 end
