@@ -1,69 +1,71 @@
 class ServersController < ApplicationController
   before_filter :init_breadcrumb, :except => [:create, :update, :destroy]
 
-  # GET /admin/servers/
+  # GET /servers/
   def index
     @servers = Server.all
   end
 
-  # GET /admin/servers/:id
+  # GET /servers/:id
   def show
     @server = Server.find(params[:id])
     env["rmonitor.current_server"] = @server
 
-    add_breadcrumb "#{@server.name} \##{@server.id}", admin_server_path(@server)
+    add_breadcrumb "#{@server.name} \##{@server.id}", server_path(@server)
   end
 
-  # GET /admin/servers/new
+  # GET /servers/new
   def new
-    add_breadcrumb "New server", new_admin_server_path()
+    add_breadcrumb "New server", new_server_path()
     @server = Server.new
   end
 
-  # GET /admin/servers/:id/edit
+  # GET /servers/:id/edit
   def edit
     @server = Server.find(params[:id])
-    add_breadcrumb "#{@server.name} \##{@server.id}", edit_admin_server_path(@server)
+    env["rmonitor.current_server"] = @server
+
+    add_breadcrumb "#{@server.name} \##{@server.id}", edit_server_path(@server)
   end
 
-  # POST /admin/servers/
+  # POST /servers/
   def create
     @server = Server.new(params[:server])
 
     respond_to do |format|
       if @server.save
-        format.html { redirect_to admin_server_path(@server) }
+        format.html { redirect_to server_path(@server) }
       else
         format.html { render :action => "new" }
       end
     end
   end
 
-  # PUT /admin/servers/:id
+  # PUT /servers/:id
   def update
     @server = Server.find(params[:id])
 
     respond_to do |format|
       if @server.update_attributes(params[:server])
-        format.html { redirect_to admin_server_path(@server) }
+        format.html { redirect_to server_path(@server) }
       else
         format.html { render :action => "edit" }
       end
     end
   end
 
-  # DELTE /admin/servers/:id
+  # DELETE /servers/:id
   def destroy
     @server = Server.find(params[:id])
     @server.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_servers_path() }
+      format.html { redirect_to servers_path() }
     end
   end
 
 private
   def init_breadcrumb
-    add_breadcrumb "Servers", admin_servers_path()
+    add_breadcrumb "Servers", servers_path()
   end
 end

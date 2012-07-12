@@ -7,7 +7,7 @@ RMonitor::Application.routes.draw do
   get "/"           => "index#dashboard"
   get "/dashboard"  => "index#dashboard", :as => :dashboard
 
-  resources :servers
+  resources :servers, :path_names => {:edit => "settings"}
 
   namespace :admin do
     get "/"           => "index#index"

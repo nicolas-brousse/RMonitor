@@ -2,7 +2,7 @@
 <% @servers.each do |server| %>
   <li>
     <span class="badge badge-<%= server.status ? 'success' : 'important' %>">&nbsp;</span>
-    <%= link_to server.name, admin_server_path(server) %>
+    <%= link_to server.name, server_path(server) %>
   </li>
 <% end %>
 </ul>
