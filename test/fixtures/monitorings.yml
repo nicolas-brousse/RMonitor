@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  server: 
+  protocol: MyString
+  status: false
+  created_at: 2012-07-13 00:41:50
+
+two:
+  server: 
+  protocol: MyString
+  status: false
+  created_at: 2012-07-13 00:41:50
