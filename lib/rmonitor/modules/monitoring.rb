@@ -1,6 +1,6 @@
 module RMonitor
   module Modules
-    module Backups
+    module Monitoring
     end
   end
 end

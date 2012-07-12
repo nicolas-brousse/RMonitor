@@ -13,9 +13,25 @@ namespace :rmonitor do
     #
 
     puts "Install RMonitor Database for #{Rails.env} env"
-    Rake::Task['db:setup'].invoke
+    # Rake::Task['db:setup'].invoke
     Rake::Task['db:migrate'].invoke
     Rake::Task['db:seed'].invoke
+
+    # puts "Now configure your cronjob"
+    # puts "  5 * * * * cd /data/my_app/current && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:ping"
+  end
+
+  desc "Update RMonitor"
+  task :update => :environment do
+    # TODO - Execute rake cmd
+    #
+    #    * rake db:setup
+    #    * rake db:migrate
+    #
+
+    puts "Update RMonitor Database for #{Rails.env} env"
+    Rake::Task['db:migrate'].invoke
+    # Rake::Task['db:seed'].invoke
 
     # puts "Now configure your cronjob"
     # puts "  5 * * * * cd /data/my_app/current && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:ping"
@@ -37,7 +53,7 @@ namespace :rmonitor do
 
     servers.each do |server|
       puts " -- Ping #{server.name}"
-      server.status = RMonitor::Ping.execute(server.host.to_s)
+      server.status = RMonitor::Modules::Monitoring::Ping.execute(server.host.to_s)
       server.synchronized_at = Time.now
       server.save
     end
