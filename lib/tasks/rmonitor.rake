@@ -1,5 +1,5 @@
 require 'rmonitor'
-require 'rmonitor/ping'
+require 'rmonitor/modules/monitoring/ping'
 
 
 namespace :rmonitor do
