@@ -10,27 +10,6 @@
 
 @import url(http://fonts.googleapis.com/css?family=Actor|Ubuntu|Imprima);
 
-body {
-  padding-top: 60px;
-}
-
-
-#submenu {
-  width: 100%;
-  margin-top: -20px;
-  padding-left: 10px;
-  background-color: #111;
-  margin-bottom: 10px;
-}
-#submenu .tabs {
-  padding-top: 30px;
-  margin-bottom: -1px;
-}
-#submenu .tabs li.active > a, #submenu .tabs li.active > a:hover {
-  color: gray;
-}
-#submenu .tabs li a { color: #fff; }
-
 
 .navbar .navbar-inner {
   background-color: #000;
@@ -46,4 +25,186 @@ body {
 }
 .navbar-fixed-top .brand:hover {
   text-decoration: none;
+}
+
+
+/* Subnav */
+.subnav {
+  width: 100%;
+  height: 36px;
+  background-color: #eeeeee; /* Old browsers */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  background-image: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%); /* FF3.6+ */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* Chrome 10+,Safari 5.1+ */
+  background-image: -ms-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* IE10+ */
+  background-image: -o-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* Opera 11.10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+  background-image: linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* W3C */
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+.subnav .nav {
+  margin-bottom: 0;
+}
+.subnav .nav > li.divider-vertical {
+  width: 1px;
+  height: 36px;
+  margin: 0px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  border-right-color: #ddd;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+     -moz-box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+          box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+}
+.subnav .nav > li > a {
+  margin: 0;
+  padding-top:    11px;
+  padding-bottom: 11px;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+.subnav .nav > .brand > span,
+.subnav .nav > .brand > a,
+.subnav .nav > .brand > a:hover {
+  display: block;
+  line-height: 14px;
+  padding: 11px 12px 11px 12px;
+  color: #777;
+  font-weight: bold;
+  background-color: #e9e9e9;
+  font-size: 1.1em;
+}
+.subnav .nav > .active > a,
+.subnav .nav > .active > a:hover {
+  padding-left: 13px;
+  color: #777;
+  background-color: transparent;
+}
+.subnav .nav > .active > a .caret,
+.subnav .nav > .active > a:hover .caret {
+  border-top-color: #777;
+}
+.subnav .nav > li:first-child > a,
+.subnav .nav > li:first-child > a:hover {
+  border-left: 0;
+  padding-left: 12px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+.subnav .nav > li:last-child > a {
+  border-right: 0;
+}
+.subnav .dropdown-menu {
+  -webkit-border-radius: 0 0 4px 4px;
+     -moz-border-radius: 0 0 4px 4px;
+          border-radius: 0 0 4px 4px;
+}
+
+
+
+@media (min-width: 980px) {
+
+  body {
+    padding-top: 60px;
+  }
+  body.with-subnav {
+    padding-top: 90px;
+  }
+
+  .subnav-fixed {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
+    border-color: #d5d5d5;
+    border-width: 0 0 1px; /* drop the border on the fixed edges */
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+       -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+            box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+  }
+  .subnav-fixed .nav {
+    margin: 0 auto;
+    padding: 0 1px 0 191px;
+  }
+  .subnav .nav > li:first-child > a,
+  .subnav .nav > li:first-child > a:hover {
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Remove any padding from the body */
+  body {
+    padding-top: 0;
+  }
+
+  /* Jumbotron buttons */
+  .jumbotron .btn {
+    margin-bottom: 10px;
+  }
+
+  /* Subnav */
+  .subnav {
+    position: static;
+    top: auto;
+    z-index: auto;
+    width: auto;
+    height: auto;
+    background: #fff; /* whole background property since we use a background-image for gradient */
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+  }
+  .subnav .nav > li {
+    float: none;
+  }
+  .subnav .nav > li > a {
+    border: 0;
+  }
+  .subnav .nav > li + li > a {
+    border-top: 1px solid #e5e5e5;
+  }
+  .subnav .nav > li:first-child > a,
+  .subnav .nav > li:first-child > a:hover {
+      -webkit-border-radius: 4px 4px 0 0;
+         -moz-border-radius: 4px 4px 0 0;
+              border-radius: 4px 4px 0 0;
+  }
+  .subnav .nav > li.divider-vertical { display: none; }
+
+  /* Popovers */
+  .large-bird {
+    display: none;
+  }
+  .popover-well .popover-wrapper {
+    margin-left: 0;
+  }
+
+  /* Space out the show-grid examples */
+  .show-grid [class*="span"] {
+    margin-bottom: 5px;
+  }
+
+  /* Unfloat the back to top link in footer */
+  .footer .pull-right {
+    float: none;
+  }
+  .footer p {
+    margin-bottom: 9px;
+  }
+
 }
