@@ -1,5 +1,5 @@
-class Admin::ServersController < Admin::BaseController
-  before_filter :init_breadcrum, :except => [:create, :update, :destroy]
+class ServersController < ApplicationController
+  before_filter :init_breadcrumb, :except => [:create, :update, :destroy]
 
   # GET /admin/servers/
   def index
@@ -9,6 +9,8 @@ class Admin::ServersController < Admin::BaseController
   # GET /admin/servers/:id
   def show
     @server = Server.find(params[:id])
+    env["rmonitor.current_server"] = @server
+
     add_breadcrumb "#{@server.name} \##{@server.id}", admin_server_path(@server)
   end
 
@@ -61,7 +63,7 @@ class Admin::ServersController < Admin::BaseController
   end
 
 private
-    def init_breadcrum
-      add_breadcrumb "Servers", admin_servers_path()
-    end
+  def init_breadcrumb
+    add_breadcrumb "Servers", admin_servers_path()
+  end
 end

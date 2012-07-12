@@ -1,10 +1,5 @@
 class DefaultController < ApplicationController
 
-  def index
-    @servers = Server.publics.order('status, name')
-    render :layout => "public"
-  end
-
   def projects_list
   end
 
