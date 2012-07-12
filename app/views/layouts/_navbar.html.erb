@@ -1,0 +1,38 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <%= link_to 'RMonitor', :admin, :class => "brand" %>
+
+    <% if user_signed_in? %>
+      <div class="btn-group pull-right">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="icon-user"></i> <%= current_user.email %>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Profile</a></li>
+          <li class="divider"></li>
+          <li><%= link_to "Sign Out", :destroy_user_session, :method => :delete %></li>
+        </ul>
+      </div>
+    <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
+      <ul class="nav pull-right"><li><%= link_to "Sign up", :new_user_registration %></li></ul>
+    <% else %>
+      <ul class="nav pull-right"><li><%= link_to "Sign in", :new_user_session %></li></ul>
+    <% end %>
+
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="active"><%= link_to 'Dashboard', :admin %></li>
+          <li><%= link_to "Servers", :admin_servers %></li>
+          <li><%= link_to "Monitoring", :admin_servers %></li>
+        </ul>
+      </div> <!--/.nav-collapse -->
+    </div>
+  </div>
+</div>

@@ -43,9 +43,10 @@
       <div class="nav-collapse">
         <ul class="nav">
           <li class="active"><%= link_to 'Dashboard', :admin %></li>
-          <li><a href="<%= url_for(:admin_servers) %>">Servers</a></li>
+          <li><%= link_to "Servers", :admin_servers %></li>
+          <li><%= link_to "Monitoring", :admin_servers %></li>
         </ul>
-      </div><!--/.nav-collapse -->
+      </div> <!--/.nav-collapse -->
     </div>
   </div>
 </div>
@@ -86,7 +87,7 @@
     <p>&copy; <%= link_to "nicolas-brousse.fr", "http://nicolas-brousse.fr" %>  <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %> — v <%= RMonitor::VERSION::ARRAY[0,3].join('.') %></p>
   </footer>
 
-</div> <!-- /container -->
+</div> <!-- /.container -->
 
 <%= javascript_include_tag "application" %>
 
