@@ -1,10 +1,12 @@
 require 'timeout'
 require 'socket'
 
+require "abstract_protocol"
+
 module RMonitor
   module Modules
     module Monitorings
-      class Ping #:nodoc:
+      class Ping < AbstractProtocol #:nodoc:
 
         def self.execute(host)
           begin

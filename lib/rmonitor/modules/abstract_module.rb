@@ -1,9 +1,6 @@
-require 'abstract_module'
-
 module RMonitor
   module Modules
-    module Monitorings
-      include AbstractModule
+    module AbstractModule
 
       class Base
         def self.configs

@@ -2,10 +2,12 @@ require "net/http"
 require "uri"
 require "timeout"
 
+require "abstract_protocol"
+
 module RMonitor
   module Modules
     module Monitorings
-      class HTTP #:nodoc:
+      class HTTP < AbstractProtocol #:nodoc:
 
         def self.execute(host)
           begin
