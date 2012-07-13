@@ -4,7 +4,7 @@ class ServersController < ApplicationController
 
   # GET /servers/
   def index
-    @servers = Server.all
+    @servers = Server.includes(:monitorings).all
   end
 
   # GET /servers/:id
