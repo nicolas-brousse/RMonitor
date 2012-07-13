@@ -23,6 +23,57 @@
 
     <div class="span7">
       <h4>Last logs</h4>
+      <p>Real uptime <%= server.uptime %></p>
+      <pre>
+      <%
+        downtime = 0
+        prev     = nil
+        started  = Time.now.at_beginning_of_month if started.nil?
+        ended    = Time.now.at_end_of_month if ended.nil?
+
+        monitorings = server.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", 'Ping', started, ended)
+                                        .order('created_at ASC')
+    
+    unless monitorings.empty?
+
+      %>
+      <%= "#{monitorings.first.created_at} #{monitorings.first.status}" if monitorings.first %>
+      <%
+
+        monitorings.each do |m|
+      %>
+      <%= "-- #{m.created_at}(#{m.status})" %>
+      <%
+          if m.status == Monitoring::UP
+            if m == monitorings.first.status
+              downtime += monitorings.first.created_at - started
+      %>
+      <%= "------ #{monitorings.first.created_at - started} -- (#{downtime})" %>
+      <%
+            elsif !prev.nil?
+              downtime += m.created_at - prev.created_at
+      %>
+      <%= "------ #{m.created_at - prev.created_at} -- (#{downtime})" %>
+      <%
+            end
+          end
+          prev = m
+        end
+
+        if !prev.nil? && prev.status == Monitoring::DOWN
+          downtime += Time.now - prev.created_at
+      %>
+      <%= "------ #{Time.now - prev.created_at} -- prev (#{downtime})" %>
+      <%
+        end
+      %>
+
+      <%= total_time = ended - started %>
+      <%= (downtime / total_time) * 100 %>
+      <%= 100 - ((downtime / total_time) * 100) %>
+
+  <% end %>
+      </pre>
       <ul>
         <li>No tickets</li>
       </ul>

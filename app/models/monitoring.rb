@@ -4,6 +4,9 @@ class Monitoring < ActiveRecord::Base
 
   before_create :before_create
 
+  DOWN = false
+  UP   = true
+
 private
   def before_create
     self.created_at = Time.now
