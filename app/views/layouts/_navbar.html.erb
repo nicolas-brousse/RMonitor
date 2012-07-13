@@ -48,7 +48,7 @@
       <li class="brand"><span><%= current_server.name %></span></li>
       <li class="divider-vertical"></li>
       <li class="active"><%= link_to "Overview", server_path(current_server) %></li>
-      <li><a href="#badges">Monitoring</a></li>
+      <li><%= link_to "Monitoring", server_monitorings_path(current_server) %></li>
       <li><a href="#typography">Graphs or Activity</a></li>
       <li><a href="#thumbnails">Backups</a></li>
       <li><%= link_to "Settings", edit_server_path(current_server) %></li>

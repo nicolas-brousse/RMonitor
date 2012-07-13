@@ -9,8 +9,8 @@ RMonitor::Application.routes.draw do
 
   resources :servers, :path_names => {:edit => "settings"}
 
-  # get "servers/:id/monitorings" => "monitorings#index"
-  # get "servers/monitorings/:id" => "monitorings#show"
+  get "servers/:id/monitorings" => "monitorings#index", :as => :server_monitorings
+  # get "servers/:id/monitorings/:protocol" => "monitorings#show", :as => :server_monitoring
 
   namespace :admin do
     get "/"           => "index#index"

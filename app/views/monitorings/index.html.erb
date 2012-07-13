@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th width="5">Status</th>
+      <th width="">Protocol</th>
+      <th width="">Last synchronization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @monitorings.each do |monitoring| %>
+    <tr>
+      <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
+      <td><%= monitoring.protocol %></td>
+      <td><%= monitoring.created_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
