@@ -1,6 +1,4 @@
 require 'rmonitor'
-require 'rmonitor/modules/monitorings/ping'
-
 
 namespace :rmonitor do
 
@@ -49,6 +47,10 @@ namespace :rmonitor do
 
   desc "Execute monitoring for all servers"
   task :monitoring => :environment do
+    require 'rmonitor/modules/monitorings'
+    require 'rmonitor/modules/monitorings/ping'
+    require 'rmonitor/modules/monitorings/http'
+
     puts ""
 
     servers       = Server.includes(:monitorings).all
@@ -59,11 +61,12 @@ namespace :rmonitor do
       puts " -- Server #{server.name}"
 
       protocols = ["Ping"]
+      # protocols = ["Ping", "HTTP"]
 
       protocols.each do |p|
         monitoring = server.monitorings.last
         status     = (("RMonitor::Modules::Monitorings::#{p}").constantize).execute(server.host.to_s)
-        server_status = false if !status
+        server_status = 0
 
         if monitoring.nil? || monitoring.status != status
           m = Monitoring.new
@@ -72,16 +75,22 @@ namespace :rmonitor do
           m.status = status
           m.save
 
-          alerts << m unless monitoring.nil?
+          server_status += 1 if status == false
+          alerts << m if !monitoring.nil? && monitoring.status != true
         end
 
         puts " ---- #{p} = #{status}"
-        puts ""
       end
 
-      server.status = server_status
+      # server_status == 0 => green
+      # server_status > 0 && server_status < protocols.count => yellow
+      # server_status > protocols.count => red
+      server.status = server_status <= 0 ? true : false
       server.synchronized_at = Time.now
       server.save
+
+      puts " ------ Current uptime = #{server.uptime.round(2)}"
+      puts ""
     end
 
     # Prevent users
