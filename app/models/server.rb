@@ -7,7 +7,7 @@ class Server < ActiveRecord::Base
   scope :publics, lambda{ where('true') } #where("is_public = ?", true) }
 
   def uptime(start=nil)
-    100 - uptime(start)
+    100 - downtime(start)
   end
 
   def downtime(start=nil)
