@@ -97,7 +97,7 @@ namespace :rmonitor do
       server.synchronized_at = Time.now
       server.save
 
-      puts " ------ Current uptime = #{server.uptime.round(2)}"
+      puts " ------ Current uptime = #{server.uptime.round(2)}%"
       puts ""
     end
 
