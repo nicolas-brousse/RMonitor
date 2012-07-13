@@ -7,6 +7,10 @@ class Server < ActiveRecord::Base
   scope :publics, lambda{ where('true') } #where("is_public = ?", true) }
 
   def uptime(start=nil)
+    100 - uptime(start)
+  end
+
+  def downtime(start=nil)
     downtime = 0
     latest = nil
     start = Time.now.at_beginning_of_month if start.nil?
@@ -26,6 +30,7 @@ class Server < ActiveRecord::Base
     end
 
     total_time = Time.now - start
-    100 - ((downtime / total_time) * 100)
+    (downtime / total_time) * 100
   end
+
 end
