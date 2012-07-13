@@ -2,37 +2,45 @@ require 'rmonitor'
 
 namespace :rmonitor do
 
-  desc "Install RMonitor"
-  task :install => :environment do
-    # TODO - Execute rake cmd
-    #
-    #    * rake db:setup
-    #    * rake db:migrate
-    #
+  namespace :app do
 
-    puts "Install RMonitor Database for #{Rails.env} env"
-    # Rake::Task['db:setup'].invoke
-    Rake::Task['db:migrate'].invoke
-    Rake::Task['db:seed'].invoke
+    desc "Install RMonitor"
+    task :install => :environment do
+      # TODO - Execute rake cmd
+      #
+      #    * rake db:setup
+      #    * rake db:migrate
+      #
 
-    # puts "Now configure your cronjob"
-    # puts "  5 * * * * cd /data/my_app/current && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:ping"
-  end
+      puts "Install RMonitor Database for #{Rails.env} env"
+      # Rake::Task['db:setup'].invoke
+      Rake::Task['db:migrate'].invoke
+      Rake::Task['db:seed'].invoke
 
-  desc "Update RMonitor"
-  task :update => :environment do
-    # TODO - Execute rake cmd
-    #
-    #    * rake db:setup
-    #    * rake db:migrate
-    #
+      puts "Now configure your cronjob"
+      puts "  5 * * * * cd #{Rails.root} && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
+    end
 
-    puts "Update RMonitor Database for #{Rails.env} env"
-    Rake::Task['db:migrate'].invoke
-    # Rake::Task['db:seed'].invoke
+    desc "Update RMonitor"
+    task :update => :environment do
+      # TODO - Execute rake cmd
+      #
+      #    * rake db:setup
+      #    * rake db:migrate
+      #
 
-    # puts "Now configure your cronjob"
-    # puts "  5 * * * * cd /data/my_app/current && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
+      puts "Update RMonitor Application"
+      `cd #{Rails.root} && git pull origin`
+
+      puts "Update RMonitor Database for #{Rails.env} env"
+      Rake::Task['db:migrate'].invoke
+      # Rake::Task['db:seed'].invoke
+
+      puts ""
+      puts "Now configure your cronjob"
+      puts "  5 * * * * cd #{Rails.root} && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
+    end
+
   end
 
   desc "Version of RMonitor"
