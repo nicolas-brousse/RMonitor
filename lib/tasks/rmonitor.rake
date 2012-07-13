@@ -72,7 +72,7 @@ namespace :rmonitor do
       # protocols = ["Ping", "HTTP"]
 
       protocols.each do |p|
-        monitoring = server.monitorings.last
+        monitoring = server.monitorings.where('protocol = ?', p).last
         status     = (("RMonitor::Modules::Monitorings::#{p}").constantize).execute(server.host.to_s)
         server_status = 0
 

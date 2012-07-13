@@ -1,5 +1,6 @@
 class ServersController < ApplicationController
   before_filter :init_breadcrumb, :except => [:create, :update, :destroy]
+  before_filter :init_current_server, :only => [:show, :edit]
 
   # GET /servers/
   def index
@@ -8,9 +9,6 @@ class ServersController < ApplicationController
 
   # GET /servers/:id
   def show
-    @server = Server.find(params[:id])
-    env["rmonitor.current_server"] = @server
-
     add_breadcrumb "#{@server.name} \##{@server.id}", server_path(@server)
   end
 
@@ -22,9 +20,6 @@ class ServersController < ApplicationController
 
   # GET /servers/:id/edit
   def edit
-    @server = Server.find(params[:id])
-    env["rmonitor.current_server"] = @server
-
     add_breadcrumb "#{@server.name} \##{@server.id}", edit_server_path(@server)
   end
 
@@ -67,5 +62,10 @@ class ServersController < ApplicationController
 private
   def init_breadcrumb
     add_breadcrumb "Servers", servers_path()
+  end
+
+  def init_current_server
+    @server = Server.find(params[:id])
+    env["rmonitor.current_server"] = @server
   end
 end

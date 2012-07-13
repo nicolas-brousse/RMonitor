@@ -34,7 +34,7 @@
         monitorings = server.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", 'Ping', started, ended)
                                         .order('created_at ASC')
     
-    unless monitorings.empty?
+    if !monitorings.empty?
 
       %>
       <%# "#{monitorings.first.created_at} #{monitorings.first.status}" if monitorings.first %>
@@ -50,7 +50,7 @@
       %>
       <%= "------ #{monitorings.first.created_at - started} -- (#{downtime})" %>
       <%
-            elsif !prev.nil?
+            elsif !prev.nil? && prev.status == Monitoring::DOWN
               downtime += m.created_at - prev.created_at
       %>
       <%= "------ #{m.created_at - prev.created_at} -- (#{downtime})" %>
@@ -68,9 +68,10 @@
         end
       %>
 
-      <%= total_time = ended - started %>
-      <%= (downtime / total_time) * 100 %>
-      <%= 100 - ((downtime / total_time) * 100) %>
+      <%= "Downtime   : #{(downtime)}" %>
+      <%= "Total Time : #{(total_time = ended - started)}" %>
+      <%= "DOWNTIME   : #{((downtime / total_time) * 100)}" %>
+      <%= "UPTIME     : #{(100 - ((downtime / total_time) * 100))}" %>
 
   <% end %>
       </pre>

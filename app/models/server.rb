@@ -25,7 +25,7 @@ class Server < ActiveRecord::Base
       if m.status == Monitoring::UP
         if m == monitorings.first
           downtime += monitorings.first.created_at - started
-        elsif !prev.nil?
+        elsif !prev.nil? && prev.status == Monitoring::DOWN
           downtime += m.created_at - prev.created_at
         end
       end
