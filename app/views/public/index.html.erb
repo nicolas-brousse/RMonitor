@@ -37,7 +37,7 @@
     unless monitorings.empty?
 
       %>
-      <%= "#{monitorings.first.created_at} #{monitorings.first.status}" if monitorings.first %>
+      <%# "#{monitorings.first.created_at} #{monitorings.first.status}" if monitorings.first %>
       <%
 
         monitorings.each do |m|
@@ -45,7 +45,7 @@
       <%= "-- #{m.created_at}(#{m.status})" %>
       <%
           if m.status == Monitoring::UP
-            if m == monitorings.first.status
+            if m == monitorings.first
               downtime += monitorings.first.created_at - started
       %>
       <%= "------ #{monitorings.first.created_at - started} -- (#{downtime})" %>
