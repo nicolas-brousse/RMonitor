@@ -23,36 +23,9 @@
 
     <div class="span7">
       <h4>Last logs</h4>
-      <p>https://devcenter.heroku.com/articles/heroku-status-uptime-calculation</p>
-      <pre>
-        <% outtime = 0
-        outtimes = []
-        latest = nil
-
-        monitorings = server.monitorings
-        return null if monitorings.nil?
-
-        monitorings.order('created_at ASC').each do |m|
-          if !latest.nil? && latest.status != m.status
-            outtime += m.created_at - latest.created_at
-            outtimes << [m.created_at, latest.created_at, outtime]
-          end
-          latest = m
-        end
-
-        if !latest.status
-          outtime += Time.now - latest.created_at
-            outtimes << [Time.now, latest.created_at, outtime]
-        end
-
-        total_time = Time.now - (server.monitorings.order('created_at DESC').last).created_at
-        %>
-        <%= total_time %>
-        <%= latest.status %>
-        <%= outtime %>
-        <%= outtimes %>
-        <%= 100 - ((total_time - outtime) / total_time) %>
-      </pre>
+      <ul>
+        <li>No tickets</li>
+      </ul>
     </div>
   </div>
 </div>

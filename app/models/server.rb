@@ -6,25 +6,26 @@ class Server < ActiveRecord::Base
   # Named Scopes
   scope :publics, lambda{ where('true') } #where("is_public = ?", true) }
 
-  def uptime
-    out_time = 0
+  def uptime(start=nil)
+    downtime = 0
     latest = nil
+    start = Time.now.at_beginning_of_month if start.nil?
 
-    monitorings = self.monitorings
+    monitorings = self.monitorings.where("protocol = 'Ping' AND created_at >= ?", start)
     return null if monitorings.nil?
 
     monitorings.order('created_at ASC').each do |m|
-      if !latest.nil? && latest.status != m.status
-        out_time += m.created_at - latest.created_at
+      if !latest.nil? && m.status == false
+        downtime += m.created_at - latest.created_at
       end
       latest = m
     end
 
-    if !latest.status
-      out_time += Time.now - latest.created_at
+    if !latest.nil? && !latest.status
+      downtime += Time.now - latest.created_at
     end
 
-    total_time = Time.now - (self.monitorings.order('created_at DESC').last).created_at
-    100 - ((total_time - out_time) / total_time)
+    total_time = Time.now - start
+    100 - ((downtime / total_time) * 100)
   end
 end
