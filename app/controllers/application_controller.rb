@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
 
 protected
+  def set_locale
+    I18n.locale = :en
+    Time.zone = current_user.time_zone
+  end
+
   def add_breadcrumb name, url = ''
     @breadcrumbs ||= []
     url = eval(url) if url =~ /_path|_url|@/
