@@ -10,9 +10,37 @@
       <th>Last synchronization</th>
       <td><i class="icon-time"></i> <%= @server.synchronized_at %></td>
     </tr>
+  </tbody>
+</table>
+
+
+<h2>Monitorings</h2>
+
+<table class="table table-striped">
+  <thead>
     <tr>
-      <th>Status</th>
-      <td><i class="icon-signal"></i> <%= @server.status %></td>
+      <th width="5">Status</th>
+      <th width="">Protocol</th>
     </tr>
+  </thead>
+  <tbody>
+
+  <%- if @monitorings.blank? -%>
+
+    <tr>
+      <td colspan="2">No alerts</td>
+    </tr>
+
+  <%- else -%>
+
+    <%- @monitorings.each do |monitoring| %>
+    <tr>
+      <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
+      <td><%= monitoring.protocol %></td>
+    </tr>
+    <% end -%>
+
+  <%- end -%>
+  
   </tbody>
 </table>

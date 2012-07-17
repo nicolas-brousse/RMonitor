@@ -10,6 +10,13 @@ class ServersController < ApplicationController
   # GET /servers/:id
   def show
     add_breadcrumb "#{@server.name} \##{@server.id}", server_path(@server)
+
+    protocols = ["ping", "http"]
+    @monitorings =  Monitoring.where("server_id = ?", @server.id)
+                              .where("protocol IN (?)", protocols)
+                              .group("protocol")
+                              .order("created_at DESC")
+                    .delete_if {|m| m if m.status != false }
   end
 
   # GET /servers/new
