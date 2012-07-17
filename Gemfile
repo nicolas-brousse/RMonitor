@@ -7,6 +7,12 @@ gem 'rails', '3.2.6'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+# gem 'sqlite3'
+
+
+# gem 'friendly_id'
+# https://github.com/norman/friendly_id
+# http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
 
 gem 'devise'
 

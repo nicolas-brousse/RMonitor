@@ -5,6 +5,7 @@ class MonitoringsController < ApplicationController
     @monitorings = Monitoring.where("server_id = ?", @server.id)
                              .where("protocol IN (?)", ["ping", "http"])
                              .group("protocol")
+                             .order("created_at DESC")
   end
 
   def show
