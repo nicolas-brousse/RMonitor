@@ -3,20 +3,22 @@ class MonitoringsController < ApplicationController
 
   def index
     @monitorings = Monitoring.where("server_id = ?", @server.id)
-                             .where("protocol IN (?)", ["Ping", "HTTP"])
+                             .where("protocol IN (?)", ["ping", "http"])
                              .group("protocol")
   end
 
   def show
-    # TODO - verif, protocol is valid and activated on this server
-    @monitoring = Monitoring.where("server_id = ?", @server.id)
-                            .where("protocol = ?", params[:protocol])
+    @protocol = params[:protocol_type]
+    redirect_to servers_monitorings_path(:server_id => @server.id), :alert => "Wrong protocol asked!" unless RMonitor::Modules::Monitorings.protocol_exists? @protocol
+
+    @monitorings = Monitoring.where("server_id = ?", @server.id)
+                             .where("protocol = ?", @protocol)
   end
 
 
 private
   def init_current_server
-    @server = Server.find(params[:id])
+    @server = Server.find(params[:server_id])
     env["rmonitor.current_server"] = @server
   end
 end

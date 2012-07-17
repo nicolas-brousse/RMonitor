@@ -6,6 +6,8 @@ class Server < ActiveRecord::Base
   # Named Scopes
   scope :publics, lambda{ where('true') } #where("is_public = ?", true) }
 
+
+  # Job methods
   def uptime(started=nil, ended=nil)
     100.0 - downtime = downtime(started, ended)
   end
