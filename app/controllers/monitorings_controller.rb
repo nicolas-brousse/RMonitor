@@ -10,7 +10,7 @@ class MonitoringsController < ApplicationController
 
   def show
     @protocol = params[:protocol_type]
-    redirect_to servers_monitorings_path(:server_id => @server.id), :alert => "Wrong protocol asked!" unless RMonitor::Modules::Monitorings.protocol_exists? @protocol
+    redirect_to servers_monitorings_path(:server_id => @server.id), :alert => t(:wrong_protocol_asked) unless RMonitor::Modules::Monitorings.protocol_exists? @protocol
 
     @monitorings = Monitoring.where("server_id = ?", @server.id)
                              .where("protocol = ?", @protocol)

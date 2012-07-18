@@ -1,11 +1,10 @@
 module ApplicationHelper
   def format_flash_class(type)
     {
-      :success => "alert-success",
       :error   => "alert-error",
       :info    => "alert-info",
       :alert   => "",
-      :notice  => "alert-info",
+      :notice  => "alert-success",
     }[type]
   end
 

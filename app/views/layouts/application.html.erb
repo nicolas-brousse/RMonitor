@@ -23,20 +23,20 @@
     
     <% if @breadcrumbs %>
       <% @breadcrumbs[0..-2].each do |txt, path| %>
-        <li><%= link_to(h(txt), path) %> <span class="divider">></span></li>
+        <li><%= link_to(t(h(txt)), path) %> <span class="divider">></span></li>
       <% end %>
-      <li class="active"><%= link_to(h(@breadcrumbs.last.first), @breadcrumbs.last.last) %></li>
+      <li class="active"><%= link_to(t(h(@breadcrumbs.last.first)), @breadcrumbs.last.last) %></li>
     <% else %>
-      <li class="active">Home</li>
+      <li class="active"><% t :home %></li>
     <% end %>
   </ul> -->
 
   <!-- Alert -->
-  <% [:alert, :notice, :info, :error, :success].each do |key| %>
+  <% [:alert, :notice, :info, :error].each do |key| %>
     <% if flash[key] %>
     <div class="alert alert-block <%= format_flash_class(key) %> fade in" data-alert="alert">
       <a class="close" data-dismiss="alert" href="#">×</a>
-      <%= flash[key] %>
+      <%= t(flash[key]) %>
     </div>
     <% end %>
   <% end %>

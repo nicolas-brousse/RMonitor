@@ -36,7 +36,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if @server.save
-        format.html { redirect_to server_path(@server) }
+        format.html { redirect_to server_path(@server), :notice => :server_created }
       else
         format.html { render :action => "new" }
       end
@@ -49,7 +49,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if @server.update_attributes(params[:server])
-        format.html { redirect_to server_path(@server) }
+        format.html { redirect_to edit_server_path(@server), :notice => :server_updated }
       else
         format.html { render :action => "edit" }
       end
