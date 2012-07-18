@@ -22,59 +22,7 @@
     </div>
 
     <div class="span7">
-      <h4>Last logs</h4>
-      <p>Real uptime <%= server.uptime %></p>
-      <pre>
-      <%
-        downtime = 0
-        prev     = nil
-        started  = Time.now.at_beginning_of_month if started.nil?
-        ended    = Time.now.at_end_of_month if ended.nil?
-
-        monitorings = server.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", 'Ping', started, ended)
-                                        .order('created_at ASC')
-    
-    if !monitorings.empty?
-
-      %>
-      <%# "#{monitorings.first.created_at} #{monitorings.first.status}" if monitorings.first %>
-      <%
-
-        monitorings.each do |m|
-      %>
-      <%= "-- #{m.created_at}(#{m.status})" %>
-      <%
-          if m.status == Monitoring::UP
-            if m == monitorings.first
-              downtime += monitorings.first.created_at - started
-      %>
-      <%= "------ #{monitorings.first.created_at - started} -- (#{downtime})" %>
-      <%
-            elsif !prev.nil? && prev.status == Monitoring::DOWN
-              downtime += m.created_at - prev.created_at
-      %>
-      <%= "------ #{m.created_at - prev.created_at} -- (#{downtime})" %>
-      <%
-            end
-          end
-          prev = m
-        end
-
-        if !prev.nil? && prev.status == Monitoring::DOWN
-          downtime += Time.now - prev.created_at
-      %>
-      <%= "------ #{Time.now - prev.created_at} -- prev (#{downtime})" %>
-      <%
-        end
-      %>
-
-      <%= "Downtime   : #{(downtime)}" %>
-      <%= "Total Time : #{(total_time = ended - started)}" %>
-      <%= "DOWNTIME   : #{((downtime / total_time) * 100)}" %>
-      <%= "UPTIME     : #{(100 - ((downtime / total_time) * 100))}" %>
-
-  <% end %>
-      </pre>
+      <h4>Last tickets</h4>
       <ul>
         <li>No tickets</li>
       </ul>
