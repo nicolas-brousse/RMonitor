@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
 protected
   def set_locale
-    I18n.locale = :en
+    I18n.locale = current_user.locale.to_sym
     Time.zone = current_user.time_zone
   end
 
