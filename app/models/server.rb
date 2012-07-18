@@ -5,15 +5,19 @@ class Server < ActiveRecord::Base
 
   has_many :monitorings
 
-  attr_accessible :host, :name, :status, :synchronized_at
+  attr_accessible :host, :name, :slug, :is_public, :status, :synchronized_at
 
   # Named Scopes
-  scope :publics, lambda{ where('true') } #where("is_public = ?", true) }
+  scope :publics, lambda{ where("is_public = ?", true) }
 
 
   # Lock friendly_id generation if this record is not a new record
   def should_generate_new_friendly_id?
     new_record?
+  end
+
+  def slug=(new_slug)
+    super if should_generate_new_friendly_id?
   end
 
 
