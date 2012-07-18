@@ -13,7 +13,7 @@
       <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
       <td><%= monitoring.protocol %></td>
       <td><i class="icon-time"></i> <%= monitoring.created_at %></td>
-      <td><i class="icon-list-alt"></i> <%= link_to "history", :controller => "monitorings", :action => "show", :server_id => @server.id, :protocol_type => monitoring.protocol.underscore %></td>
+      <td><i class="icon-list-alt"></i> <%= link_to "history",  servers_monitorings_history_path(@server, monitoring.protocol) %></td>
     </tr>
     <% end %>
   </tbody>

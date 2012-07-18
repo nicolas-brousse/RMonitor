@@ -1,10 +1,20 @@
 class Server < ActiveRecord::Base
+  extend FriendlyId
+
+  friendly_id :name, :use => :slugged
+
   has_many :monitorings
 
   attr_accessible :host, :name, :status, :synchronized_at
 
   # Named Scopes
   scope :publics, lambda{ where('true') } #where("is_public = ?", true) }
+
+
+  # Lock friendly_id generation if this record is not a new record
+  def should_generate_new_friendly_id?
+    new_record?
+  end
 
 
   # Job methods

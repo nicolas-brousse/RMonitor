@@ -10,9 +10,7 @@ gem 'mysql2'
 # gem 'sqlite3'
 
 
-# gem 'friendly_id'
-# https://github.com/norman/friendly_id
-# http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
+gem 'friendly_id'
 
 gem 'devise'
 

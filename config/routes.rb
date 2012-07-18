@@ -9,8 +9,8 @@ RMonitor::Application.routes.draw do
 
   resources :servers, :path_names => {:edit => "settings"}
 
-  get "servers/:server_id/monitorings"                => "monitorings#index", :as => :servers_monitorings,         :constraints => {:server_id => /\d+/}
-  get "servers/:server_id/monitorings/:protocol_type" => "monitorings#show",  :as => :servers_monitorings_history, :constraints => {:server_id => /\d+/}
+  get "servers/:server_id/monitorings"                => "monitorings#index", :as => :servers_monitorings#,         :constraints => {:server_id => /\d+/}
+  get "servers/:server_id/monitorings/:protocol_type" => "monitorings#show",  :as => :servers_monitorings_history#, :constraints => {:server_id => /\d+/}
 
   namespace :admin do
     get "/"           => "index#index"

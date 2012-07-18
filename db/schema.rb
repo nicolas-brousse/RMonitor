@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712224150) do
+ActiveRecord::Schema.define(:version => 20120718184333) do
 
   create_table "monitorings", :force => true do |t|
     t.integer  "server_id"
@@ -29,7 +29,11 @@ ActiveRecord::Schema.define(:version => 20120712224150) do
     t.datetime "synchronized_at"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.boolean  "is_public"
+    t.string   "slug"
   end
+
+  add_index "servers", ["slug"], :name => "index_servers_on_slug", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
