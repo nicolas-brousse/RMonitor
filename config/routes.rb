@@ -2,9 +2,11 @@ RMonitor::Application.routes.draw do
 
   devise_for :users
 
-  root :to => "public#index"
+  get    "/users/:id"       => "users#show"
+  get    "/users/:id/edit"  => "users#edit"
+  put    "/users/:id"       => "users#update"
+  delete "/users/:id"       => "users#destroy"
 
-  get "/"           => "index#dashboard"
   get "/dashboard"  => "index#dashboard", :as => :dashboard
 
   resources :servers, :path_names => {:edit => "settings"}
@@ -21,6 +23,8 @@ RMonitor::Application.routes.draw do
   namespace :api, :defaults => {:format => :json} do
     get "/"       => "index#index"
   end
+
+  root :to => "public#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
