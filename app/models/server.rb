@@ -32,7 +32,7 @@ class Server < ActiveRecord::Base
     started  = Time.now - 1.month if started.nil?
     ended    = Time.now if ended.nil?
 
-    monitorings = self.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", 'Ping', started, ended)
+    monitorings = self.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", 'ping', started, ended)
                                   .order('created_at ASC')
 
     return downtime if monitorings.empty?

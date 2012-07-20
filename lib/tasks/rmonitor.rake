@@ -68,18 +68,18 @@ namespace :rmonitor do
     servers.each do |server|
       puts " -- Server #{server.name}"
 
-      protocols = ["ping"]
-      # protocols = ["ping", "http"]
+      protocols = ["Ping"]
+      # protocols = ["Ping", "HTTP"]
 
       protocols.each do |p|
-        monitoring = server.monitorings.where('protocol = ?', p).last
+        monitoring = server.monitorings.where('protocol = ?', p.downcase).last
         status     = (("RMonitor::Modules::Monitorings::#{p}").constantize).execute(server.host.to_s)
         server_status = 0
 
         if monitoring.nil? || monitoring.status != status
           m = Monitoring.new
           m.server   = server
-          m.protocol = p
+          m.protocol = p.downcase
           m.status = status
           m.save
 
