@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718184333) do
+ActiveRecord::Schema.define(:version => 20120724232341) do
+
+  create_table "incidents", :force => true do |t|
+    t.string   "name"
+    t.text     "body"
+    t.integer  "monitoring_id"
+    t.integer  "server_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "incidents", ["monitoring_id"], :name => "index_incidents_on_monitoring_id"
+  add_index "incidents", ["server_id"], :name => "index_incidents_on_server_id"
 
   create_table "monitorings", :force => true do |t|
     t.integer  "server_id"
