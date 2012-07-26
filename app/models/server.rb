@@ -4,6 +4,7 @@ class Server < ActiveRecord::Base
   friendly_id :name, :use => :slugged
 
   has_many :monitorings
+  has_many :incidents
 
   attr_accessible :host, :name, :slug, :is_public, :status, :synchronized_at
 
