@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>RMonitor</title>
+    <meta charset="utf-8">
+    <title>RMonitor</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag "application" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= stylesheet_link_tag "application" %>
 
-  <!--[if lt IE 9]>
+    <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+    <![endif]-->
   <%= csrf_meta_tags %>
 </head>
 <body<%= current_server ? raw(' class="with-subnav"') : nil %>>
 
-<%= render "layouts/navbar" %>
+    <%= render "layouts/navbar" %>
 
-<div class="container">
+    <div class="container">
 
-  <!-- <ul class="breadcrumb">
-    <li><%= link_to "RMonitor", :root %> <span class="divider">&rarr;</span></li>
-    
-    <% if @breadcrumbs %>
-      <% @breadcrumbs[0..-2].each do |txt, path| %>
-        <li><%= link_to(t(h(txt)), path) %> <span class="divider">></span></li>
-      <% end %>
-      <li class="active"><%= link_to(t(h(@breadcrumbs.last.first)), @breadcrumbs.last.last) %></li>
-    <% else %>
-      <li class="active"><% t :home %></li>
-    <% end %>
-  </ul> -->
+        <!-- <ul class="breadcrumb">
+            <li><%= link_to "RMonitor", :root %> <span class="divider">&rarr;</span></li>
+              
+            <% if @breadcrumbs %>
+                <% @breadcrumbs[0..-2].each do |txt, path| %>
+                    <li><%= link_to(t(h(txt)), path) %> <span class="divider">></span></li>
+                <% end %>
+                <li class="active"><%= link_to(t(h(@breadcrumbs.last.first)), @breadcrumbs.last.last) %></li>
+            <% else %>
+                <li class="active"><% t :home %></li>
+            <% end %>
+        </ul> -->
 
-  <!-- Alert -->
-  <% [:alert, :notice, :info, :error].each do |key| %>
-    <% if flash[key] %>
-    <div class="alert alert-block <%= format_flash_class(key) %> fade in" data-alert="alert">
-      <a class="close" data-dismiss="alert" href="#">×</a>
-      <%= t(flash[key]) %>
-    </div>
-    <% end %>
-  <% end %>
+        <!-- Alert -->
+        <% [:alert, :notice, :info, :error].each do |key| %>
+          <% if flash[key] %>
+          <div class="alert alert-block <%= format_flash_class(key) %> fade in" data-alert="alert">
+            <a class="close" data-dismiss="alert" href="#">×</a>
+            <%= t(flash[key]) %>
+          </div>
+          <% end %>
+        <% end %>
 
-  <div id="yield">
+        <div id="yield">
 
-    <%= yield %>
+          <%= yield %>
 
-  </div> <!-- /.yield -->
+        </div> <!-- /.yield -->
 
-  <hr>
+        <hr>
 
-  <footer>
-    <p>&copy; <%= link_to "nicolas-brousse.fr", "http://nicolas-brousse.fr" %>  <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %> — v <%= RMonitor::VERSION::ARRAY[0,3].join('.') %></p>
-  </footer>
+        <footer>
+            <p>Powered by <%= link_to "RMonitor", "https://github.com/nicolas-brousse/RMonitor" %> &copy; <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %> <%= link_to "Nicolas Brousse", "http://nicolas-brousse.fr" %>  — v<%= RMonitor::VERSION::ARRAY[0,3].join('.') %></p>
+        </footer>
 
-</div> <!-- /.container -->
+    </div> <!-- /.container -->
 
-<%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= yield :javascript %>
 
 </body>
 </html>
