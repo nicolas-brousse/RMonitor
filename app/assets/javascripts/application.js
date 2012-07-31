@@ -6,7 +6,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
-
-$('#topbar').dropdown()
-
+//= require bootstrap.min
