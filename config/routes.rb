@@ -18,6 +18,7 @@ RMonitor::Application.routes.draw do
     get "/"           => "index#index"
     get "/info"       => "index#info"
     get "/servers"    => "index#servers"
+    get "/settings"   => "index#settings"
   end
 
   namespace :api, :defaults => {:format => :json} do
