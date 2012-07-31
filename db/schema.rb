@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724232341) do
+ActiveRecord::Schema.define(:version => 20120731195033) do
 
   create_table "incidents", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(:version => 20120724232341) do
   end
 
   add_index "servers", ["slug"], :name => "index_servers_on_slug", :unique => true
+
+  create_table "settings", :force => true do |t|
+    t.string   "name",       :limit => 30, :default => "", :null => false
+    t.text     "value"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

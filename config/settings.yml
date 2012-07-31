@@ -1,0 +1,7 @@
+# RMonitor
+# Copyright (C) 2012  Nicolas Brousse
+
+app_title:
+  default: RMonitor
+monitoring_is_public:
+  default: 1
