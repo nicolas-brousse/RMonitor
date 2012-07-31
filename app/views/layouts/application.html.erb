@@ -12,7 +12,7 @@
     <![endif]-->
   <%= csrf_meta_tags %>
 </head>
-<body<%= current_server ? raw(' class="with-subnav"') : nil %>>
+<body class="<%= controller_name %><%= current_server ? raw(' with-subnav') : nil %>">
 
     <%= render "layouts/navbar" %>
 

@@ -1,4 +1,5 @@
 class Admin::IndexController < ApplicationController
+  layout "admin"
   before_filter :init_breadcrumb
 
   def index
