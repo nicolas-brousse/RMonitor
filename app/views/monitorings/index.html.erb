@@ -18,3 +18,33 @@
     <% end %>
   </tbody>
 </table>
+
+
+<h3>Incidents</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th width="5">#</th>
+      <th width="5">Protocol</th>
+      <th>Name</th>
+      <th width="180">At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @incidents.count <= 0 %>
+      <tr>
+        <td colspan="4">No incidents</td>
+      </tr>
+    <% else %>
+      <% @incidents.each do |incident| %>
+      <tr>
+        <td><%= link_to incident.id, edit_server_incident_path(@server, incident) %></td>
+        <td><%= incident.monitoring.protocol %></td>
+        <td><%= incident.name %></td>
+        <td><i class="icon-time"></i> <%= incident.created_at %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

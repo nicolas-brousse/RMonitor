@@ -9,7 +9,9 @@ RMonitor::Application.routes.draw do
 
   get "/dashboard"  => "index#dashboard", :as => :dashboard
 
-  resources :servers, :path_names => {:edit => "settings"}
+  resources :servers, :path_names => {:edit => "settings"} do
+    resources :incidents, :only => [:show, :edit, :update]
+  end
 
   get "servers/:server_id/monitorings"                => "monitorings#index", :as => :servers_monitorings#,         :constraints => {:server_id => /\d+/}
   get "servers/:server_id/monitorings/:protocol_type" => "monitorings#show",  :as => :servers_monitorings_history#, :constraints => {:server_id => /\d+/}
