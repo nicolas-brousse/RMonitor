@@ -15,10 +15,11 @@ RMonitor::Application.routes.draw do
   get "servers/:server_id/monitorings/:protocol_type" => "monitorings#show",  :as => :servers_monitorings_history#, :constraints => {:server_id => /\d+/}
 
   namespace :admin do
-    get "/"           => "index#index"
-    get "/info"       => "index#info"
-    get "/servers"    => "index#servers"
-    get "/settings"   => "index#settings"
+    get  "/"           => "index#index"
+    get  "/info"       => "index#info"
+    get  "/servers"    => "index#servers"
+    get  "/settings"   => "index#settings"
+    post "/settings"   => "index#settings_save", :as => :edit_settings
   end
 
   namespace :api, :defaults => {:format => :json} do

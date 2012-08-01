@@ -18,6 +18,6 @@ class PublicController < ApplicationController
 
 private
   def can_show_self?
-    redirect_to :dashboard unless Setting.find_by_name('monitoring_is_public') && user_signed_in?
+    redirect_to :dashboard if !Setting.monitoring_is_public? && !user_signed_in?
   end
 end
