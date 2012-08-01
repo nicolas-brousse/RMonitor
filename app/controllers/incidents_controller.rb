@@ -19,6 +19,7 @@ class IncidentsController < ApplicationController
       if @incident.update_attributes(params[:incident])
         format.html { redirect_to edit_server_incident_path(@incident), :notice => :incident_updated }
       else
+        flash[:error] = @incident.errors.full_messages
         format.html { render :action => "edit" }
       end
     end
