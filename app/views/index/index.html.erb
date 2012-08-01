@@ -26,7 +26,7 @@
         <div class="span7">
             <h4>Last incidents</h4>
             <ul>
-                <% if server.incidents.count <= 0 %>
+                <% if server.blank? %>
                     <li>No incidents</li>
                 <% else %>
                     <% server.incidents.limit(5).each do |incident| %>

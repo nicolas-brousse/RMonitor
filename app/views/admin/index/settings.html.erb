@@ -21,7 +21,7 @@
 
         <div class="form-actions">
             <%= submit_tag "Save changes", :class => "btn btn-primary" %>
-            <%= link_to "Cancel", admin_path(), :data => {:confirm => "Are you sure?"}, :class => "btn" %>
+            <%= link_to t(:cancel), :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
         </div>
     </fieldset>
 <% end %>
