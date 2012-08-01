@@ -10,7 +10,10 @@ class IndexController < ApplicationController
   end
 
   def dashboard
-    add_breadcrumb "Dashboard", dashboard_path()
+    @monitorings =  Monitoring.includes(:server)
+                              .group("protocol")
+                              .order("created_at DESC")
+                    .delete_if {|m| m if m.status != false }
   end
 
 private
