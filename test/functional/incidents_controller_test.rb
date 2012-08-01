@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MonitoringsIncidentsControllerTest < ActionController::TestCase
+class IncidentsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

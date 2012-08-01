@@ -19,7 +19,6 @@ class Admin::IndexController < ApplicationController
     params[:settings].each do |k, v|
       Setting[k] = v
     end
-
     redirect_to :admin_settings
   end
 

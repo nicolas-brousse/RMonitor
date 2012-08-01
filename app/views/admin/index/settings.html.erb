@@ -14,14 +14,14 @@
             <div class="controls">
                 <label for="settings_monitoring_is_public" class="checkbox">
                     <%= check_box_tag("settings[monitoring_is_public]", 1, @settings.monitoring_is_public?) %>
-                    <%= t :monitoring_is_public %>
+                    <%= t(:monitoring_is_public) %>
                 </label>
             </div>
         </div>
 
         <div class="form-actions">
             <%= submit_tag "Save changes", :class => "btn btn-primary" %>
-            <button class="btn">Cancel</button>
+            <%= link_to "Cancel", admin_path(), :data => {:confirm => "Are you sure?"}, :class => "btn" %>
         </div>
     </fieldset>
 <% end %>

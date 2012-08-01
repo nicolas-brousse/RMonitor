@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><%= Setting.app_title %></title>
+    <title><%= raw("#{yield(:title)} | ") unless yield(:title).blank? %><%= Setting.app_title %></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
@@ -10,9 +10,11 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  <%= csrf_meta_tags %>
+    <%= csrf_meta_tags %>
+
+    <%= yield(:javascript) %>
 </head>
-<body class="<%= controller_name %><%= current_server ? raw(' with-subnav') : nil %>">
+<body class="<%= yield(:body_class) %><%= current_server ? raw(' with-subnav') : nil %>">
 
     <%= render "layouts/navbar" %>
 
@@ -33,17 +35,17 @@
 
         <!-- Alert -->
         <% [:alert, :notice, :info, :error].each do |key| %>
-          <% if flash[key] %>
-          <div class="alert alert-block <%= format_flash_class(key) %> fade in" data-alert="alert">
-            <a class="close" data-dismiss="alert" href="#">×</a>
-            <%= t(flash[key]) %>
-          </div>
-          <% end %>
+            <% if flash[key] %>
+            <div class="alert alert-block <%= format_flash_class(key) %> fade in" data-alert="alert">
+                <a class="close" data-dismiss="alert" href="#">×</a>
+                <%= t(flash[key]) %>
+            </div>
+            <% end %>
         <% end %>
 
         <div id="yield">
 
-          <%= yield %>
+            <%= yield %>
 
         </div> <!-- /.yield -->
 
@@ -56,7 +58,7 @@
     </div> <!-- /.container -->
 
     <%= javascript_include_tag "application" %>
-    <%= yield :javascript %>
+    <%= yield(:javascript) %>
 
 </body>
 </html>
