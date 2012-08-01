@@ -1,5 +1,10 @@
-<% content_for :sidebar do %>
-<%= render :partial => 'admin/menu' %>
+<% content_for :admin_sidebar do %>
+<ul class="nav nav-tabs nav-stacked">
+    <li><%= link_to "Home", :admin %></li>
+    <li><%= link_to "Servers", :admin_servers %></li>
+    <li><%= link_to "Settings", :admin_settings %></li>
+    <li><%= link_to "Informations", :admin_info %></li>
+</ul>
 <% end %>
 
 <%= render :file => "layouts/application" %>

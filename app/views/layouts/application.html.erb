@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><%= raw("#{yield(:title)} | ") unless yield(:title).blank? %><%= Setting.app_title %></title>
+    <title><%= raw("#{yield(:title)} | ") if content_for?(:title) %><%= Setting.app_title %></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
@@ -43,11 +43,28 @@
             <% end %>
         <% end %>
 
+        <% if content_for?(:admin_sidebar) %>
+        <div id="yield">
+            <div class="page-header">
+                <h1>Administration</h1>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <%= yield.blank? ? raw("&nbsp;") : yield %>
+                </div>
+                <div class="span3">
+                    <%= yield(:admin_sidebar) %>
+                </div>
+            </div>
+        </div> <!-- /.yield -->
+        <% else %>
         <div id="yield">
 
             <%= yield %>
 
         </div> <!-- /.yield -->
+        <% end %>
 
         <hr>
 
