@@ -1,3 +1,5 @@
+<% content_for :title, (raw(" | ") if content_for?(:title)).to_s + "Administration" %>
+
 <% content_for :admin_sidebar do %>
 <ul class="nav nav-tabs nav-stacked">
     <li><%= link_to "Home", :admin %></li>
