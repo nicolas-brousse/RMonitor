@@ -11,6 +11,11 @@ class Server < ActiveRecord::Base
   # Named Scopes
   scope :publics, lambda{ where("is_public = ?", true) }
 
+  # Validators
+  validates_uniqueness_of :name
+  validates_uniqueness_of :host
+  validate                :domain_exists?
+
 
   # Lock friendly_id generation if this record is not a new record
   def should_generate_new_friendly_id?
@@ -56,5 +61,13 @@ class Server < ActiveRecord::Base
     total_time = ended - started
     (downtime / total_time) * 100.0
   end
+private
+  def domain_exists?
+    w = Whois::Client.new(:timeout => 10)
+    # r = w.query(self.host)
 
+    # errors.add(:host, "server_form.host_invalid") unless r.registered?
+  # rescue Whois::Error => e
+  #   errors.add(:host, "server_form.host_not_found")
+  end
 end
