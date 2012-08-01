@@ -1,15 +1,19 @@
-<% content_for :title, "Servers" %>
+<% content_for :title, t(:server).pluralize %>
+
+<div class="page-header">
+    <h1><%= yield :title %></h1>
+</div>
 
 <%= link_to new_server_path(), :class => "btn btn-small btn-success" do %>
-  <i class="icon-plus icon-white"></i> New server
+    <i class="icon-plus icon-white"></i> New server
 <% end %>
 
 
 <ul class="unstyled">
 <% @servers.each do |server| %>
-  <li>
-    <span class="badge badge-<%= server.status ? 'success' : 'important' %>">&nbsp;</span>
-    <%= link_to server.name, server_path(server) %>
-  </li>
+    <li>
+        <span class="badge badge-<%= server.status ? 'success' : 'important' %>">&nbsp;</span>
+        <%= link_to server.name, server_path(server) %>
+    </li>
 <% end %>
 </ul>

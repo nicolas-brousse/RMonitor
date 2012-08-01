@@ -1,6 +1,6 @@
 <% content_for :title, "Edit #{current_server.name}" %>
 
-<%= form_for(@server, :url => server_path(@server), :html => {:class => "form-horizontal"}) do |f| %>
+<%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}) do |f| %>
     <fieldset>
         <legend>Settings</legend>
 

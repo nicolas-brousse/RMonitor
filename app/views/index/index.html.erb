@@ -1,6 +1,5 @@
 <% content_for :body_class, "public" %> 
 
-
 <% @servers.each do |server| %>
 <div class="server">
     <div class="row visible-phone">
@@ -20,7 +19,7 @@
         </div>
 
         <div class="span3">
-            <h2 class="name">— <%= link_to server.name, "#", :title => "Last synchronization at #{server.synchronized_at}" %></h2>
+            <h2 class="name">— <span title="Last synchronization at <%= server.synchronized_at %>"><%= server.name %></h2>
         </div>
 
         <div class="span7">

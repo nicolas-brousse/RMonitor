@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                     <th>Last synchronization</th>
-                    <td><i class="icon-time"></i> <%= @server.synchronized_at %></td>
+                    <td><i class="icon-time"></i> <%= @server.synchronized_at.blank? ? t(:nerver) : @server.synchronized_at %></td>
                 </tr>
             </tbody>
         </table>
@@ -31,24 +31,25 @@
             <thead>
                 <tr>
                     <th width="5">Status</th>
-                    <th width="">Protocol</th>
+                    <th>Protocol</th>
+                    <th>At</th>
                 </tr>
             </thead>
             <tbody>
             <%- if @monitorings.blank? -%>
                 <tr>
-                    <td colspan="2">No alerts</td>
+                    <td colspan="3">No alerts</td>
                 </tr>
             <%- else -%>
                 <%- @monitorings.each do |monitoring| %>
                 <tr>
                     <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
                     <td><%= monitoring.protocol %></td>
+                    <td><i class="icon-time"></i> <%= monitoring.created_at %></td>
                 </tr>
                 <% end -%>
             <%- end -%>
             </tbody>
         </table>
-
     </div>
 </div>
