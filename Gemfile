@@ -15,6 +15,8 @@ gem 'friendly_id'
 gem 'devise'
 gem 'cancan'
 
+gem 'whois'
+
 # gem 'sidekiq'
 
 # https://github.com/collectiveidea/audited
