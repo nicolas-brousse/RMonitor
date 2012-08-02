@@ -1,12 +1,17 @@
 <% content_for :title, t(:server).pluralize %>
 
 <div class="page-header">
-    <h1><%= yield :title %></h1>
+    <div class="row">
+        <div class="span10">
+            <h1><%= yield :title %></h1>
+        </div>
+        <div class="span2">
+            <%= link_to new_server_path(), :class => "btn btn-small btn-success" do %>
+                <i class="icon-plus icon-white"></i> New server
+            <% end %>
+        </div>
+    </div>
 </div>
-
-<%= link_to new_server_path(), :class => "btn btn-small btn-success" do %>
-    <i class="icon-plus icon-white"></i> New server
-<% end %>
 
 
 <ul class="unstyled">
