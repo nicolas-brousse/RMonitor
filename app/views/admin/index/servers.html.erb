@@ -18,9 +18,12 @@
       <td><i class="icon-hdd"></i> <%= server.host %></td>
       <td><i class="icon-time"></i> <%= server.synchronized_at.blank? ? "Never" : server.synchronized_at %></td>
       <td>
-        <%= link_to "edit", edit_server_path(server) %>
-        <%= link_to server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete, :class => "btn btn-mini btn-danger" do %>
-          <i class="icon-trash icon-white"></i> Delete
+        <%= link_to edit_server_path(server) do %>
+          <i class="icon-cog"></i> Edit
+        <% end %>
+        -
+        <%= link_to server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete do %>
+          <i class="icon-trash"></i> Delete
         <% end %>
       </td>
     </tr>
