@@ -1,6 +1,24 @@
 <% content_for :title, "Settings" %>
 
 <%= form_tag(admin_edit_settings_path(), :class => "form-horizontal") do %>
+
+    <fieldset>
+        <legend>General</legend>
+
+        <div class="control-group">
+            <%= label_tag :settings_text_formatting, t(:text_formatting), :class => "control-label" %>
+            <div class="controls">
+                <%= select_tag "settings[text_formatting]", options_for_select(%w{ markdown textile }, @settings.text_formatting), :class => "input-xlarge" %>
+            </div>
+        </div>
+
+
+        <div class="form-actions">
+            <%= submit_tag "Save changes", :class => "btn btn-primary" %>
+            <%= link_to t(:cancel), :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
+        </div>
+    </fieldset>
+
     <fieldset>
         <legend>Display</legend>
 
@@ -19,6 +37,7 @@
                 </label>
             </div>
         </div>
+
 
         <div class="form-actions">
             <%= submit_tag "Save changes", :class => "btn btn-primary" %>

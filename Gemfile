@@ -17,8 +17,11 @@ gem 'cancan'
 
 gem 'whois'
 
+gem 'formatize'
+
 # gem 'sidekiq'
 
+# gem 'audited-activerecord'
 # https://github.com/collectiveidea/audited
 
 # Gems used only for assets and not required
