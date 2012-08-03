@@ -1,46 +1,66 @@
-<% content_for :title, "Edit #{current_server.name}" %>
+<% content_for :title, "Settings - #{current_server.name}" %>
+
+<div class="page-header">
+    <h1>Settings</h1>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#infos" data-toggle="tab">Informations</a></li>
+    <li><a href="#modules" data-toggle="tab">Modules</a></li>
+    <li><a href="#members" data-toggle="tab">Members</a></li>
+</ul>
 
 <%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}) do |f| %>
-    <fieldset>
-        <legend>Settings</legend>
-
-        <div class="control-group">
-            <%= f.label :name, :class => "control-label" %>
-            <div class="controls">
-                <%= f.text_field :name, :class => "input-xlarge" %>
+<div class="tab-content">
+    <div class="tab-pane active" id="infos" data-toggle="pill">
+        <fieldset>
+            <div class="control-group">
+                <%= f.label :name, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.text_field :name, :class => "input-xlarge" %>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <%= f.label :host, :class => "control-label" %>
-            <div class="controls">
-                <%= f.text_field :host, :class => "input-xlarge" %>
+            <div class="control-group">
+                <%= f.label :host, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.text_field :host, :class => "input-xlarge" %>
+                </div>
             </div>
-        </div>
 
-        <hr />
+            <hr />
 
-        <div class="control-group">
-            <%= f.label :slug, :class => "control-label" %>
-            <div class="controls">
-                <%= f.text_field :slug, :disabled => :disabled, :class => "input-large disabled" %>
+            <div class="control-group">
+                <%= f.label :slug, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.text_field :slug, :disabled => :disabled, :class => "input-large disabled" %>
+                </div>
             </div>
-        </div>
 
-        <hr />
+            <hr />
 
-        <div class="control-group">
-            <div class="controls">
-                <label for="server_is_public" class="checkbox">
+            <div class="control-group">
+                <%= f.label :public, :class => "control-label" %>
+                <div class="controls">
                     <%= f.check_box :is_public %>
-                    <%= t :is_public %>
-                </label>
+                </div>
             </div>
-        </div>
 
-        <div class="form-actions">
-            <%= f.submit "Save changes", :class => "btn btn-primary" %>
-            <%= link_to "Cancel", :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
-        </div>
-    </fieldset>
+            <div class="form-actions">
+                <%= f.submit "Save changes", :class => "btn btn-primary" %>
+                <%= link_to "Cancel", :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
+            </div>
+        </fieldset>
+    </div> <!-- /#infos -->
+
+    <div class="tab-pane" id="modules" data-toggle="pill">
+        <fieldset>
+        </fieldset>
+    </div> <!-- /#modules -->
+
+    <div class="tab-pane" id="members" data-toggle="pill">
+        <fieldset>
+        </fieldset>
+    </div> <!-- /#members -->
+</div>
 <% end %>

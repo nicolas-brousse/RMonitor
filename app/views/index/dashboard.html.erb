@@ -1,4 +1,4 @@
-<% content_for :title, t(:dashbord) %>
+<% content_for :title, t(:dashboard) %>
 
 <div class="page-header">
     <h1><%= yield :title %></h1>
@@ -24,9 +24,9 @@
     <%- else -%>
         <%- @monitorings.each do |monitoring| %>
         <tr>
-            <td><%= link_to monitoring.server.name, server_path(monitoring.server) %></td>
+            <td><%= link_to h(monitoring.server.name), server_path(monitoring.server) %></td>
             <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
-            <td><%= link_to monitoring.protocol, servers_monitorings_history_path(current_server, monitoring.protocol) %></td>
+            <td><%= link_to h(monitoring.protocol), servers_monitorings_history_path(monitoring.server, monitoring.protocol) %></td>
             <td><i class="icon-time"></i> <%= monitoring.created_at %></td>
         </tr>
         <% end -%>

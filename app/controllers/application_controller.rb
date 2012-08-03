@@ -8,20 +8,9 @@ class ApplicationController < ActionController::Base
 
 protected
   def set_locale
-    # I18n.locale = current_user.locale.to_sym
+    # TODO, verif if the language exist
+    # I18n.locale = current_user.locale.to_sym || Setting.default_language.to_sym || I18n.locale
     # Time.zone = current_user.time_zone
     # Time.zone = nil
-  end
-
-  def add_breadcrumb name, url = ''
-    @breadcrumbs ||= []
-    url = eval(url) if url =~ /_path|_url|@/
-    @breadcrumbs << [name, url]
-  end
-
-  def self.add_breadcrumb name, url, options = {}
-    before_filter options do |controller|
-      controller.send(:add_breadcrumb, name, url)
-    end
   end
 end

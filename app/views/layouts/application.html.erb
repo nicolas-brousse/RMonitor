@@ -20,19 +20,6 @@
 
     <div class="container">
 
-        <!-- <ul class="breadcrumb">
-            <li><%= link_to "RMonitor", :root %> <span class="divider">&rarr;</span></li>
-              
-            <% if @breadcrumbs %>
-                <% @breadcrumbs[0..-2].each do |txt, path| %>
-                    <li><%= link_to(t(h(txt)), path) %> <span class="divider">></span></li>
-                <% end %>
-                <li class="active"><%= link_to(t(h(@breadcrumbs.last.first)), @breadcrumbs.last.last) %></li>
-            <% else %>
-                <li class="active"><% t :home %></li>
-            <% end %>
-        </ul> -->
-
         <!-- Alert -->
         <% [:alert, :notice, :info, :error].each do |key| %>
             <% if flash[key] %>

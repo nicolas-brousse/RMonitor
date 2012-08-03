@@ -7,8 +7,6 @@ RMonitor::Application.routes.draw do
   put    "/users/:id"       => "users#update"
   delete "/users/:id"       => "users#destroy"
 
-  get "/dashboard"  => "index#dashboard", :as => :dashboard
-
   resources :servers, :path_names => {:edit => "settings"} do
     resources :incidents, :only => [:show, :edit, :update]
   end
@@ -27,6 +25,8 @@ RMonitor::Application.routes.draw do
   namespace :api, :defaults => {:format => :json} do
     get "/"       => "index#index"
   end
+
+  get "/dashboard"  => "index#dashboard", :as => :dashboard
 
   root :to => "index#index"
 

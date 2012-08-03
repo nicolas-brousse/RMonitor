@@ -44,7 +44,7 @@
                 <%- @monitorings.each do |monitoring| %>
                 <tr>
                     <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
-                    <td><%= link_to monitoring.protocol, servers_monitorings_history_path(current_server, monitoring.protocol) %></td>
+                    <td><%= link_to h(monitoring.protocol), servers_monitorings_history_path(current_server, monitoring.protocol) %></td>
                     <td><i class="icon-time"></i> <%= monitoring.created_at %></td>
                 </tr>
                 <% end -%>

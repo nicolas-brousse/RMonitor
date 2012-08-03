@@ -5,7 +5,7 @@
     <div class="row visible-phone">
         <div class="span12">
             <h2>
-                <%= link_to server.name, "#", :title => "Last synchronization at #{server.synchronized_at}" %>
+                <%= link_to h(server.name), "#", :title => "Last synchronization at #{server.synchronized_at}" %>
                 <span style="color: <%= server.status ? 'green' : 'red' %>;"><%= server.status ? 'green' : 'red' %></span>
             </h2>
         </div>
