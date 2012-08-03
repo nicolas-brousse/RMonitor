@@ -32,7 +32,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li<%= nav_class :index, :dashboard %>><%= link_to t(:dashboard), :dashboard %></li>
-                    <li<%= nav_class [:servers, :monitorings] %>><%= link_to "Servers", :servers %></li>
+                    <li<%= nav_class %w{ servers :monitorings } %>><%= link_to "Servers", :servers %></li>
                 </ul>
             </div> <!--/.nav-collapse -->
         <% end %>
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<!-- Todo subnav -->
+
 <% if current_server %>
 <div class="subnav subnav-fixed">
     <div class="container">
@@ -74,9 +74,3 @@
     </div>
 </div>
 <% end %>
-
-<pre>
-<%= controller_name %>
-<%= action_name %>
-<%= nav_class [:servers, :monitorings] %>
-</pre>
