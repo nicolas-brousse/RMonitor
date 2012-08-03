@@ -9,3 +9,7 @@ mail_from:
   default: rmonitor@domain.net
 text_formatting:
   default: markdown
+default_language:
+  default: en
+ui_theme:
+  default: base

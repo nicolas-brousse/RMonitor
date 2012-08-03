@@ -1,47 +1,64 @@
 <% content_for :title, "Settings" %>
 
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+    <li><a href="#display" data-toggle="tab">Display</a></li>
+</ul>
+
 <%= form_tag(admin_edit_settings_path(), :class => "form-horizontal") do %>
-
-    <fieldset>
-        <legend>General</legend>
-
-        <div class="control-group">
-            <%= label_tag :settings_text_formatting, t(:text_formatting), :class => "control-label" %>
-            <div class="controls">
-                <%= select_tag "settings[text_formatting]", options_for_select(%w{ markdown textile }, @settings.text_formatting), :class => "input-xlarge" %>
+<div class="tab-content">
+    <div class="tab-pane active" id="general" data-toggle="pill">
+        <fieldset>
+            <div class="control-group">
+                <%= label_tag :settings_app_title, t(:app_title), :class => "control-label" %>
+                <div class="controls">
+                    <%= text_field_tag "settings[app_title]", @settings.app_title, :class => "input-xlarge" %>
+                </div>
             </div>
-        </div>
 
-
-        <div class="form-actions">
-            <%= submit_tag "Save changes", :class => "btn btn-primary" %>
-            <%= link_to t(:cancel), :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
-        </div>
-    </fieldset>
-
-    <fieldset>
-        <legend>Display</legend>
-
-        <div class="control-group">
-            <%= label_tag :settings_app_title, t(:app_title), :class => "control-label" %>
-            <div class="controls">
-                <%= text_field_tag "settings[app_title]", @settings.app_title, :class => "input-xlarge" %>
+            <div class="control-group">
+                <%= label_tag :settings_text_formatting, t(:text_formatting), :class => "control-label" %>
+                <div class="controls">
+                    <%= select_tag "settings[text_formatting]", options_for_select(%w{ markdown textile }, @settings.text_formatting), :class => "input-xlarge" %>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <div class="controls">
-                <label for="settings_monitoring_is_public" class="checkbox">
+
+            <div class="form-actions">
+                <%= submit_tag "Save changes", :class => "btn btn-primary" %>
+                <%= link_to t(:cancel), :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
+            </div>
+        </fieldset>
+    </div> <!-- /#general -->
+
+    <div class="tab-pane" id="display" data-toggle="pill">
+        <fieldset>
+            <div class="control-group">
+                <%= label_tag :settings_ui_theme, t(:ui_theme), :class => "control-label" %>
+                <div class="controls">
+                    -
+                </div>
+            </div>
+
+            <div class="control-group">
+                <%= label_tag :settings_default_language, t(:default_language), :class => "control-label" %>
+                <div class="controls">
+                    -
+                </div>
+            </div>
+
+            <div class="control-group">
+                <%= label_tag :settings_monitoring_is_public, t(:monitoring_is_public), :class => "control-label" %>
+                <div class="controls">
                     <%= check_box_tag("settings[monitoring_is_public]", 1, @settings.monitoring_is_public?) %>
-                    <%= t(:monitoring_is_public) %>
-                </label>
+                </div>
             </div>
-        </div>
 
-
-        <div class="form-actions">
-            <%= submit_tag "Save changes", :class => "btn btn-primary" %>
-            <%= link_to t(:cancel), :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
-        </div>
-    </fieldset>
+            <div class="form-actions">
+                <%= submit_tag "Save changes", :class => "btn btn-primary" %>
+                <%= link_to t(:cancel), :back, :data => {:confirm => "Are you sure?"}, :class => "btn" %>
+            </div>
+        </fieldset>
+    </div> <!-- /#display -->
+</div>
 <% end %>
