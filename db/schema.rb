@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731195033) do
+ActiveRecord::Schema.define(:version => 20120812200157) do
 
   create_table "incidents", :force => true do |t|
     t.string   "name"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(:version => 20120731195033) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
   end
+
+  create_table "user_preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "time_zone"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_preferences", ["user_id"], :name => "index_user_preferences_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

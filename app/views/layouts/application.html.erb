@@ -58,7 +58,6 @@
         <footer>
             <p>Powered by <%= link_to RMonitor::Info.app_name, RMonitor::Info.url %> &copy; <%= Time.now.year > 2011 ? "2011—#{Time.now.year}" : "2011" %> <%= link_to "Nicolas Brousse", "http://nicolas-brousse.fr" %>  — v<%= RMonitor::VERSION::ARRAY[0,3].join('.') %></p>
         </footer>
-
     </div> <!-- /.container -->
 
     <%= javascript_include_tag "application" %>
