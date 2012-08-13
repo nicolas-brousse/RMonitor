@@ -11,9 +11,9 @@
 </ul>
 
 <%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}) do |f| %>
-<div class="tab-content">
-    <div class="tab-pane active" id="infos" data-toggle="pill">
-        <fieldset>
+<fieldset>
+    <div class="tab-content">
+        <div class="tab-pane active" id="infos" data-toggle="pill">
             <div class="control-group">
                 <%= f.label :name, :class => "control-label" %>
                 <div class="controls">
@@ -40,27 +40,23 @@
             <hr />
 
             <div class="control-group">
-                <%= f.label :public, :class => "control-label" %>
+                <%= f.label :is_public, :class => "control-label" %>
                 <div class="controls">
                     <%= f.check_box :is_public %>
                 </div>
             </div>
+        </div> <!-- /#infos -->
 
-            <div class="form-actions">
-                <%= f.submit "Save changes", :class => "btn btn-primary" %>
-                <%= cancel_tag %>
-            </div>
-        </fieldset>
-    </div> <!-- /#infos -->
+        <div class="tab-pane" id="modules" data-toggle="pill">
+        </div> <!-- /#modules -->
 
-    <div class="tab-pane" id="modules" data-toggle="pill">
-        <fieldset>
-        </fieldset>
-    </div> <!-- /#modules -->
+        <div class="tab-pane" id="members" data-toggle="pill">
+        </div> <!-- /#members -->
+    </div>
 
-    <div class="tab-pane" id="members" data-toggle="pill">
-        <fieldset>
-        </fieldset>
-    </div> <!-- /#members -->
-</div>
+    <div class="form-actions">
+        <%= f.submit "Save changes", :class => "btn btn-primary" %>
+        <%= cancel_tag %>
+    </div>
+</fieldset>
 <% end %>
