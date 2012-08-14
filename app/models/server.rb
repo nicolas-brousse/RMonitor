@@ -12,8 +12,8 @@ class Server < ActiveRecord::Base
   scope :publics, lambda{ where("is_public = ?", true) }
 
   # Validators
-  validates_uniqueness_of :name
-  validates_uniqueness_of :host
+  validates_uniqueness_of :name, :host
+  validates_presence_of   :name, :host
   validate                :domain_exists?
 
 
