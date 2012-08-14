@@ -7,3 +7,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap.min
+$("form[data-remote='true']").on('submit', function() {
+    $btn = $(this).find("input[name='commit']");
+    $btn.attr('data-loading-text', 'loading...');
+    $btn.button('loading');
+    setTimeout(function () {
+        $btn.button('reset')
+    }, 3000)
+});
