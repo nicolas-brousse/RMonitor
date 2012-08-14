@@ -5,7 +5,7 @@
     <li><a href="#display" data-toggle="tab">Display</a></li>
 </ul>
 
-<%= form_tag(admin_edit_settings_path(), :class => "form-horizontal") do %>
+<%= form_tag(admin_edit_settings_path(), :class => "form-horizontal", :remote => true) do %>
 <fieldset>
     <div class="tab-content">
         <div class="tab-pane active" id="general" data-toggle="pill">

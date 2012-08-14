@@ -19,7 +19,13 @@ class Admin::IndexController < ApplicationController
     params[:settings].each do |k, v|
       Setting[k] = v
     end
-    redirect_to :admin_settings, :notice => "Settings updated"
+
+    respond_to do |format|
+      flash[:notice] = :settings_updated
+
+      format.html { redirect_to :admin_settings }
+      format.js
+    end
   end
 
 end

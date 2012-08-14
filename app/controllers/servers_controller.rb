@@ -21,7 +21,7 @@ class ServersController < ApplicationController
     @server = Server.new
   end
 
-  # GET /servers/:id/edit
+  # GET /servers/:id/settings
   def edit
   end
 
@@ -45,10 +45,13 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if server.update_attributes(params[:server])
-        format.html { redirect_to edit_server_path(server), :notice => :server_updated }
+        flash[:notice] = :server_updated
+        format.html { redirect_to edit_server_path(server) }
+        format.js
       else
         flash[:error] = server.errors.full_messages
         format.html { render :action => "edit" }
+        format.js
       end
     end
   end

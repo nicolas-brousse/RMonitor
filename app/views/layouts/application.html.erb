@@ -20,15 +20,10 @@
 
     <div class="container">
 
-        <!-- Alert -->
-        <% [:alert, :notice, :info, :error].each do |key| %>
-            <% if flash[key] %>
-            <div class="alert alert-block <%= format_flash_class(key) %> fade in" data-alert="alert">
-                <a class="close" data-dismiss="alert" href="#">×</a>
-                <%= t(flash[key]) %>
-            </div>
-            <% end %>
-        <% end %>
+        <!-- Flash -->
+        <div id="flash_area">
+        <%= format_flashes([:alert, :notice, :info, :error]) %>
+        </div>
 
         <% if content_for?(:admin_sidebar) %>
         <div id="yield">
