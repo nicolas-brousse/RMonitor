@@ -10,7 +10,7 @@
     <li><a href="#members" data-toggle="tab">Members</a></li>
 </ul>
 
-<%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}) do |f| %>
+<%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}, :remote => true) do |f| %>
 <fieldset>
     <div class="tab-content">
         <div class="tab-pane active" id="infos" data-toggle="pill">

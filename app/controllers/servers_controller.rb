@@ -1,5 +1,5 @@
 class ServersController < ApplicationController
-  before_filter :init_current_server, :except => [:index, :destroy]
+  before_filter :init_current_server, :except => [:index, :new, :create, :destroy]
 
   # GET /servers/
   def index
@@ -27,13 +27,13 @@ class ServersController < ApplicationController
 
   # POST /servers/
   def create
-    server = Server.new(params[:server])
+    @server = Server.new(params[:server])
 
     respond_to do |format|
       if @server.save
-        format.html { redirect_to server_path(server), :notice => :server_created }
+        format.html { redirect_to server_path(@server), :notice => :server_created }
       else
-        flash[:error] = server.errors.full_messages
+        flash.now[:error] = @server.errors.full_messages
         format.html { render :action => "new" }
       end
     end
@@ -41,15 +41,14 @@ class ServersController < ApplicationController
 
   # PUT /servers/:id
   def update
-    server = Server.find(params[:id])
+    @server = Server.find(params[:id])
 
     respond_to do |format|
-      if server.update_attributes(params[:server])
-        flash[:notice] = :server_updated
-        format.html { redirect_to edit_server_path(server) }
-        format.js
+      if @server.update_attributes(params[:server])
+        format.html { redirect_to edit_server_path(@server), :notice => :server_updated }
+        format.js   { flash.now[:notice] = :server_updated }
       else
-        flash[:error] = server.errors.full_messages
+        flash.now[:error] = @server.errors.full_messages
         format.html { render :action => "edit" }
         format.js
       end

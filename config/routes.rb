@@ -2,8 +2,8 @@ RMonitor::Application.routes.draw do
 
   devise_for :users
 
-  get "/my/settings" => "users#settings",      :as => :user_preferences
-  put "/my/settings" => "users#settings_save"
+  get "/my/preferences" => "users#settings",      :as => :user_preferences
+  put "/my/preferences" => "users#settings_save"
 
   get    "/users/:id"       => "users#show"
   get    "/users/:id/edit"  => "users#edit"

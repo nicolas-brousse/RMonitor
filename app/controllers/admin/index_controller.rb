@@ -21,10 +21,9 @@ class Admin::IndexController < ApplicationController
     end
 
     respond_to do |format|
-      flash[:notice] = :settings_updated
 
-      format.html { redirect_to :admin_settings }
-      format.js
+      format.html { redirect_to :admin_settings, :notice => :settings_updated }
+      format.js   { flash.now[:notice] = :settings_updated }
     end
   end
 

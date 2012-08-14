@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       if settings.update_attributes(params[:user_preference])
         format.html { redirect_to user_preferences_path(), :notice => :settings_updated }
       else
-        flash[:error] = settings.errors.full_messages
+        flash.now[:error] = settings.errors.full_messages
         format.html { render :action => "settings" }
       end
     end
