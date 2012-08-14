@@ -18,7 +18,7 @@ namespace :rmonitor do
       Rake::Task['db:seed'].invoke
 
       puts "Now configure your cronjob"
-      puts "  5 * * * * cd #{Rails.root} && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
+      puts "  5 * * * * cd #{Rails.root} && /full/path/to/rvm/bin/rake RAILS_ENV=#{Rails.env} -f Rakefile rmonitor:monitoring"
     end
 
     desc "Update RMonitor"
@@ -38,7 +38,7 @@ namespace :rmonitor do
 
       puts ""
       puts "Now configure your cronjob"
-      puts "  5 * * * * cd #{Rails.root} && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
+      puts "  5 * * * * cd #{Rails.root} && /full/path/to/rvm/bin/rake RAILS_ENV=#{Rails.env} -f Rakefile rmonitor:monitoring"
     end
 
   end
@@ -68,18 +68,18 @@ namespace :rmonitor do
     servers.each do |server|
       puts " -- Server #{server.name}"
 
-      protocols = ["Ping"]
-      # protocols = ["Ping", "HTTP"]
+      protocols = ["ping"]
+      # protocols = ["ping", "http"]
 
       protocols.each do |p|
-        monitoring = server.monitorings.where('protocol = ?', p.downcase).last
+        monitoring = server.monitorings.where('protocol = ?', p).last
         status     = (("RMonitor::Modules::Monitorings::#{p}").constantize).execute(server.host.to_s)
         server_status = 0
 
         if monitoring.nil? || monitoring.status != status
           m = Monitoring.new
           m.server   = server
-          m.protocol = p.downcase
+          m.protocol = p
           m.status = status
           m.save
 
