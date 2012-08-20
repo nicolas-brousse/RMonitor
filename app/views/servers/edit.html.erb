@@ -8,6 +8,7 @@
     <li class="active"><a href="#infos" data-toggle="tab">Informations</a></li>
     <li><a href="#modules" data-toggle="tab">Modules</a></li>
     <li><a href="#members" data-toggle="tab">Members</a></li>
+    <li><a href="#monitorings" data-toggle="tab">Monitorings</a></li>
 </ul>
 
 <%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}, :remote => true) do |f| %>
@@ -52,6 +53,16 @@
 
         <div class="tab-pane" id="members" data-toggle="pill">
         </div> <!-- /#members -->
+
+        <div class="tab-pane" id="monitorings" data-toggle="pill">
+
+            <div class="control-group">
+                <%= f.label :monitorings, :class => "control-label" %>
+                <div class="controls">
+                    <%# f.check_box :monitorings %>
+                </div>
+            </div>
+        </div> <!-- /#monitorings -->
     </div>
 
     <div class="form-actions">
