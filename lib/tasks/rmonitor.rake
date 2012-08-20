@@ -94,7 +94,7 @@ namespace :rmonitor do
       # server_status > 0 && server_status < protocols.count => yellow
       # server_status > protocols.count => red
       server.status = server_status <= 0 ? true : false
-      server.synchronized_at = Time.now
+      server.synchronized_at = Time.current
       server.save
 
       puts " ------ Current uptime = #{server.uptime.round(2)}%"

@@ -35,8 +35,9 @@ class Server < ActiveRecord::Base
   def downtime(started=nil, ended=nil)
     downtime = 0.0
     prev     = nil
-    started  = Time.now - 1.month if started.nil?
-    ended    = Time.now if ended.nil?
+    now      = Time.current
+    started  = now - 1.month if started.nil?
+    ended    = now if ended.nil?
 
     monitorings = self.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", 'ping', started, ended)
                                   .order('created_at ASC')
@@ -55,7 +56,7 @@ class Server < ActiveRecord::Base
     end
 
     if !prev.nil? && prev.status == Monitoring::DOWN
-      downtime += Time.now - prev.created_at
+      downtime += now - prev.created_at
     end
 
     total_time = ended - started

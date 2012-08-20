@@ -11,6 +11,6 @@ class Monitoring < ActiveRecord::Base
 
 private
   def before_create
-    self.created_at = Time.now
+    self.created_at = Time.current
   end
 end
