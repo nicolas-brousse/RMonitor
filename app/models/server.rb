@@ -3,10 +3,13 @@ class Server < ActiveRecord::Base
 
   friendly_id :name, :use => :slugged
 
+  serialize :preferences, OpenStruct
+
   has_many :monitorings
   has_many :incidents
 
-  attr_accessible :host, :name, :slug, :is_public, :status, :synchronized_at
+  attr_accessible :host, :name, :slug, :is_public, :status, :synchronized_at,
+                  :preferences
 
   # Named Scopes
   scope :publics, lambda{ where("is_public = ?", true) }
@@ -62,6 +65,7 @@ class Server < ActiveRecord::Base
     total_time = ended - started
     (downtime / total_time) * 100.0
   end
+
 private
   def domain_exists?
     w = Whois::Client.new(:timeout => 10)

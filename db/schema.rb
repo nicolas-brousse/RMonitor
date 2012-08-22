@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812200157) do
+ActiveRecord::Schema.define(:version => 20120822215923) do
 
   create_table "incidents", :force => true do |t|
     t.string   "name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20120812200157) do
     t.datetime "updated_at",      :null => false
     t.boolean  "is_public"
     t.string   "slug"
+    t.text     "preferences"
   end
 
   add_index "servers", ["slug"], :name => "index_servers_on_slug", :unique => true
