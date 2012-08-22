@@ -55,13 +55,20 @@
         </div> <!-- /#members -->
 
         <div class="tab-pane" id="monitorings" data-toggle="pill">
-
+            <%= fields_for "server[preferences][monitorings]", current_server.preferences.monitorings do |m| %>
             <div class="control-group">
-                <%= f.label :monitorings, :class => "control-label" %>
+                <%= m.label :ping, :class => "control-label" %>
                 <div class="controls">
-                    <%# f.check_box :monitorings %>
+                    <%= m.check_box :ping %>
                 </div>
             </div>
+            <div class="control-group">
+                <%= m.label :http, :class => "control-label" %>
+                <div class="controls">
+                    <%= m.check_box :http %>
+                </div>
+            </div>
+            <% end %>
         </div> <!-- /#monitorings -->
     </div>
 

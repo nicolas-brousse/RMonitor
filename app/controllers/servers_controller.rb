@@ -42,6 +42,7 @@ class ServersController < ApplicationController
   # PUT /servers/:id
   def update
     @server = Server.find(params[:id])
+    params[:server][:preferences] = OpenStruct.new(params[:server][:preferences])
 
     respond_to do |format|
       if @server.update_attributes(params[:server])
