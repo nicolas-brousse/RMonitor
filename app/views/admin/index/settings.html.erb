@@ -42,6 +42,7 @@
             <div class="control-group">
                 <%= label_tag :settings_monitoring_is_public, t(:monitoring_is_public), :class => "control-label" %>
                 <div class="controls">
+                    <%= hidden_field_tag "settings[monitoring_is_public]", 0 %>
                     <%= check_box_tag("settings[monitoring_is_public]", 1, @settings.monitoring_is_public?) %>
                 </div>
             </div>

@@ -20,7 +20,6 @@ class Admin::IndexController < ApplicationController
       Setting[k] = v
     end
 
-
     respond_to do |format|
       format.html { redirect_to :admin_settings, :notice => :settings_updated }
       format.js   { flash.now[:notice] = :settings_updated }
