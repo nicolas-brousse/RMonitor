@@ -1,0 +1,9 @@
+<% content_for :title, "Incident \##{@incident.name}" %>
+
+<h1>Incident - <%= @incident.name %> <small>Linked to "<%= current_server.name %>" server</small></h1>
+
+<div class="well formated_text">
+    <%= format_text @incident.body %>
+</div>
+
+<p>+ history with https://github.com/collectiveidea/audited ?</p>

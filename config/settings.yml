@@ -1,0 +1,15 @@
+# RMonitor
+# Copyright (C) 2012  Nicolas Brousse
+
+app_title:
+  default: RMonitor
+monitoring_is_public:
+  default: 1
+mail_from:
+  default: rmonitor@domain.net
+text_formatting:
+  default: markdown
+default_language:
+  default: en
+ui_theme:
+  default: base

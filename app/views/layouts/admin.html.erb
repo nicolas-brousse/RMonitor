@@ -1,0 +1,20 @@
+<% content_for :title, (raw(" | ") if content_for?(:title)).to_s + "Administration" %>
+
+<% content_for :admin_sidebar do %>
+<ul class="nav nav-tabs nav-stacked">
+    <li<%= " class=\"active\"".html_safe if current_page?(admin_path()) %>>
+        <%= link_to "Home", :admin %>
+    </li>
+    <li<%= " class=\"active\"".html_safe if current_page?(admin_servers_path()) %>>
+        <%= link_to "Servers", :admin_servers %>
+    </li>
+    <li<%= " class=\"active\"".html_safe if current_page?(admin_settings_path()) %>>
+        <%= link_to "Settings", :admin_settings %>
+    </li>
+    <li<%= " class=\"active\"".html_safe if current_page?(admin_info_path()) %>>
+        <%= link_to "Informations", :admin_info %>
+    </li>
+</ul>
+<% end %>
+
+<%= render :file => "layouts/application" %>

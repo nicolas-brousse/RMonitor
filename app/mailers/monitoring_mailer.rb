@@ -1,5 +1,5 @@
 class MonitoringMailer < ActionMailer::Base
-  default from: "no-reply@rmonitor.com"
+  default from: Setting.mail_from
 
   def alert_email(user, monitorings)
     @user        = user

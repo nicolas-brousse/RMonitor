@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712224150) do
+ActiveRecord::Schema.define(:version => 20120822215923) do
+
+  create_table "incidents", :force => true do |t|
+    t.string   "name"
+    t.text     "body"
+    t.integer  "monitoring_id"
+    t.integer  "server_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "incidents", ["monitoring_id"], :name => "index_incidents_on_monitoring_id"
+  add_index "incidents", ["server_id"], :name => "index_incidents_on_server_id"
 
   create_table "monitorings", :force => true do |t|
     t.integer  "server_id"
@@ -29,7 +41,28 @@ ActiveRecord::Schema.define(:version => 20120712224150) do
     t.datetime "synchronized_at"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.boolean  "is_public"
+    t.string   "slug"
+    t.text     "preferences"
   end
+
+  add_index "servers", ["slug"], :name => "index_servers_on_slug", :unique => true
+
+  create_table "settings", :force => true do |t|
+    t.string   "name",       :limit => 30, :default => "", :null => false
+    t.text     "value"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  create_table "user_preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "time_zone"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_preferences", ["user_id"], :name => "index_user_preferences_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

@@ -62,15 +62,23 @@
 }
 .subnav .nav > li > a {
   margin: 0;
-  padding-top:    11px;
-  padding-bottom: 11px;
+  padding: 11px 10px;
   -webkit-border-radius: 0;
      -moz-border-radius: 0;
           border-radius: 0;
 }
-.subnav .nav > .brand > span,
-.subnav .nav > .brand > a,
-.subnav .nav > .brand > a:hover {
+
+.subnav .nav > .brand > a {
+  display: block;
+  float: left;
+  padding: 8px 20px 12px;
+  margin-left: -12px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.subnav .nav > .server > a,
+.subnav .nav > .server > a:hover {
   display: block;
   line-height: 14px;
   padding: 11px 12px 11px 12px;
@@ -135,7 +143,7 @@
   }
   .subnav-fixed .nav {
     margin: 0 auto;
-    padding: 0 1px 0 191px;
+    padding: 0 1px 0 0;
   }
   .subnav .nav > li:first-child > a,
   .subnav .nav > li:first-child > a:hover {

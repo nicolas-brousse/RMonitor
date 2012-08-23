@@ -1,0 +1,58 @@
+<% content_for :title, "#{current_server.name} Monitorings" %>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th width="5">Status</th>
+            <th>Protocol</th>
+            <th>Last synchronization</th>
+            <th width="100"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%- if @monitorings.blank? -%>
+            <tr>
+                <td colspan="4">No monitoring. <%= link_to t(:add_monitoring), edit_server_path(current_server, :anchor => :monitorings) %></td>
+            </tr>
+        <%- else -%>
+            <% @monitorings.each do |monitoring| %>
+            <tr>
+                <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
+                <td><%= monitoring.protocol %></td>
+                <td><i class="icon-time"></i> <%= monitoring.created_at %></td>
+                <td><i class="icon-list-alt"></i> <%= link_to "history",  servers_monitorings_history_path(current_server, monitoring.protocol) %></td>
+            </tr>
+            <% end %>
+        <%- end -%>
+    </tbody>
+</table>
+
+
+<h3>Incidents</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th width="5">#</th>
+            <th width="5">Protocol</th>
+            <th>Name</th>
+            <th width="180">At</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if @incidents.blank? %>
+            <tr>
+                <td colspan="4">No incidents</td>
+            </tr>
+        <% else %>
+            <% @incidents.each do |incident| %>
+            <tr>
+                <td><%= link_to incident.id, edit_server_incident_path(current_server, incident) %></td>
+                <td><%= incident.monitoring.protocol %></td>
+                <td><%= incident.name %></td>
+                <td><i class="icon-time"></i> <%= incident.created_at %></td>
+            </tr>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>
