@@ -1,14 +1,14 @@
 <% content_for :title, "Settings" %>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#general" data-toggle="tab">General</a></li>
-    <li><a href="#display" data-toggle="tab">Display</a></li>
-</ul>
-
 <%= form_tag(admin_edit_settings_path(), :class => "form-horizontal", :remote => true) do %>
 <fieldset>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#general">General</a></li>
+        <li><a href="#display">Display</a></li>
+    </ul>
+
     <div class="tab-content">
-        <div class="tab-pane active" id="general" data-toggle="pill">
+        <div class="tab-pane active" id="general">
             <div class="control-group">
                 <%= label_tag :settings_app_title, t(:app_title), :class => "control-label" %>
                 <div class="controls">
@@ -24,7 +24,7 @@
             </div>
         </div> <!-- /#general -->
 
-        <div class="tab-pane" id="display" data-toggle="pill">
+        <div class="tab-pane" id="display">
             <div class="control-group">
                 <%= label_tag :settings_ui_theme, t(:ui_theme), :class => "control-label" %>
                 <div class="controls">

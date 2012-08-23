@@ -4,17 +4,17 @@
     <h1>Settings</h1>
 </div>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#infos" data-toggle="tab">Informations</a></li>
-    <li><a href="#modules" data-toggle="tab">Modules</a></li>
-    <li><a href="#members" data-toggle="tab">Members</a></li>
-    <li><a href="#monitorings" data-toggle="tab">Monitorings</a></li>
-</ul>
-
 <%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}, :remote => true) do |f| %>
 <fieldset>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#infos">Informations</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <li><a href="#members">Members</a></li>
+        <li><a href="#monitorings">Monitorings</a></li>
+    </ul>
+
     <div class="tab-content">
-        <div class="tab-pane active" id="infos" data-toggle="pill">
+        <div class="tab-pane active" id="infos">
             <div class="control-group">
                 <%= f.label :name, :class => "control-label" %>
                 <div class="controls">
@@ -48,13 +48,13 @@
             </div>
         </div> <!-- /#infos -->
 
-        <div class="tab-pane" id="modules" data-toggle="pill">
+        <div class="tab-pane" id="modules">
         </div> <!-- /#modules -->
 
-        <div class="tab-pane" id="members" data-toggle="pill">
+        <div class="tab-pane" id="members">
         </div> <!-- /#members -->
 
-        <div class="tab-pane" id="monitorings" data-toggle="pill">
+        <div class="tab-pane" id="monitorings">
             <%= fields_for "server[preferences][monitorings]", current_server.preferences.monitorings do |m| %>
             <div class="control-group">
                 <%= m.label :ping, :class => "control-label" %>
