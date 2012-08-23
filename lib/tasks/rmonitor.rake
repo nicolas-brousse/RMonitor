@@ -62,7 +62,7 @@ namespace :rmonitor do
     puts ""
 
     servers       = Server.includes(:monitorings).all
-    server_status = true
+    server_status = 0
     alerts        = []
 
     servers.each do |server|
@@ -73,7 +73,7 @@ namespace :rmonitor do
       protocols.each do |p|
         monitoring = server.monitorings.where('protocol = ?', p).last
         status     = (("RMonitor::Modules::Monitorings::#{p.camelize}").constantize).execute(server.host.to_s)
-        server_status = 0
+        server_status += 1 if status == Monitoring::DOWN
 
         if monitoring.nil? || monitoring.status != status
           m = Monitoring.new
@@ -82,8 +82,7 @@ namespace :rmonitor do
           m.status = status
           m.save
 
-          server_status += 1 if status == false
-          alerts << m if !monitoring.nil? && monitoring.status != true
+          alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP
         end
 
         puts " ---- #{p} = #{status}"
