@@ -31,18 +31,18 @@ class Server < ActiveRecord::Base
 
 
   # Job methods
-  def uptime(started=nil, ended=nil)
+  def uptime(protocol="ping", started=nil, ended=nil)
     100.0 - downtime = downtime(started, ended)
   end
 
-  def downtime(started=nil, ended=nil)
+  def downtime(protocol="ping", started=nil, ended=nil)
     downtime = 0.0
     prev     = nil
     now      = Time.current
     started  = now - 1.month if started.nil?
     ended    = now if ended.nil?
 
-    monitorings = self.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", 'ping', started, ended)
+    monitorings = self.monitorings.where("protocol = ? AND (? <= created_at AND created_at <= ?)", protocol, started, ended)
                                   .order('created_at ASC')
 
     return downtime if monitorings.empty?
