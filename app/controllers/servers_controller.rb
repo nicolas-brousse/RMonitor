@@ -8,9 +8,8 @@ class ServersController < ApplicationController
 
   # GET /servers/:id
   def show
-    protocols = ["ping", "http"]
     @monitorings =  Monitoring.where("server_id = ?", @server.id)
-                              .where("protocol IN (?)", protocols)
+                              .where("protocol IN (?)",  @server.preferences.monitorings)
                               .group("protocol")
                               .order("created_at DESC")
                     .delete_if {|m| m if m.status != false }
@@ -31,7 +30,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if @server.save
-        format.html { redirect_to server_path(@server), :notice => :server_created }
+        format.html { redirect_to edit_server_path(@server), :notice => :server_created }
       else
         flash.now[:error] = @server.errors.full_messages
         format.html { render :action => "new" }
@@ -62,7 +61,7 @@ class ServersController < ApplicationController
     server.destroy
 
     respond_to do |format|
-      format.html { redirect_to servers_path() }
+      format.html { redirect_to :back }
     end
   end
 

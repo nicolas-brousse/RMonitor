@@ -12,7 +12,7 @@
     <tbody>
         <%- if @monitorings.blank? -%>
             <tr>
-                <td colspan="4">No monitoring. <%= link_to t(:add_monitoring), "#" %></td>
+                <td colspan="4">No monitoring. <%= link_to t(:add_monitoring), edit_server_path(current_server, :anchor => :monitorings) %></td>
             </tr>
         <%- else -%>
             <% @monitorings.each do |monitoring| %>

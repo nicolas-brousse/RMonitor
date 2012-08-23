@@ -68,8 +68,7 @@ namespace :rmonitor do
     servers.each do |server|
       puts " -- Server #{server.name}"
 
-      protocols = ["ping"]
-      # protocols = ["ping", "http"]
+      protocols =  server.preferences.monitorings
 
       protocols.each do |p|
         monitoring = server.monitorings.where('protocol = ?', p).last
