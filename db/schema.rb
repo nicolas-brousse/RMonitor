@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822215923) do
+ActiveRecord::Schema.define(:version => 20120823193209) do
 
   create_table "incidents", :force => true do |t|
     t.string   "name"
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(:version => 20120822215923) do
   create_table "servers", :force => true do |t|
     t.string   "name"
     t.string   "host"
-    t.boolean  "status"
+    t.integer  "status",          :limit => 1, :default => 1, :null => false
     t.datetime "synchronized_at"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.boolean  "is_public"
     t.string   "slug"
     t.text     "preferences"
