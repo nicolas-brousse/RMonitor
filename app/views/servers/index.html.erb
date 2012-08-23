@@ -18,7 +18,7 @@
 <% @servers.each do |server| %>
     <tr>
         <td>
-            <span class="badge badge-<%= server.status ? 'success' : 'important' %>">&nbsp;</span>
+            <%= server_status_badge(server) %>
             <%= link_to h(server.name), server_path(server) %>
         </td>
         <td>
@@ -49,7 +49,7 @@
     <% else %>
     <div class="accordion-group">
         <div class="accordion-heading">
-            <span class="badge badge-<%= server.status ? 'success' : 'important' %>">&nbsp;</span>
+            <%= server_status_badge(server) %>
             <%= link_to h(server.name), server_path(server), :class => "accordion-toggle" %>
             <small><i class="icon-hdd"></i> <%= server.host %></small>
         </div>

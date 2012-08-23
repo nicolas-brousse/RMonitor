@@ -3,6 +3,8 @@ class Server < ActiveRecord::Base
 
   friendly_id :name, :use => :slugged
 
+  before_destroy :before_destroy
+
   serialize :preferences, OpenStruct
 
   has_many :monitorings
@@ -74,5 +76,10 @@ private
     # errors.add(:host, "server_form.host_invalid") unless r.registered?
   # rescue Whois::Error => e
   #   errors.add(:host, "server_form.host_not_found")
+  end
+
+  def before_destroy
+    Monitoring.destroy_all "server_id = #{id}"
+    Incident.destroy_all   "server_id = #{id}"
   end
 end

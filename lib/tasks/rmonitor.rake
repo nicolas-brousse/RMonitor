@@ -89,10 +89,15 @@ namespace :rmonitor do
         puts " ---- #{p} = #{status}"
       end
 
-      # server_status == 0 => green
-      # server_status > 0 && server_status < protocols.count => yellow
-      # server_status > protocols.count => red
-      server.status = server_status <= 0 ? true : false
+
+      if server_status == 0
+        server.status = 2 #=> green
+      elsif server_status > 0 && server_status < protocols.count
+        server.status = 1 #=> yellow
+      else
+        server.status = 0 #=> red
+      end
+
       server.synchronized_at = Time.current
       server.save
 

@@ -19,6 +19,8 @@ module RMonitor
             return true
           rescue Timeout::Error
             return false
+          rescue Exception
+            return false
           end
         end
 

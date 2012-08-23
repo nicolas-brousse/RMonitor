@@ -14,7 +14,7 @@
 
     <%= yield(:javascript) %>
 </head>
-<body class="<%= yield(:body_class) %><%= current_server ? raw(' with-subnav') : nil %>">
+<body class="<%= yield(:body_class) %><%= current_server ? raw('with-subnav') : nil %>">
 
     <%= render "layouts/navbar" %>
 
