@@ -7,47 +7,48 @@
         <li><a href="#display">Display</a></li>
     </ul>
 
+    <%= fields_for :settings, @settings do |f| %>
     <div class="tab-content">
         <div class="tab-pane active" id="general">
             <div class="control-group">
-                <%= label_tag :settings_app_title, t(:app_title), :class => "control-label" %>
+                <%= f.label :app_title, :class => "control-label" %>
                 <div class="controls">
-                    <%= text_field_tag "settings[app_title]", @settings.app_title, :class => "input-xlarge" %>
+                    <%= f.text_field :app_title, :class => "input-xlarge" %>
                 </div>
             </div>
 
             <div class="control-group">
-                <%= label_tag :settings_text_formatting, t(:text_formatting), :class => "control-label" %>
+                <%= f.label :text_formatting, :class => "control-label" %>
                 <div class="controls">
-                    <%= select_tag "settings[text_formatting]", options_for_select(%w{ markdown textile }, @settings.text_formatting), :class => "input-xlarge" %>
+                    <%= f.select :text_formatting, %w{ markdown textile }, :class => "input-xlarge" %>
                 </div>
             </div>
         </div> <!-- /#general -->
 
         <div class="tab-pane" id="display">
             <div class="control-group">
-                <%= label_tag :settings_ui_theme, t(:ui_theme), :class => "control-label" %>
+                <%= f.label :ui_theme, :class => "control-label" %>
                 <div class="controls">
                     -
                 </div>
             </div>
 
             <div class="control-group">
-                <%= label_tag :settings_default_language, t(:default_language), :class => "control-label" %>
+                <%= f.label :default_language, :class => "control-label" %>
                 <div class="controls">
                     -
                 </div>
             </div>
 
             <div class="control-group">
-                <%= label_tag :settings_monitoring_is_public, t(:monitoring_is_public), :class => "control-label" %>
+                <%= f.label :monitoring_is_public, :class => "control-label" %>
                 <div class="controls">
-                    <%= hidden_field_tag "settings[monitoring_is_public]", 0 %>
-                    <%= check_box_tag("settings[monitoring_is_public]", 1, @settings.monitoring_is_public?) %>
+                    <%= f.check_box :monitoring_is_public %>
                 </div>
             </div>
         </div> <!-- /#display -->
     </div>
+    <% end %>
 
     <div class="form-actions">
         <%= submit_tag "Save changes", :class => "btn btn-primary" %>
