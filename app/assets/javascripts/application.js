@@ -8,6 +8,9 @@
 //= require jquery_ujs
 //= require bootstrap.min
 
+//
+// Optimize remote forms
+//
 $("form[data-remote='true']").on('submit', function() {
     $this = $(this)
     $btn  = $this.find("input[name='commit'][type='submit'], button[type='submit']")
@@ -20,7 +23,18 @@ $("form[data-remote='true']").on('submit', function() {
     })
 });
 
+
+//
+// Optimize Nav-Tabs
+//
 $('.nav.nav-tabs.nav-js a').click(function (e) {
     e.preventDefault()
+    // var scr = document.body.scrollTop;
+    window.location.hash = $(this).attr('href')
+    // document.body.scrollTop = scr;
     $(this).tab('show')
 })
+
+if(window.location.hash) {
+    $('.nav-js a[href="'+window.location.hash+'"]').tab('show')
+}
