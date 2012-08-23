@@ -1,4 +1,4 @@
-class MonitoringMailer < ActionMailer::Base
+class MonitoringMailer < BaseMailer
   default from: Setting.mail_from
 
   def alert_email(user, monitorings)
