@@ -7,6 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap.min
+
 $("form[data-remote='true']").on('submit', function() {
     $this = $(this)
     $btn  = $this.find("input[name='commit'][type='submit'], button[type='submit']")
@@ -18,3 +19,8 @@ $("form[data-remote='true']").on('submit', function() {
         $this.off('ajax:complete')
     })
 });
+
+$('.nav.nav-tabs a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+})
