@@ -23,6 +23,7 @@
                     <li><%= link_to "Sign out", :destroy_user_session, :method => :delete %></li>
                 </ul>
             </div>
+
         <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
             <ul class="nav pull-right"><li><%= link_to "Sign up", :new_user_registration %></li></ul>
         <% else %>
@@ -35,6 +36,10 @@
                     <li<%= nav_class :index, :dashboard %>><%= link_to t(:dashboard), :dashboard %></li>
                     <li<%= nav_class %w{ servers monitorings } %>><%= link_to "Servers", :servers %></li>
                 </ul>
+
+                <%# form_tag(nil, :method => :get, :class => "navbar-search pull-left") do %>
+                    <%# text_field_tag :search, params[:search], :class => "search-query span2", :placeholder => :search, :data => {:provide => "typeahead"} %>
+                <%# end %>
             </div> <!--/.nav-collapse -->
         <% end %>
         </div>

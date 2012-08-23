@@ -9,7 +9,25 @@
 //= require bootstrap.min
 
 //
+// Typehead
+//
+$("input[data-provide='typeahead']").typeahead({
+    source: function () {
+        // console.log(typeahead);
+        alert("yo");
+        console.log(this);
+        console.log($this.closest("form").attr('action'));
+        // return [{value: 'Charlie'}, {value: 'Gudbergur'}];
+        // return $.post($this.closest("form").attr('action'), { query: query }, function (data) {
+        //     return typeahead.process(data);
+        // });
+    }
+});
+
+
+//
 // Optimize remote forms
+// Show loading... and disable submit input or button on submit
 //
 $("form[data-remote='true']").on('submit', function() {
     $this = $(this)
