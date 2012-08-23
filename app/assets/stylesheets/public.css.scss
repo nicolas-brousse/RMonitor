@@ -36,5 +36,6 @@ body.public {
   font-size: 1.2em;
 }
 
-.full-circle.green { border-color: green; }
-.full-circle.red   { border-color: red; }
+.full-circle.success   { border-color: green; }
+.full-circle.warning   { border-color: yellow; }
+.full-circle.important { border-color: red; }

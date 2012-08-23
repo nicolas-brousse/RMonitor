@@ -10,6 +10,7 @@
 
 @import url(http://fonts.googleapis.com/css?family=Actor|Ubuntu|Imprima);
 
+body { font-size: .8em; }
 
 .navbar .navbar-inner {
   background-color: #000;
