@@ -12,16 +12,12 @@ module RMonitor
         def self.execute(host)
           begin
             Timeout.timeout(15) do 
-              uri = URI.parse("http://#{host}")
+              uri  = URI.parse("http://#{host}")
               http = Net::HTTP.new(uri.host, uri.port)
-              request = Net::HTTP::Get.new(uri.request_uri)
-              response = http.request(request)
+              req  = Net::HTTP::Get.new(uri.request_uri)
+              res  = http.request(req)
 
-              if response.code != 200
-                return false
-              else
-                return true
-              end
+              return res.code.to_i == 200
             end
           rescue Errno::ECONNREFUSED
             return false

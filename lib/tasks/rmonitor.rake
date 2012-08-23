@@ -41,16 +41,16 @@ namespace :rmonitor do
       puts "  5 * * * * cd #{Rails.root} && /full/path/to/rvm/bin/rake RAILS_ENV=#{Rails.env} -f Rakefile rmonitor:monitoring"
     end
 
-  end
+    desc "Version of RMonitor Application"
+    task :version => :environment do
+      puts ""
+      puts "Version:"
+      puts "  " + RMonitor::Info.versioned_name
+      puts ""
+      puts RMonitor::Info.environment
+      puts ""
+    end
 
-  desc "Version of RMonitor"
-  task :version => :environment do
-    puts ""
-    puts "Version:"
-    puts "  " + RMonitor::Info.versioned_name
-    puts ""
-    puts RMonitor::Info.environment
-    puts ""
   end
 
   desc "Execute monitoring for all servers"
@@ -68,11 +68,11 @@ namespace :rmonitor do
     servers.each do |server|
       puts " -- Server #{server.name}"
 
-      protocols =  server.preferences.monitorings
+      protocols = server.preferences.monitorings || []
 
       protocols.each do |p|
         monitoring = server.monitorings.where('protocol = ?', p).last
-        status     = (("RMonitor::Modules::Monitorings::#{p}").constantize).execute(server.host.to_s)
+        status     = (("RMonitor::Modules::Monitorings::#{p.camelize}").constantize).execute(server.host.to_s)
         server_status = 0
 
         if monitoring.nil? || monitoring.status != status
