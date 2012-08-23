@@ -20,7 +20,7 @@ $("form[data-remote='true']").on('submit', function() {
     })
 });
 
-$('.nav.nav-tabs a').click(function (e) {
+$('.nav.nav-tabs.nav-js a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
 })
