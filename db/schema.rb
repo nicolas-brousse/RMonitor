@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20120823193209) do
   create_table "servers", :force => true do |t|
     t.string   "name"
     t.string   "host"
-    t.integer  "status",          :limit => 1, :default => 1, :null => false
+    t.integer  "status",          :limit => 1, :default => 0, :null => false
     t.datetime "synchronized_at"
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
