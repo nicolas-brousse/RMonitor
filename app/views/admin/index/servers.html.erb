@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <% @servers.each do |server| %>
-    <tr>
+    <tr id="line_<%= server.id %>">
       <td><%= server.id %></td>
       <td><%= link_to server.name, server_path(server) %></td>
       <td><i class="icon-hdd"></i> <%= server.host %></td>
@@ -20,7 +20,7 @@
       <td>
         <%= link_to edit_server_path(server) do -%><i class="icon-cog"></i>Edit<%- end -%>
         -
-        <%= link_to server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete do -%><i class="icon-trash"></i>Delete<%- end -%>
+        <%= link_to server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete, :remote => true do -%><i class="icon-trash"></i>Delete<%- end -%>
       </td>
     </tr>
     <% end %>

@@ -57,11 +57,12 @@ class ServersController < ApplicationController
 
   # DELETE /servers/:id
   def destroy
-    server = Server.find(params[:id])
-    server.destroy
+    @server = Server.find(params[:id])
+    @server.destroy
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to servers_path() }
+      format.js
     end
   end
 
