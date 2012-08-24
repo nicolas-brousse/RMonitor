@@ -32,11 +32,11 @@
             </div>
 
             <div class="row">
-                <div class="span9">
-                    <%= yield.blank? ? raw("&nbsp;") : yield %>
-                </div>
                 <div class="span3">
                     <%= yield(:admin_sidebar) %>
+                </div>
+                <div class="span9">
+                    <%= yield.blank? ? raw("&nbsp;") : yield %>
                 </div>
             </div>
         </div> <!-- /.yield -->

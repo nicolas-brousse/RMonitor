@@ -55,7 +55,7 @@
         </div> <!-- /#members -->
 
         <div class="tab-pane" id="monitorings">
-            <div class="well">
+            <div class="well well-small">
             <%= fields_for "server[preferences][monitorings]", current_server.preferences.monitorings do |m| %>
                 <% RMonitor::Modules::Monitorings.protocol_list.each do |protocol| %>
                 <div class="control-group">
