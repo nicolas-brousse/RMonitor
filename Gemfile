@@ -19,6 +19,8 @@ gem 'whois'
 
 gem 'formatize'
 
+# https://github.com/fnando/i18n-js
+
 # gem 'sidekiq'
 
 # gem 'audited-activerecord'
