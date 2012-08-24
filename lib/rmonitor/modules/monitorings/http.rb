@@ -2,7 +2,7 @@ require "net/http"
 require "uri"
 require "timeout"
 
-require "abstract_protocol"
+require "rmonitor/modules/abstract_protocol"
 
 module RMonitor
   module Modules

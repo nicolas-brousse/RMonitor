@@ -1,4 +1,4 @@
-require 'abstract_module'
+require 'rmonitor/modules/abstract_module'
 
 module RMonitor
   module Modules
