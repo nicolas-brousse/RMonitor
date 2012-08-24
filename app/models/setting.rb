@@ -32,6 +32,12 @@ class Setting < ActiveRecord::Base
     setting.value
   end
 
+  def self.options_for(name)
+    name = name.to_s
+    raise "There's no setting named #{name}" unless @@available_settings.has_key?(name)
+    @@available_settings[name]["options"] || nil
+  end
+
   # Defines getter and setter for each setting
   # Then setting values can be read using: Setting.some_setting_name
   # or set using Setting.some_setting_name = "some value"

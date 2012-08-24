@@ -20,7 +20,7 @@
             <div class="control-group">
                 <%= f.label :text_formatting, :class => "control-label" %>
                 <div class="controls">
-                    <%= f.select :text_formatting, %w{ markdown textile }, :class => "input-xlarge" %>
+                    <%= f.select :text_formatting, Setting.options_for(:text_formatting), :class => "input-xlarge" %>
                 </div>
             </div>
         </div> <!-- /#general -->
@@ -36,7 +36,7 @@
             <div class="control-group">
                 <%= f.label :default_language, :class => "control-label" %>
                 <div class="controls">
-                    -
+                    <%= f.select :default_language, Setting.options_for(:default_language), :class => "input-xlarge" %>
                 </div>
             </div>
 
