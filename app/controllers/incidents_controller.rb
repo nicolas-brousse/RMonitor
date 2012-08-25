@@ -1,12 +1,32 @@
 class IncidentsController < ApplicationController
   before_filter :init_current_server
 
-  # GET /incident/:id
+  # GET /servers/:server_id/incidents/:id
   def show
     @incident = Incident.find(params[:id])
   end
 
-  # GET /incident/:id/edit
+  # GET /servers/:server_id/incidents/new
+  def new
+    @incident = Incident.new
+    @incident.monitoring_id = params[:monitoring_id] unless params[:monitoring_id].blank?
+  end
+
+  # POST 
+  def create
+    @incident = @server.incidents.create(params[:incident])
+
+    respond_to do |format|
+      if @incident.save
+        format.html { redirect_to edit_server_incident_path(@server, @incident), :notice => :incident_added }
+      else
+        flash.now[:error] = @incident.errors.full_messages
+        format.html { render :action => "new" }
+      end
+    end
+  end
+
+  # GET /servers/laboratory/incidents/new
   def edit
     @incident = Incident.find(params[:id])
   end
@@ -17,7 +37,7 @@ class IncidentsController < ApplicationController
 
     respond_to do |format|
       if @incident.update_attributes(params[:incident])
-        format.html { redirect_to edit_server_incident_path(@incident), :notice => :incident_updated }
+        format.html { redirect_to edit_server_incident_path(@server, @incident), :notice => :incident_updated }
       else
         flash.now[:error] = @incident.errors.full_messages
         format.html { render :action => "edit" }
