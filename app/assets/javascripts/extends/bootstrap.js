@@ -67,15 +67,20 @@ $.rails.confirmed = function(link)
 
 $.rails.showConfirmDialog = function(link)
 {
-    var html, message;
+    var html, 
+        message = "",
+        body = "";
     message = link.attr('data-confirm')
+    if (link.attr('data-message') && link.attr('data-message').length > 0) {
+        body = "<div class=\"modal-body\">\n    <p>" + link.attr('data-message') + "</p>\n  </div>\n"
+    }
 
-    html = "<div class=\"modal fade\" id=\"modal-confirmation\" role=\"dialog\">\n  <div class=\"modal-header\">\n    <a class=\"close\" data-dismiss=\"modal\">×</a>\n    <h3>" + message + "</h3>\n  </div>\n  <div class=\"modal-body\">\n    <p>Are you sure you want to delete?</p>\n  </div>\n  <div class=\"modal-footer\">\n    <a data-dismiss=\"modal\" class=\"btn\">Cancel</a>\n    <a data-dismiss=\"modal\" class=\"btn btn-primary confirm\">OK</a>\n  </div>\n</div>";
-    return $(html).modal('show')
+    html = "<div class=\"modal fade\" id=\"modal-confirmation\" role=\"dialog\">\n  <div class=\"modal-header\">\n    <a class=\"close\" data-dismiss=\"modal\">×</a>\n    <h3>" + message + "</h3>\n  </div>\n  " + body + "  <div class=\"modal-footer\">\n    <a data-dismiss=\"modal\" class=\"btn\">Cancel</a>\n    <a data-dismiss=\"modal\" class=\"btn btn-primary confirm\">OK</a>\n  </div>\n</div>";
+    return $(html).modal()
                   .on('hidden', function () {
-                       $(this).remove()
+                      $(this).remove()
                   })
                   .find('.confirm').on('click', function() {
-                       return $.rails.confirmed(link)
+                      return $.rails.confirmed(link)
                   })
 }
