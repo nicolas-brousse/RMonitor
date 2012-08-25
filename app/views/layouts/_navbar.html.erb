@@ -60,7 +60,7 @@
                     <i class="icon-time"></i> Overview/Activity
                 <% end %>
             </li>
-            <li<%= nav_class :monitorings %>>
+            <li<%= nav_class [:monitorings, :incidents] %>>
                 <%= link_to servers_monitorings_path(current_server) do %>
                     <i class="icon-signal"></i> Monitorings
                 <% end %>

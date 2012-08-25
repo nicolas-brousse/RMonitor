@@ -34,22 +34,22 @@
     <thead>
         <tr>
             <th width="5">#</th>
-            <th width="5">Protocol</th>
             <th>Name</th>
+            <th width="5">Protocol</th>
             <th width="180">At</th>
         </tr>
     </thead>
     <tbody>
         <% if @incidents.blank? %>
             <tr>
-                <td colspan="4">No incidents</td>
+                <td colspan="4">No incidents. <%= link_to t(:add_incident), :new_server_incident %></td>
             </tr>
         <% else %>
             <% @incidents.each do |incident| %>
             <tr>
                 <td><%= link_to incident.id, edit_server_incident_path(current_server, incident) %></td>
-                <td><%= incident.monitoring.protocol %></td>
                 <td><%= incident.name %></td>
+                <td><%= incident.monitoring.nil? ? "-" : incident.monitoring.protocol %></td>
                 <td><i class="icon-time"></i> <%= incident.created_at %></td>
             </tr>
             <% end %>
