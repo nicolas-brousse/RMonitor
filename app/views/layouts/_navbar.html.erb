@@ -34,7 +34,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li<%= nav_class :index, :dashboard %>><%= link_to t(:dashboard), :dashboard %></li>
-                    <li<%= nav_class %w{ servers monitorings } %>><%= link_to "Servers", :servers %></li>
+                    <li<%= nav_class %w{ servers monitorings incidents } %>><%= link_to "Servers", :servers %></li>
                 </ul>
 
                 <%# form_tag(nil, :method => :get, :class => "navbar-search pull-left") do %>
@@ -57,7 +57,7 @@
             <li class="divider-vertical"></li>
             <li<%= nav_class :servers, :show %>>
                 <%= link_to server_path(current_server) do %>
-                    <i class="icon-time"></i> Overview/Activity
+                    <i class="icon-time"></i> Overview
                 <% end %>
             </li>
             <li<%= nav_class [:monitorings, :incidents] %>>

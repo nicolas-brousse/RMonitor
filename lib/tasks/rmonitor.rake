@@ -17,8 +17,7 @@ namespace :rmonitor do
       Rake::Task['db:migrate'].invoke
       Rake::Task['db:seed'].invoke
 
-      puts "Now configure your cronjob"
-      puts "  5 * * * * cd #{Rails.root} && /full/path/to/rvm/bin/rake RAILS_ENV=#{Rails.env} -f Rakefile rmonitor:monitoring"
+      Rake::Task['rmonitor:app:update'].invoke
     end
 
     desc "Update RMonitor"
@@ -31,6 +30,7 @@ namespace :rmonitor do
 
       puts "Update RMonitor Application"
       `cd #{Rails.root} && git pull origin`
+      `cd #{Rails.root} bundle install`
 
       puts "Update RMonitor Database for #{Rails.env} env"
       Rake::Task['db:migrate'].invoke
