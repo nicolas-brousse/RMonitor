@@ -50,37 +50,45 @@ if(window.location.hash) {
 //
 // Optimize data-confirm
 //
-$.rails.allowAction = function(link)
+$.rails.allowAction = function(element)
 {
-    if (!link.attr('data-confirm')) {
-      return true
+    var message = element.attr('data-confirm'),
+        answer = false,
+        callback;
+        console.log(message)
+    if (!message) { return true; }
+
+    if ($.rails.fire(element, 'confirm')) {
+        answer   = $.rails.confirm(element, message);
+        callback = $.rails.fire(element, 'confirm:complete', [answer]);
     }
-    $.rails.showConfirmDialog(link)
-    return false
+    console.log(answer, callback)
+    return answer && callback;
 }
 
-$.rails.confirmed = function(link)
+$.rails.confirm = function(element, message)
 {
-    link.removeAttr('data-confirm')
-    return link.trigger('click.rails')
-}
+    if (!element.attr('data-confirm')) {
+        return true
+    }
 
-$.rails.showConfirmDialog = function(link)
-{
-    var html, 
-        message = "",
-        body = "";
-    message = link.attr('data-confirm')
-    if (link.attr('data-message') && link.attr('data-message').length > 0) {
-        body = "<div class=\"modal-body\">\n    <p>" + link.attr('data-message') + "</p>\n  </div>\n"
+    var html, body = "";
+
+    if (element.data('message') && element.data('message').length > 0) {
+        body = "<div class=\"modal-body\">\n    <p>" + element.data('message') + "</p>\n  </div>\n"
     }
 
     html = "<div class=\"modal fade\" id=\"modal-confirmation\" role=\"dialog\">\n  <div class=\"modal-header\">\n    <a class=\"close\" data-dismiss=\"modal\">×</a>\n    <h3>" + message + "</h3>\n  </div>\n  " + body + "  <div class=\"modal-footer\">\n    <a data-dismiss=\"modal\" class=\"btn\">Cancel</a>\n    <a data-dismiss=\"modal\" class=\"btn btn-primary confirm\">OK</a>\n  </div>\n</div>";
-    return $(html).modal()
-                  .on('hidden', function () {
-                      $(this).remove()
-                  })
-                  .find('.confirm').on('click', function() {
-                      return $.rails.confirmed(link)
-                  })
+
+    $(html).modal()
+            .find('.confirm').on('click.rails', function() {
+              console.log(element)
+                element.attr('data-confirm', null).attr('data-message', null)
+                $(element).click()
+            })
+            .on('hidden', function () {
+                $(this).remove()
+            })
+
+    return false;
 }
