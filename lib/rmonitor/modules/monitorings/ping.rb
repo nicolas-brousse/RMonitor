@@ -1,7 +1,7 @@
 require "timeout"
 require "socket"
 
-require "rmonitor/modules/abstract_protocol"
+require "rmonitor/modules/monitorings/abstract_protocol"
 
 module RMonitor
   module Modules
