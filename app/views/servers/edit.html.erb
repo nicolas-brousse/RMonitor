@@ -61,7 +61,7 @@
                 <div class="control-group">
                     <%= m.label protocol, :class => "control-label" %>
                     <div class="controls">
-                        <%= m.check_box nil, {:checked => !current_server.preferences.monitorings.blank? && current_server.preferences.monitorings.include?(protocol.to_s)}, protocol, nil %>
+                        <%= m.check_box nil, {:id => "server_preferences_monitorings_#{protocol.underscore}", :checked => !current_server.preferences.monitorings.blank? && current_server.preferences.monitorings.include?(protocol.to_s)}, protocol, nil %>
                     </div>
                 </div>
                 <% end %>

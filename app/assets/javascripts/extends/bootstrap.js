@@ -54,23 +54,18 @@ $.rails.allowAction = function(element)
     var message = element.attr('data-confirm'),
         answer = false,
         callback;
-        console.log(message)
     if (!message) { return true; }
 
     if ($.rails.fire(element, 'confirm')) {
         answer   = $.rails.confirm(element, message);
         callback = $.rails.fire(element, 'confirm:complete', [answer]);
     }
-    console.log(answer, callback)
+
     return answer && callback;
 }
 
 $.rails.confirm = function(element, message)
 {
-    if (!element.attr('data-confirm')) {
-        return true
-    }
-
     var html, body = "";
 
     if (element.data('message') && element.data('message').length > 0) {
@@ -80,14 +75,16 @@ $.rails.confirm = function(element, message)
     html = "<div class=\"modal fade\" id=\"modal-confirmation\" role=\"dialog\">\n  <div class=\"modal-header\">\n    <a class=\"close\" data-dismiss=\"modal\">×</a>\n    <h3>" + message + "</h3>\n  </div>\n  " + body + "  <div class=\"modal-footer\">\n    <a data-dismiss=\"modal\" class=\"btn\">Cancel</a>\n    <a data-dismiss=\"modal\" class=\"btn btn-primary confirm\">OK</a>\n  </div>\n</div>";
 
     $(html).modal()
-            .find('.confirm').on('click.rails', function() {
-              console.log(element)
-                element.attr('data-confirm', null).attr('data-message', null)
-                $(element).click()
-            })
             .on('hidden', function () {
                 $(this).remove()
+            })
+            .find('.confirm').on('click.rails', function() {
+                element.removeAttr('data-confirm')
+                $.rails.enableElement(element)
+                element.click()
             })
 
     return false;
 }
+
+$(document).on('ujs:everythingStopped', function() { console.log("ujs:everythingStopped") })
