@@ -35,8 +35,7 @@ $("form[data-remote='true']").on('submit', function() {
 //
 // Optimize Nav-Tabs
 //
-$('.nav.nav-tabs.nav-js a').click(function (e)
-{
+$('.nav.nav-tabs.nav-js a').click(function (e) {
     e.preventDefault()
     window.location.hash = $(this).attr('href')
     $(this).tab('show')
