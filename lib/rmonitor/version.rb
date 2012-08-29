@@ -6,7 +6,7 @@ module RMonitor
 
     def self.revision
       revision = nil
-      entries_path = "#{Rails.root}/.git/ORIG_HEAD"
+      entries_path = "#{Rails.root}/.git/refs/heads/#{self.branch}"
       if File.readable?(entries_path)
         begin
           f = File.open(entries_path, 'r')

@@ -61,6 +61,7 @@ $.rails.allowAction = function(element)
         callback = $.rails.fire(element, 'confirm:complete', [answer]);
     }
 
+    // Don't stop the propagation!
     return answer && callback;
 }
 
