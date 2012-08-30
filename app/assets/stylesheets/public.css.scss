@@ -9,9 +9,12 @@
 
 body.public {
   background: #000 image-url("public/background.png") repeat-x;
-  color: #fff;
   margin-top: 60px;
   padding-top: 0;
+}
+
+body.public .container {
+  color: #fff;
 }
 
 .server {

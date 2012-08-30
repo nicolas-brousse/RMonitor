@@ -12,7 +12,7 @@
     <![endif]-->
     <%= csrf_meta_tags %>
 
-    <%= yield(:javascript) %>
+    <%= yield(:header) %>
 </head>
 <body class="<%= yield(:body_class) %><%= current_server ? raw('with-subnav') : nil %>">
 
