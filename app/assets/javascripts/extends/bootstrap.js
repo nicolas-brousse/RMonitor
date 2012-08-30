@@ -22,7 +22,7 @@ $("input[data-provide='typeahead']").typeahead({
 $("form[data-remote='true']").on('submit', function() {
     $this = $(this)
     $btn  = $this.find("input[name='commit'][type='submit'], button[type='submit']")
-                 .attr('data-loading-text', 'loading...')
+                 .data('loading-text', 'loading...')
                  .button('loading')
 
     $this.on('ajax:complete', function() {
@@ -51,7 +51,7 @@ if(window.location.hash) {
 //
 $.rails.allowAction = function(element)
 {
-    var message = element.attr('data-confirm'),
+    var message = element.data('confirm'),
         answer = false,
         callback;
     if (!message) { return true; }
