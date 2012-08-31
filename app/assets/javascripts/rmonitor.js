@@ -10,24 +10,36 @@
 
         modal: function(options)
         {
-            console.log(options)
-            var html, body = "";
+            var $modal, $html;
             var options = $.extend({
                 title: "Are you sure ?",
                 content: "",
-                buttons: {
-                    confirm: function() {},
-                    cancel: function() {}
-                }
+                buttons: {}
             }, options);
 
-            if (options.content && options.content.length > 0) {
-                body = "<div class=\"modal-body\">\n    <p>" + options.content + "</p>\n  </div>\n"
+            $html = $("<div class=\"modal\" role=\"dialog\"></div>");
+            $html.addClass('fade');
+            $html.append("<div class=\"modal-header\">\n    <a class=\"close\" data-dismiss=\"modal\">×</a>\n    <h3>" + options.title + "</h3>\n  </div>");
+            $html.append("<div class=\"modal-body\">\n    <p>" + options.content + "</p>\n  </div>\n");
+
+            if (options.buttons && options.buttons.length > 0)
+            {
+                $html.append("<div class=\"modal-footer\"></div>")
+
+                $.each(options.buttons, function(b) { 
+                    $html.find('.modal-footer').append("<a data-dismiss=\"modal\" class=\"btn" + (this.class ? " " + this.class : "") + "\" rel=\"" + b + "\">" + this.label + "</a>");
+
+                    if (this.callback) {
+                        $html.find(".modal-footer a[rel='"+b+"']").on('click.rails', this.callback);
+                    }
+                });
             }
 
-            html = "<div class=\"modal fade\" id=\"modal-confirmation\" role=\"dialog\">\n  <div class=\"modal-header\">\n    <a class=\"close\" data-dismiss=\"modal\">×</a>\n    <h3>" + options.title + "</h3>\n  </div>\n  " + body + "  <div class=\"modal-footer\">\n    <a data-dismiss=\"modal\" class=\"btn\">Cancel</a>\n    <a data-dismiss=\"modal\" class=\"btn btn-primary confirm\">OK</a>\n  </div>\n</div>";
+            $modal = $html.modal()
 
-            return $(html).modal();
+            return $modal.on('hidden', function () {
+                            $(this).remove()
+                        });
         },
 
         confirm: function(element, message)
@@ -35,17 +47,23 @@
             var options = {
                 title: element.data('confirm'),
                 content: element.data('message'),
-            }
+                buttons: [
+                    {
+                        label: "Cancel"
+                    },
+                    {
+                        label: "OK",
+                        class: "btn-primary confirm",
+                        callback: function() {
+                            element.removeAttr('data-confirm')
+                                    .removeAttr('data-message')
+                            element.click()
+                        }
+                    }
+                ],
+            };
 
             rmonitor.modal(options)
-                    .on('hidden', function () {
-                        $(this).remove()
-                    })
-                    .find('.confirm').on('click.rails', function() {
-                        element.removeAttr('data-confirm')
-                                .removeAttr('data-message')
-                        element.click()
-                    })
 
             return false;
         },
@@ -91,6 +109,14 @@
                 $btn.button('reset')
                 $this.off('ajax:complete')
             })
+        });
+
+        //
+        // Open modal by event
+        //
+        $(document).delegate(document, 'rmonitor:modal:new', function(e, data) {
+            e.preventDefault()
+            rmonitor.modal(data)
         });
 
         //
