@@ -1,20 +1,29 @@
 class Admin::IndexController < ApplicationController
-  before_filter :init_breadcrumb
+  layout "admin"
 
   def index
   end
 
   def info
-    add_breadcrumb "Informations", admin_info_path()
   end
 
   def servers
-    add_breadcrumb "Servers", admin_servers_path()
     @servers = Server.all
   end
 
-private
-  def init_breadcrumb
-    add_breadcrumb "Administration", admin_path()
+  def settings
+    @settings = Setting
   end
+
+  def settings_save
+    params[:settings].each do |k, v|
+      Setting[k] = v
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :admin_settings, :notice => :settings_updated }
+      format.js   { flash.now[:notice] = :settings_updated }
+    end
+  end
+
 end

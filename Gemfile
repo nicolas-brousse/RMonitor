@@ -7,8 +7,24 @@ gem 'rails', '3.2.6'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+gem 'sqlite3'
+
+
+gem 'friendly_id'
 
 gem 'devise'
+gem 'cancan'
+
+gem 'whois'
+
+gem 'formatize'
+
+# https://github.com/fnando/i18n-js
+
+# gem 'sidekiq'
+
+# gem 'audited-activerecord'
+# https://github.com/collectiveidea/audited
 
 # Gems used only for assets and not required
 # in production environments by default.

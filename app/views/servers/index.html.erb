@@ -1,14 +1,61 @@
+<% content_for :title, t(:server).pluralize %>
 
-<%= link_to new_server_path(), :class => "btn btn-small btn-success" do %>
-  <i class="icon-plus icon-white"></i> New server
-<% end %>
+<div class="page-header">
+    <div class="row">
+        <div class="span10">
+            <h1><%= yield :title %></h1>
+        </div>
+        <div class="span2">
+            <%= link_to new_server_path(), :class => "btn btn-small btn-success" do %>
+                <i class="icon-plus icon-white"></i> New server
+            <% end %>
+        </div>
+    </div>
+</div>
 
 
-<ul class="unstyled">
+<table class="table table-striped table-hover">
 <% @servers.each do |server| %>
-  <li>
-    <span class="badge badge-<%= server.status ? 'success' : 'important' %>">&nbsp;</span>
-    <%= link_to server.name, server_path(server) %>
-  </li>
+    <tr>
+        <td>
+            <%= server_status_badge(server) %>
+            <%= link_to h(server.name), server_path(server) %>
+        </td>
+        <td>
+            <i class="icon-hdd"></i> <%= h(server.host) %>
+        </td>
+    </tr>
 <% end %>
-</ul>
+</table>
+
+<% content_for :idea do %>
+
+<div class="accordion">
+<% @servers.each do |server| %>
+    <% if server.blank? %>
+    <%# IF has group_id? %>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapseOne">
+                Server group name
+            </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+            <div class="accordion-inner">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+    <% else %>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <%= server_status_badge(server) %>
+            <%= link_to h(server.name), server_path(server), :class => "accordion-toggle" %>
+            <small><i class="icon-hdd"></i> <%= server.host %></small>
+        </div>
+    </div>
+    <% end %>
+<% end %>
+</div>
+
+<% end %>

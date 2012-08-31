@@ -1,0 +1,39 @@
+<% content_for :body_class, "public" %> 
+
+<% @servers.each do |server| %>
+<div class="server">
+    <div class="row visible-phone">
+        <div class="span12">
+            <h2>
+                <%= link_to h(server.name), "#", :title => "Last synchronization at #{server.synchronized_at}" %>
+                <span style="color: <%= server_status_class(server) %>;"><%= server_status_label(server) %></span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="row hidden-phone">
+        <div class="span1 offset1">
+            <div class="full-circle <%= server_status_class(server) %>">
+                <span class="uptime"><%= server.uptime.round(2) %>%</span>
+            </div>
+        </div>
+
+        <div class="span3">
+            <h2 class="name">— <span title="Last synchronization at <%= server.synchronized_at %>"><%= server.name %></h2>
+        </div>
+
+        <div class="span7">
+            <h4>Last incidents</h4>
+            <ul>
+                <% if server.incidents.blank? %>
+                    <li>No incidents</li>
+                <% else %>
+                    <% server.incidents.limit(5).each do |incident| %>
+                    <li><%= link_to incident.name, server_incident_path(server, incident), :remote => true %></a></li>
+                    <% end %>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</div>
+<% end %>

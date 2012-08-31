@@ -1,0 +1,58 @@
+<% content_for :title, "Settings" %>
+
+<%= form_tag(admin_edit_settings_path(), :class => "form-horizontal", :remote => true) do %>
+<fieldset>
+    <ul class="nav nav-tabs nav-js">
+        <li class="active"><a href="#general">General</a></li>
+        <li><a href="#display">Display</a></li>
+    </ul>
+
+    <%= fields_for :settings, @settings do |f| %>
+    <div class="tab-content">
+        <div class="tab-pane active" id="general">
+            <div class="control-group">
+                <%= f.label :app_title, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.text_field :app_title, :class => "input-xlarge" %>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <%= f.label :text_formatting, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.select :text_formatting, Setting.options_for(:text_formatting), :class => "input-xlarge" %>
+                </div>
+            </div>
+        </div> <!-- /#general -->
+
+        <div class="tab-pane" id="display">
+            <div class="control-group">
+                <%= f.label :ui_theme, :class => "control-label" %>
+                <div class="controls">
+                    -
+                </div>
+            </div>
+
+            <div class="control-group">
+                <%= f.label :default_language, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.select :default_language, Setting.options_for(:default_language), :class => "input-xlarge" %>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <%= f.label :monitoring_is_public, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.check_box :monitoring_is_public %>
+                </div>
+            </div>
+        </div> <!-- /#display -->
+    </div>
+    <% end %>
+
+    <div class="form-actions">
+        <%= submit_tag "Save changes", :class => "btn btn-primary" %>
+        <%= cancel_tag :admin %>
+    </div>
+</fieldset>
+<% end %>

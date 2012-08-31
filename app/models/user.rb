@@ -14,4 +14,14 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  has_one :preferences, :class_name => "UserPreference"
+
+  default_scope includes(:preferences)
+
+  before_create :initalize_settings
+
+  def initalize_settings
+    UserPrenference.create(:user_id => self.id)
+  end
 end

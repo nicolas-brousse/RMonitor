@@ -1,25 +1,78 @@
+<% content_for :title, "Settings - #{current_server.name}" %>
 
-<%= form_for(@server, :url => server_path(@server), :html => {:class => "form-horizontal"}) do |f| %>
-  <fieldset>
-    <legend>Settings</legend>
+<div class="page-header">
+    <h1>Settings</h1>
+</div>
 
-    <div class="control-group">
-      <%= f.label :name, :class => "control-label" %>
-      <div class="controls">
-        <%= f.text_field :name, :class => "input-xlarge" %>
-      </div>
+<%= form_for(current_server, :url => server_path(current_server), :html => {:class => "form-horizontal"}, :remote => true) do |f| %>
+<fieldset>
+    <ul class="nav nav-tabs nav-js">
+        <li class="active"><a href="#infos">Informations</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <li><a href="#members">Members</a></li>
+        <li><a href="#monitorings">Monitorings</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="infos">
+            <div class="control-group">
+                <%= f.label :name, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.text_field :name, :class => "input-xlarge" %>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <%= f.label :host, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.text_field :host, :class => "input-xlarge" %>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="control-group">
+                <%= f.label :slug, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.text_field :slug, :disabled => :disabled, :class => "input-large disabled" %>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="control-group">
+                <%= f.label :is_public, :class => "control-label" %>
+                <div class="controls">
+                    <%= f.check_box :is_public %>
+                </div>
+            </div>
+        </div> <!-- /#infos -->
+
+        <div class="tab-pane" id="modules">
+        </div> <!-- /#modules -->
+
+        <div class="tab-pane" id="members">
+        </div> <!-- /#members -->
+
+        <div class="tab-pane" id="monitorings">
+            <div class="well well-small">
+            <%= fields_for "server[preferences][monitorings]", current_server.preferences.monitorings do |m| %>
+                <% RMonitor::Modules::Monitorings.protocol_list.each do |protocol| %>
+                <div class="control-group">
+                    <%= m.label protocol, :class => "control-label" %>
+                    <div class="controls">
+                        <%= m.check_box nil, {:id => "server_preferences_monitorings_#{protocol.underscore}", :checked => !current_server.preferences.monitorings.blank? && current_server.preferences.monitorings.include?(protocol.to_s)}, protocol, nil %>
+                    </div>
+                </div>
+                <% end %>
+            <% end %>
+            </div> <!-- /.well -->
+        </div> <!-- /#monitorings -->
     </div>
 
-    <div class="control-group">
-      <%= f.label :host, :class => "control-label" %>
-      <div class="controls">
-        <%= f.text_field :host, :class => "input-xlarge" %>
-      </div>
-    </div>
-
-      <div class="form-actions">
+    <div class="form-actions">
         <%= f.submit "Save changes", :class => "btn btn-primary" %>
-        <button class="btn">Cancel</button>
-      </div>
-  </fieldset>
+        <%= cancel_tag server_path(current_server) %>
+    </div>
+</fieldset>
 <% end %>

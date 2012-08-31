@@ -8,6 +8,16 @@
 #
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: rmonitor_production
+  pool: 5
+  username: root
+  password:
+  host: localhost
+
 development:
   adapter: mysql2
   encoding: utf8
@@ -31,12 +41,13 @@ test:
   password:
   host: localhost
 
-production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: rmonitor_production
-  pool: 5
-  username: root
-  password:
+test_pgsql:
+  adapter: postgresql
+  database: rmonitor_test
   host: localhost
+  username: postgres
+  password: "postgres"
+
+test_sqlite3:
+  adapter: sqlite3
+  database: db/test.sqlite3

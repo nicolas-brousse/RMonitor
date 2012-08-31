@@ -2,25 +2,36 @@ RMonitor::Application.routes.draw do
 
   devise_for :users
 
-  root :to => "public#index"
+  get "/my/preferences" => "users#settings",      :as => :user_preferences
+  put "/my/preferences" => "users#settings_save"
 
-  get "/"           => "index#dashboard"
-  get "/dashboard"  => "index#dashboard", :as => :dashboard
+  get    "/users/:id"       => "users#show"
+  get    "/users/:id/edit"  => "users#edit"
+  put    "/users/:id"       => "users#update"
+  delete "/users/:id"       => "users#destroy"
 
-  resources :servers, :path_names => {:edit => "settings"}
+  resources :servers, :path_names => {:edit => "settings"} do
+    resources :incidents, :path_names => {:edit => "edit"}
+  end
 
-  get "servers/:id/monitorings" => "monitorings#index", :as => :server_monitorings
-  # get "servers/:id/monitorings/:protocol" => "monitorings#show", :as => :server_monitoring
+  get "servers/:server_id/monitorings"                => "monitorings#index", :as => :servers_monitorings#,         :constraints => {:server_id => /\d+/}
+  get "servers/:server_id/monitorings/:protocol_type" => "monitorings#show",  :as => :servers_monitorings_history#, :constraints => {:server_id => /\d+/}
 
   namespace :admin do
-    get "/"           => "index#index"
-    get "/info"       => "index#info"
-    get "/servers"    => "index#servers"
+    get  "/"           => "index#index"
+    get  "/info"       => "index#info"
+    get  "/servers"    => "index#servers"
+    get  "/settings"   => "index#settings"
+    post "/settings"   => "index#settings_save", :as => :edit_settings
   end
 
   namespace :api, :defaults => {:format => :json} do
     get "/"       => "index#index"
   end
+
+  get "/dashboard"  => "index#dashboard", :as => :dashboard
+
+  root :to => "index#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

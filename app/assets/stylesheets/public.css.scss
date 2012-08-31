@@ -9,9 +9,12 @@
 
 body.public {
   background: #000 image-url("public/background.png") repeat-x;
-  color: #fff;
   margin-top: 60px;
   padding-top: 0;
+}
+
+body.public .container {
+  color: #fff;
 }
 
 .server {
@@ -36,5 +39,6 @@ body.public {
   font-size: 1.2em;
 }
 
-.full-circle.green { border-color: green; }
-.full-circle.red   { border-color: red; }
+.full-circle.success   { border-color: green; }
+.full-circle.warning   { border-color: yellow; }
+.full-circle.important { border-color: red; }

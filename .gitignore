@@ -13,3 +13,6 @@
 
 .powrc
 .DS_Store
+
+config/database.yml
+*.sqlite3

@@ -1,7 +1,7 @@
-require 'timeout'
-require 'socket'
+require "timeout"
+require "socket"
 
-require "abstract_protocol"
+require "rmonitor/modules/monitorings/abstract_protocol"
 
 module RMonitor
   module Modules
@@ -18,6 +18,8 @@ module RMonitor
           rescue Errno::ECONNREFUSED
             return true
           rescue Timeout::Error
+            return false
+          rescue Exception
             return false
           end
         end

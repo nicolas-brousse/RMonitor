@@ -1,18 +1,55 @@
-<h2><%= @server.name %></h2>
+<% content_for :title, current_server.name %>
 
-<table class="table table-striped">
-  <tbody>
-    <tr>
-      <th>Host</th>
-      <td><i class="icon-hdd"></i> <%= @server.host %></td>
-    </tr>
-    <tr>
-      <th>Last synchronization</th>
-      <td><i class="icon-time"></i> <%= @server.synchronized_at %></td>
-    </tr>
-    <tr>
-      <th>Status</th>
-      <td><i class="icon-signal"></i> <%= @server.status %></td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+    <div class="span4">
+        <h2><%= @server.name %></h2>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Host</th>
+                    <td><i class="icon-hdd"></i> <%= @server.host %></td>
+                </tr>
+                <tr>
+                    <th>Last synchronization</th>
+                    <td><i class="icon-time"></i> <%= @server.synchronized_at.blank? ? t(:nerver) : @server.synchronized_at %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="span8">
+        <h2>Monitorings</h2>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th width="5">Status</th>
+                    <th>Protocol</th>
+                    <th>At</th>
+                </tr>
+            </thead>
+            <tbody>
+            <%- if @monitorings.blank? -%>
+                <tr>
+                    <td colspan="3">No alerts</td>
+                </tr>
+            <%- else -%>
+                <%- @monitorings.each do |monitoring| %>
+                <tr>
+                    <td><span class="badge badge-<%= monitoring.status ? 'success' : 'important' %>">&nbsp;</span></td>
+                    <td><%= link_to h(monitoring.protocol), servers_monitorings_history_path(current_server, monitoring.protocol) %></td>
+                    <td><i class="icon-time"></i> <%= monitoring.created_at %></td>
+                </tr>
+                <% end -%>
+            <%- end -%>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<% content_for :title, "Edit Incident \##{@incident.name}" %>
+
+<%= form_for(@incident, :url => server_incident_path(current_server, @incident), :html => {:class => "form-horizontal"}) do |f| %>
+    <fieldset>
+        <legend><%= t(:incident) %> #<%= @incident.id %></legend>
+
+        <div class="control-group">
+            <%= f.label :name, :class => "control-label" %>
+            <div class="controls">
+                <%= f.text_field :name, :class => "input-xlarge" %>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <%= f.label :body, :class => "control-label" %>
+            <div class="controls">
+                <%= f.text_area :body, :class => "input-xlarge" %>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <%= f.submit "Save changes", :class => "btn btn-primary" %>
+            <%= cancel_tag servers_monitorings_path(current_server) %>
+        </div>
+    </fieldset>
+<% end %>

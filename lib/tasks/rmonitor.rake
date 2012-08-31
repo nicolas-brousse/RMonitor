@@ -17,8 +17,7 @@ namespace :rmonitor do
       Rake::Task['db:migrate'].invoke
       Rake::Task['db:seed'].invoke
 
-      puts "Now configure your cronjob"
-      puts "  5 * * * * cd #{Rails.root} && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
+      Rake::Task['rmonitor:app:update'].invoke
     end
 
     desc "Update RMonitor"
@@ -31,6 +30,7 @@ namespace :rmonitor do
 
       puts "Update RMonitor Application"
       `cd #{Rails.root} && git pull origin`
+      `cd #{Rails.root} bundle install`
 
       puts "Update RMonitor Database for #{Rails.env} env"
       Rake::Task['db:migrate'].invoke
@@ -38,19 +38,19 @@ namespace :rmonitor do
 
       puts ""
       puts "Now configure your cronjob"
-      puts "  5 * * * * cd #{Rails.root} && /usr/bin/rake RAILS_ENV=#{Rails.env} rmonitor:monitoring"
+      puts "  5 * * * * cd #{Rails.root} && /full/path/to/rvm/bin/rake RAILS_ENV=#{Rails.env} -f Rakefile rmonitor:monitoring"
     end
 
-  end
+    desc "Version of RMonitor Application"
+    task :version => :environment do
+      puts ""
+      puts "Version:"
+      puts "  " + RMonitor::Info.versioned_name
+      puts ""
+      puts RMonitor::Info.environment
+      puts ""
+    end
 
-  desc "Version of RMonitor"
-  task :version => :environment do
-    puts ""
-    puts "Version:"
-    puts "  " + RMonitor::Info.versioned_name
-    puts ""
-    puts RMonitor::Info.environment
-    puts ""
   end
 
   desc "Execute monitoring for all servers"
@@ -62,19 +62,18 @@ namespace :rmonitor do
     puts ""
 
     servers       = Server.includes(:monitorings).all
-    server_status = true
+    server_status = 0
     alerts        = []
 
     servers.each do |server|
       puts " -- Server #{server.name}"
 
-      protocols = ["Ping"]
-      # protocols = ["Ping", "HTTP"]
+      protocols = server.preferences.monitorings || []
 
       protocols.each do |p|
         monitoring = server.monitorings.where('protocol = ?', p).last
-        status     = (("RMonitor::Modules::Monitorings::#{p}").constantize).execute(server.host.to_s)
-        server_status = 0
+        status     = (("RMonitor::Modules::Monitorings::#{p.camelize}").constantize).execute(server.host.to_s)
+        server_status += 1 if status == Monitoring::DOWN
 
         if monitoring.nil? || monitoring.status != status
           m = Monitoring.new
@@ -83,18 +82,22 @@ namespace :rmonitor do
           m.status = status
           m.save
 
-          server_status += 1 if status == false
-          alerts << m if !monitoring.nil? && monitoring.status != true
+          alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP
         end
 
         puts " ---- #{p} = #{status}"
       end
 
-      # server_status == 0 => green
-      # server_status > 0 && server_status < protocols.count => yellow
-      # server_status > protocols.count => red
-      server.status = server_status <= 0 ? true : false
-      server.synchronized_at = Time.now
+
+      if server_status == 0
+        server.status = 2 #=> green
+      elsif server_status > 0 && server_status < protocols.count
+        server.status = 1 #=> yellow
+      else
+        server.status = 0 #=> red
+      end
+
+      server.synchronized_at = Time.current
       server.save
 
       puts " ------ Current uptime = #{server.uptime.round(2)}%"

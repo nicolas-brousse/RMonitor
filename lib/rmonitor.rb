@@ -1,4 +1,5 @@
 require 'rmonitor/info'
+require 'rmonitor/modules'
 require 'rmonitor/version'
 
 # begin

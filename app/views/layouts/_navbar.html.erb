@@ -1,58 +1,82 @@
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <%= link_to 'RMonitor', :root, :class => "brand" %>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <%= link_to h(Setting.app_title), :root, :class => "brand" %>
 
-    <% if user_signed_in? %>
-      <div class="btn-group pull-right">
-        <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="icon-user icon-white"></i> <%= current_user.email %>
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= link_to "Profile", :edit_user_registration %></li>
-          <li class="divider"></li>
-          <li><%= link_to "Administration", :admin %></li>
-          <li class="divider"></li>
-          <li><%= link_to "Sign Out", :destroy_user_session, :method => :delete %></li>
-        </ul>
-      </div>
-    <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
-      <ul class="nav pull-right"><li><%= link_to "Sign up", :new_user_registration %></li></ul>
-    <% else %>
-      <ul class="nav pull-right"><li><%= link_to "Sign in", :new_user_session %></li></ul>
-    <% end %>
+        <% if user_signed_in? %>
+            <div class="btn-group pull-right">
+                <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-user icon-white"></i> <%= current_user.email %>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><%= link_to "My account", :edit_user_registration %></li>
+                    <li><%= link_to "Preferences", :user_preferences %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to "Administration", :admin %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to "Sign out", :destroy_user_session, :method => :delete %></li>
+                </ul>
+            </div>
 
-    <% if user_signed_in? %>
-      <div class="nav-collapse">
-        <ul class="nav">
-          <li class="active"><%= link_to 'Dashboard', :dashboard %></li>
-          <li><%= link_to "Servers", :servers %></li>
-        </ul>
-      </div> <!--/.nav-collapse -->
-    <% end %>
+        <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
+            <ul class="nav pull-right"><li><%= link_to "Sign up", :new_user_registration %></li></ul>
+        <% else %>
+            <ul class="nav pull-right"><li><%= link_to "Sign in", :new_user_session %></li></ul>
+        <% end %>
+
+        <% if user_signed_in? %>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li<%= nav_class :index, :dashboard %>><%= link_to t(:dashboard), :dashboard %></li>
+                    <li<%= nav_class %w{ servers monitorings incidents } %>><%= link_to "Servers", :servers %></li>
+                </ul>
+
+                <%# form_tag(nil, :method => :get, :class => "navbar-search pull-left") do %>
+                    <%# text_field_tag :search, params[:search], :class => "search-query span2", :placeholder => :search, :data => {:provide => "typeahead"} %>
+                <%# end %>
+            </div> <!--/.nav-collapse -->
+        <% end %>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Todo subnav -->
+
 <% if current_server %>
 <div class="subnav subnav-fixed">
-  <div class="container">
-    <ul class="nav nav-pills">
-      <li class="brand"><span><%= current_server.name %></span></li>
-      <li class="divider-vertical"></li>
-      <li class="active"><%= link_to "Overview", server_path(current_server) %></li>
-      <li><%= link_to "Monitoring", server_monitorings_path(current_server) %></li>
-      <li><a href="#typography">Graphs or Activity</a></li>
-      <li><a href="#thumbnails">Backups</a></li>
-      <li><%= link_to "Settings", edit_server_path(current_server) %></li>
-    </ul>
-  </div>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="brand invisible"><%= link_to h(Setting.app_title), "#" %></li>
+            <li class="invisible"><%= link_to t(:dashboard), "#" %></li>
+            <li class="server"><%= link_to h(current_server.name), server_path(current_server) %></li>
+            <li class="divider-vertical"></li>
+            <li<%= nav_class :servers, :show %>>
+                <%= link_to server_path(current_server) do %>
+                    <i class="icon-time"></i> Overview
+                <% end %>
+            </li>
+            <li<%= nav_class [:monitorings, :incidents] %>>
+                <%= link_to servers_monitorings_path(current_server) do %>
+                    <i class="icon-signal"></i> Monitorings
+                <% end %>
+            </li>
+            <li<%= nav_class nil %>>
+                <a href="#graphs"><i class="icon-tasks"></i> Graphs or Activity</a>
+            </li>
+            <li<%= nav_class nil %>>
+                <a href="#backups"><i class="icon-hdd"></i> Backups</a>
+            </li>
+            <li<%= nav_class :servers, :edit %>>
+                <%= link_to edit_server_path(current_server) do %>
+                    <i class="icon-wrench"></i> Settings
+                <% end %>
+            </li>
+        </ul>
+    </div>
 </div>
 <% end %>
