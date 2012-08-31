@@ -1,4 +1,4 @@
-$.rmonitor.modal({
+$.event.trigger('rmonitor:modal:new', {
     title: "Incident #<%=j @incident.id.to_s %> - <%=j @incident.name %>",
     content: "<%=j format_text(@incident.body) %>",
 })

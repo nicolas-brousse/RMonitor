@@ -2,3 +2,4 @@ $("#line_<%= @server.id %>").addClass('error alert-error')
                             .fadeOut(500, function() {
                                 $(this).remove()
                             })
+$("#flash_area").html("<%= escape_javascript(format_flashes()) %>").hide().fadeIn()

@@ -62,7 +62,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to servers_path() }
-      format.js
+      format.js { flash.now[:notice] = :server_deleted }
     end
   end
 
