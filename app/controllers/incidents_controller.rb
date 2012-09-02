@@ -3,6 +3,7 @@ class IncidentsController < ApplicationController
 
   # GET /servers/:server_id/incidents/:id
   def show
+    # TODO skip :authenticate_user! if server is public and moniroting is public
     @incident = Incident.find(params[:id])
   end
 

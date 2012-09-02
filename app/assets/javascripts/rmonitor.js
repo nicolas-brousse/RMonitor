@@ -20,11 +20,14 @@
             $html = $("<div class=\"modal\" role=\"dialog\"></div>");
             $html.addClass('fade');
             $html.append("<div class=\"modal-header\">\n    <a class=\"close\" data-dismiss=\"modal\">×</a>\n    <h3>" + options.title + "</h3>\n  </div>");
-            $html.append("<div class=\"modal-body\">\n    <p>" + options.content + "</p>\n  </div>\n");
 
-            if (options.buttons && options.buttons.length > 0)
+            if (options.content.length > 0) {
+                $html.append("<div class=\"modal-body\">\n    <p>" + options.content + "</p>\n  </div>\n");
+            }
+
+            if (options.buttons.length > 0)
             {
-                $html.append("<div class=\"modal-footer\"></div>")
+                $html.append("<div class=\"modal-footer\"></div>");
 
                 $.each(options.buttons, function(b) { 
                     $html.find('.modal-footer').append("<a data-dismiss=\"modal\" class=\"btn" + (this.class ? " " + this.class : "") + "\" rel=\"" + b + "\">" + this.label + "</a>");
@@ -35,10 +38,10 @@
                 });
             }
 
-            $modal = $html.modal()
+            $modal = $html.modal();
 
             return $modal.on('hidden', function () {
-                            $(this).remove()
+                            $(this).remove();
                         });
         },
 
@@ -56,8 +59,8 @@
                         class: "btn-primary confirm",
                         callback: function() {
                             element.removeAttr('data-confirm')
-                                    .removeAttr('data-message')
-                            element.click()
+                                    .removeAttr('data-message');
+                            element.click();
                         }
                     }
                 ],
@@ -103,11 +106,11 @@
 
             $btn  = $this.find("input[name='commit'][type='submit'], button[type='submit']")
                          .data('loading-text', 'loading...')
-                         .button('loading')
+                         .button('loading');
 
             $this.on('ajax:complete', function() {
-                $btn.button('reset')
-                $this.off('ajax:complete')
+                $btn.button('reset');
+                $this.off('ajax:complete');
             })
         });
 
@@ -115,22 +118,24 @@
         // Open modal by event
         //
         $(document).delegate(document, 'rmonitor:modal:new', function(e, data) {
-            e.preventDefault()
-            rmonitor.modal(data)
+            e.preventDefault();
+            rmonitor.modal(data);
         });
 
         //
         // Optimize Nav-Tabs
         //
         $(document).delegate(rmonitor.navTabs, 'click', function(e) {
-            e.preventDefault()
-            window.location.hash = $(this).attr('href')
-            $(this).tab('show')
+            e.preventDefault();
+            window.location.hash = $(this).attr('href');
+            $(this).tab('show');
         });
     // }
 
-    if (window.location.hash) {
-        $('.nav-js a[href="'+window.location.hash+'"]').tab('show')
-    }
+    $(function() {
+        if (window.location.hash) {
+            $('.nav-js a[href="'+window.location.hash+'"]').tab('show');
+        }
+    });
 
 })( jQuery );

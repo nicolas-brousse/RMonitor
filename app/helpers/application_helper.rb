@@ -14,7 +14,8 @@ module ApplicationHelper
       text         = args[0]
       options      = args[1] || {}
 
-      formated_text = method(Setting.text_formatting.to_sym).call(text)
+      formated_text = text#.gsub(/\b(([\w-]+:\/\/?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/)))/i) { link_to($1, $1) }
+      formated_text = method(Setting.text_formatting.to_sym).call(formated_text)
       ERB::Util.html_escape(formated_text).html_safe
     end
   end
