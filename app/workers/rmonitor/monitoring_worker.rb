@@ -1,5 +1,5 @@
 class RMonitor::MonitoringWorker
-  include Sidekiq::Worker
+  # include Sidekiq::Worker
 
   def perform(name, count)
     puts 'Doing hard work'
