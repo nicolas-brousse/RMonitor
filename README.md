@@ -1,4 +1,4 @@
-# Welcome to RMonitor
+# Welcome to RMonitor [![Build Status](https://secure.travis-ci.org/nicolas-brousse/RMonitor.png)](http://travis-ci.org/nicolas-brousse/RMonitor)
 
 RMonitor is a Project of Monitoring application based on RubyOnRails framework.  
 RMonitor is inspired by [Redmine](http://redmine.org) by transposing the structure projects to servers.
