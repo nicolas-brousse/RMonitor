@@ -21,7 +21,8 @@ gem 'formatize'
 
 # https://github.com/fnando/i18n-js
 
-# gem 'sidekiq'
+gem 'sidekiq'
+gem 'RailsRRDTool'
 
 # gem 'audited-activerecord'
 # https://github.com/collectiveidea/audited
