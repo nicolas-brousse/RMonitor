@@ -6,6 +6,8 @@
 
         remoteForms: 'form[data-remote]',
 
+        remoteLinks: 'a[data-remote]',
+
         navTabs: '.nav.nav-tabs.nav-js a',
 
         modal: function(options)
@@ -85,6 +87,19 @@
 
             // Don't stop the propagation!
             return answer && callback;
+        },
+
+        spinner: function(link, action)
+        {
+            if (action === 'show') {
+                $('<div></div>').addClass('modal-backdrop').addClass('spinner').appendTo('body');
+            }
+            else if (action === 'hide') {
+                $('div.modal-backdrop.spinner').remove();
+            }
+            else {
+                return $('div.modal-backdrop.spinner');
+            }
         }
 
     };
@@ -110,6 +125,19 @@
 
             $this.on('ajax:complete', function() {
                 $btn.button('reset');
+                $this.off('ajax:complete');
+            });
+        });
+
+        //
+        // Show spinner on remote link loading
+        //
+        $(document).delegate(rmonitor.remoteLinks, 'click', function(e) {
+            var $this = $(this);
+            rmonitor.spinner($this, 'show');
+
+            $this.on('ajax:complete', function() {
+                rmonitor.spinner($this, 'hide');
                 $this.off('ajax:complete');
             })
         });
