@@ -1,4 +1,5 @@
 require 'rmonitor/info'
+require 'rmonitor/logging'
 require 'rmonitor/modules'
 require 'rmonitor/version'
 
@@ -9,4 +10,12 @@ require 'rmonitor/version'
 # end
 
 module RMonitor
+
+  def self.logger
+    RMonitor::Logging.logger
+  end
+
+  def self.logger=(log)
+    RMonitor::Logging.logger = log
+  end
 end

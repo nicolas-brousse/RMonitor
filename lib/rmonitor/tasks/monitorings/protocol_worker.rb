@@ -4,16 +4,19 @@ require 'rmonitor/modules/monitorings/http'
 module RMonitor
   module Tasks
     module Monitorings
-      class Protocol
+      class ProtocolWorker
         include Sidekiq::Worker
 
         def perform(server_id, protocol)
-          server = Server.find(server_id)
-                         .includes(:monitorings)
+          # TODO: Create a locker
+          # return nil if lock
+
+          server = Server.includes(:monitorings).find(server_id)
+          protocols = server.preferences.monitorings || []
 
           monitoring = server.monitorings.where('protocol = ?', protocol.to_s).last
           status     = (("RMonitor::Modules::Monitorings::#{protocol.to_s.camelize}").constantize).execute(server.host.to_s)
-          server_status += 1 if status == Monitoring::DOWN
+
           if monitoring.nil? || monitoring.status != status
             m = Monitoring.new
             m.server   = server
@@ -24,8 +27,23 @@ module RMonitor
           end
           puts " ---- #{protocol.to_s} = #{status}"
           # TODO, write into rmonitor_{env}.log
-        end
 
+          #
+          # Update Server status
+          #
+          server_status = 0
+
+          server.monitorings.each do |m|
+            server_status += 1 if m.status == Monitoring::DOWN
+          end
+
+          server.status = 0 #=> red
+          server.status = 1 if server_status > 0 && server_status < protocols.count #=> yellow
+          server.status = 2 if server_status == 0 #=> green
+
+          server.save
+
+        end
       end
     end
   end

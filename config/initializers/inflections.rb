@@ -15,4 +15,5 @@
 # end
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'HTTP'
+  inflect.acronym 'RMonitor'
 end

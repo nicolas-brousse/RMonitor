@@ -1,7 +1,9 @@
+require 'rmonitor/tasks/monitorings/protocol_worker'
+
 module RMonitor
   module Tasks
     module Monitorings
-      class Server
+      class ServerWorker
         include Sidekiq::Worker
 
         def perform(server_id)
@@ -9,7 +11,7 @@ module RMonitor
           protocols = server.preferences.monitorings || []
 
           protocols.each do |p|
-            RMonitor::Tasks::Monitorings::Protocol.perform_async(server.id, p)
+            RMonitor::Tasks::Monitorings::ProtocolWorker.perform_async(server.id, p)
           end
         end
 

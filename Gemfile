@@ -22,6 +22,8 @@ gem 'formatize'
 # https://github.com/fnando/i18n-js
 
 gem 'sidekiq'
+gem 'whenever', :require => false
+
 gem 'RailsRRDTool'
 
 # gem 'audited-activerecord'

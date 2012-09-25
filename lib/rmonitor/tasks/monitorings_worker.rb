@@ -1,25 +1,31 @@
 require 'rmonitor/modules/monitorings/ping'
 require 'rmonitor/modules/monitorings/http'
+require 'rmonitor/tasks/monitorings/server_worker'
 
 module RMonitor
   module Tasks
-    class Monitorings
+    class MonitoringsWorker
       include Sidekiq::Worker
 
       def perform
-        self.execute
+        puts ""
+
+        servers       = Server.includes(:monitorings).all
+        servers.each do |server|
+          RMonitor::Tasks::Monitorings::ServerWorker.perform_async(server.id)
+        end
       end
 
       def self.execute
         puts ""
 
         servers       = Server.includes(:monitorings).all
-        server_status = 0
         alerts        = []
 
         servers.each do |server|
           puts " -- Server #{server.name}"
 
+          server_status = 0
           protocols = server.preferences.monitorings || []
 
           protocols.each do |p|
@@ -80,7 +86,3 @@ module RMonitor
     end
   end
 end
-
-# every :hour do # Many shortcuts available: :hour, :day, :month, :year, :reboot
-#   runner "HourlyWorker.perform_async"
-# end
