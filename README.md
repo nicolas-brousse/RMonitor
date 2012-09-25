@@ -8,6 +8,7 @@ RMonitor is inspired by [Redmine](http://redmine.org) by transposing the structu
 ```bash
 $ cd /repo/to/install/rmonitor/
 $ git clone git://github.com/nicolas-brousse/RMonitor.git
+$ cd RMonitor
 $ bundle install
 $ rake rmonitor:install
 ```

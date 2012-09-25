@@ -12,6 +12,11 @@ namespace :rmonitor do
       #    * rake db:migrate
       #
 
+      input = ''
+      STDOUT.puts "Are you sure to install rmonitor?"
+      input = STDIN.gets.chomp
+      raise "bah, humbug!" unless input.upercase == "Y"
+
       puts "Install RMonitor Database for #{Rails.env} env"
       # Rake::Task['db:setup'].invoke
       Rake::Task['db:migrate'].invoke
