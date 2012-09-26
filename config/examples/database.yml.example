@@ -40,14 +40,3 @@ test:
   username: root
   password:
   host: localhost
-
-test_pgsql:
-  adapter: postgresql
-  database: rmonitor_test
-  host: localhost
-  username: postgres
-  password: "postgres"
-
-test_sqlite3:
-  adapter: sqlite3
-  database: db/test.sqlite3
