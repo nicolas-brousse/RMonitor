@@ -24,6 +24,9 @@ gem 'formatize'
 gem 'sidekiq'
 gem 'whenever', :require => false
 
+# gem 'thor'
+gem 'cli-colorize'
+
 gem 'RailsRRDTool'
 
 # gem 'audited-activerecord'
