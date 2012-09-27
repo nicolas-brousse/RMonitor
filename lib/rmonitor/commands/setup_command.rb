@@ -9,6 +9,20 @@ module RMonitor
       # register_option 
 
       def run
+        shell.say "Welcome into RMonitor Application", :green
+        # shell.ask "Are you sur to install this app?", :limited_to => ["yes", "no"]
+        unless shell.yes? "Are you sur to install this app?", [:black, :on_cyan, :bold]
+          return exit 'Bye bye'
+        end
+
+        shell.say Thor::Shell::Color::ON_RED
+        shell.say Thor::Shell::Color::GREEN, nil
+        txt_with_color = 'message'#shell.set_color('message', :green, :on_white)
+        shell.print_wrapped(txt_with_color, :indent => 5)
+        shell.say Thor::Shell::Color::CLEAR
+
+        shell.error("fatal")
+
         # require 'fileutils'
 
         # # copy config files
@@ -40,7 +54,7 @@ module RMonitor
         # UpdateCommand.run
 
         # # run rake and setup tasks
-        system "bundle"
+        # system "bundle"
         # system "bundle exec rake db:create:all"
         # system "bundle exec rake db:migrate --trace"
       end

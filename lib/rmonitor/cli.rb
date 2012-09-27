@@ -11,14 +11,10 @@ end
 
 trap 'USR1' do
   RMonitor.logger.info "Received USR1, no longer accepting new work"
-  mgr = RMonitor::CLI.instance.manager
-  mgr.stop! if mgr
 end
 
 trap 'TTIN' do
   Thread.list.each do |thread|
-    RMonitor.logger.info "Thread TID-#{thread.object_id.to_s(36)} #{thread['label']}"
-    RMonitor.logger.info thread.backtrace.join("\n")
   end
 end
 
@@ -26,20 +22,14 @@ $stdout.sync = true
 
 require 'yaml'
 require 'singleton'
-
-# require '../../rmonitor'
-# require 'rmonitor/util'
-# require 'rmonitor/manager'
-# require 'rmonitor/scheduled'
+require 'thor'
+require 'thor/base'
+require 'thor/util'
 
 module RMonitor
-  class CLI
-    # include Util
-    include Singleton
 
-    # Used for CLI testing
-    attr_accessor :code
-    attr_accessor :manager
+  class CLI
+    include Singleton
 
     def initialize
       @code = nil
@@ -47,41 +37,18 @@ module RMonitor
       @interrupted = false
     end
 
-    def parse(args=ARGV)
+    def start
       validate!
       write_pid
       boot_system
+      CLICommands.boot_commands
 
       @code = nil
       RMonitor.logger
 
-      cli = parse_options(args)
-      config = parse_config(cli)
-      options.merge!(config.merge(cli))
+      CLICommands.start
 
       RMonitor.logger.level = Logger::DEBUG if options[:verbose]
-    end
-
-    def run
-      logger.info "Booting RMonitor #{RMonitor::VERSION}"
-      logger.info "Running in #{RUBY_DESCRIPTION}"
-
-      @manager = Sidekiq::Manager.new(options)
-      poller = Sidekiq::Scheduled::Poller.new
-      begin
-        logger.info 'Starting processing, hit Ctrl-C to stop'
-        @manager.start!
-        poller.poll!(true)
-        sleep
-      rescue Interrupt
-        logger.info 'Shutting down'
-        poller.terminate! if poller.alive?
-        @manager.stop!(:shutdown => true, :timeout => options[:timeout])
-        @manager.wait(:shutdown)
-        # Explicitly exit so busy Processor threads can't block
-        # process shutdown.
-        exit(0)
-      end
     end
 
     def interrupt
@@ -99,10 +66,15 @@ module RMonitor
       exit(code)
     end
 
+    def logger
+      RMonitor.logger
+    end
+
     def options
+      path = File.realpath("#{File.dirname(__FILE__)}/../../")
       {
-        :require => File.realpath("#{File.dirname(__FILE__)}/../../"),
-        :pidfile => "#{File.dirname(__FILE__)}/../../tmp/pids/rmonitor.pid"
+        :require => path,
+        :pidfile => "#{path}/tmp/pids/rmonitor.pid"
       }
     end
 
@@ -118,76 +90,13 @@ module RMonitor
         require 'rails'
         require File.expand_path("#{options[:require]}/config/environment.rb")
         ::Rails.application.eager_load!
+        require 'rmonitor'
       else
         require options[:require]
       end
     end
 
     def validate!
-      # options[:queues] << 'default' if options[:queues].empty?
-
-      # if !File.exist?(options[:require]) ||
-      #    (File.directory?(options[:require]) && !File.exist?("#{options[:require]}/config/application.rb"))
-      #   logger.info "=================================================================="
-      #   logger.info "  Please point sidekiq to a Rails 3 application or a Ruby file    "
-      #   logger.info "  to load your worker classes with -r [DIR|FILE]."
-      #   logger.info "=================================================================="
-      #   logger.info @parser
-      #   die(1)
-      # end
-    end
-
-    def parse_options(argv)
-      opts = {}
-
-      @parser = OptionParser.new do |o|
-        o.on "-q", "--queue QUEUE[,WEIGHT]...", "Queues to process with optional weights" do |arg|
-          queues_and_weights = arg.scan(/([\w-]+),?(\d*)/)
-          queues_and_weights.each {|queue_and_weight| parse_queues(opts, *queue_and_weight)}
-          opts[:strict] = queues_and_weights.collect(&:last).none? {|weight| weight != ''}
-        end
-
-        o.on "-v", "--verbose", "Print more verbose output" do
-          RMonitor.logger.level = ::Logger::DEBUG
-        end
-
-        o.on '-e', '--environment ENV', "Application environment" do |arg|
-          opts[:environment] = arg
-        end
-
-        o.on '-t', '--timeout NUM', "Shutdown timeout" do |arg|
-          opts[:timeout] = arg.to_i
-        end
-
-        o.on '-r', '--require [PATH|DIR]', "Location of Rails application with workers or file to require" do |arg|
-          opts[:require] = arg
-        end
-
-        o.on '-c', '--concurrency INT', "processor threads to use" do |arg|
-          opts[:concurrency] = arg.to_i
-        end
-
-        o.on '-P', '--pidfile PATH', "path to pidfile" do |arg|
-          opts[:pidfile] = arg
-        end
-
-        o.on '-C', '--config PATH', "path to YAML config file" do |arg|
-          opts[:config_file] = arg
-        end
-
-        o.on '-V', '--version', "Print version and exit" do |arg|
-          puts "RMonitor #{RMonitor::VERSION}"
-          die(0)
-        end
-      end
-
-      @parser.banner = "sidekiq [options]"
-      @parser.on_tail "-h", "--help", "Show help" do
-        logger.info @parser
-        die 1
-      end
-      @parser.parse!(argv)
-      opts
     end
 
     def write_pid
@@ -197,21 +106,87 @@ module RMonitor
         end
       end
     end
-
-    def parse_config(cli)
-      opts = {}
-      if cli[:config_file] && File.exist?(cli[:config_file])
-        opts = YAML.load_file cli[:config_file]
-        queues = opts.delete(:queues) || []
-        queues.each { |name, weight| parse_queues(opts, name, weight) }
-      end
-      opts
-    end
-
-    def parse_queues(opts, q, weight)
-      [weight.to_i, 1].max.times do
-       (opts[:queues] ||= []) << q
-      end
-    end
   end
+
+  class CLICommands < ::Thor
+    extend Thor::Shell
+    extend Thor::Base
+
+    def self.boot_commands
+      self.write_commands
+    end
+
+    def self.write_banner
+      say "RMonitor ", :green, nil
+      say "version ", nil, nil
+      say RMonitor::VERSION.to_s + "\n", :blue
+    end
+
+    def self.write_commands
+      require 'rmonitor/commands'
+
+      Dir["#{File.dirname(__FILE__)}/commands/*.{rb}"].each do |source|
+        filename     = File.basename(source).split("_").first
+        require "rmonitor/commands/#{filename}_command"
+        command_name = "RMonitor::Commands::#{filename.camelize}Command"
+        command      = (command_name.constantize).new unless defined?(command_name.constantize.to_s).nil?
+
+        if command && filename != 'application'
+          src = <<-END_SRC
+          desc "#{command.name}", "#{command.description}"
+          def #{command.name}
+            #{command.class.name.to_s}.run
+          end
+          END_SRC
+          class_eval src, __FILE__, __LINE__
+        end
+      end
+    end
+
+    def help
+      RMonitor::CLICommands.write_banner
+      super
+    end
+
+
+    # default_task :list
+
+    # Prints help information for this class.
+    #
+    # ==== Parameters
+    # shell<Thor::Shell>
+    #
+    desc :list, "List commands"
+    method_options :substring => :boolean,
+                   :group => :string,
+                   :all => :boolean,
+                   :debug => :boolean
+    def list(search="", subcommand=false)
+
+      search = ".*#{search}" if options["substring"]
+      search = /^#{search}.*/i
+      group  = options[:group] || "standard"
+
+      puts self.methods
+
+      list = Thor.printable_tasks(true, subcommand)
+      Thor::Util.thor_classes_in(self).each do |klass|
+        list += klass.printable_tasks(false)
+      end
+      list.sort!{ |a,b| a[0] <=> b[0] }
+      list.map!{ |c| [ shell.set_color(c[0], :green) , c[1]] }
+
+      RMonitor::CLICommands.write_banner
+
+      say "Usages:", :yellow
+      shell.print_wrapped("rmonitor command [arguments] [options]", :indent => 2)
+      say
+
+      say "Commands:", :yellow
+      print_table(list, :indent => 2, :truncate => true)
+      say
+    end
+
+  end
+
 end

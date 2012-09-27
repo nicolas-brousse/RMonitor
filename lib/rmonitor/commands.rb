@@ -1,15 +1,36 @@
+require 'thor'
+require 'thor/shell/basic'
+require 'thor/shell/color'
+
 module RMonitor
   module Commands
 
+    def self.included(base)
+      base.send :extend, ::Thor::Shell
+      base.send :extend, ::Thor::Actions
+    end
+
     class Base
-      def self.register_command(options = {})
-        define_method(:name)        { options[:name] }
-        define_method(:description) { options[:description] }
+
+      class << self
+        def register_command(options = {})
+          define_method(:name)        { options[:name] }
+          define_method(:description) { options[:description] }
+        end
+
+
+        def run
+          obj = self.new
+          obj.run
+        end
       end
 
-      def self.run
-        obj = self.new
-        obj.run
+      def shell
+        @shell ||= ::Thor::Shell::Color.new
+      end
+
+      def exit message = "", color = [:white, :on_red]
+        shell.say message, color
       end
 
       def run
