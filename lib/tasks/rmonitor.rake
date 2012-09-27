@@ -4,26 +4,6 @@ namespace :rmonitor do
 
   namespace :app do
 
-    desc "Install RMonitor"
-    task :install => :environment do
-      # TODO - Execute rake cmd
-      #
-      #    * rake db:setup
-      #    * rake db:migrate
-      #
-
-      input = ''
-      STDOUT.puts "Are you sure to install rmonitor?"
-      input = STDIN.gets.chomp
-      raise "bah, humbug!" unless input.upercase == "Y"
-
-      puts "Install RMonitor Database for #{Rails.env} env"
-      # Rake::Task['db:setup'].invoke
-      Rake::Task['db:migrate'].invoke
-      Rake::Task['db:seed'].invoke
-
-      Rake::Task['rmonitor:app:update'].invoke
-    end
 
     desc "Update RMonitor"
     task :update => :environment do
@@ -45,23 +25,30 @@ namespace :rmonitor do
       puts "Now configure your cronjob"
       puts "  5 * * * * cd #{Rails.root} && /full/path/to/rvm/bin/rake RAILS_ENV=#{Rails.env} -f Rakefile rmonitor:monitorings"
     end
-
-    desc "Version of RMonitor Application"
-    task :version => :environment do
-      puts ""
-      puts "Version:"
-      puts "  " + RMonitor::Info.versioned_name
-      puts ""
-      puts RMonitor::Info.environment
-      puts ""
-    end
-
   end
 
   desc "Execute monitoring for all servers"
   task :monitorings => :environment do
-    require 'rmonitor/tasks/monitorings'
-    RMonitor::Tasks::Monitorings.perform_async
+    require 'rmonitor/tasks/monitorings_worker'
+    RMonitor::Tasks::MonitoringsWorker.perform_async
   end
+
+  # Dir["#{Rails.root}/lib/rmonitor/tasks/*.{rb}"].each do |source|
+  #   filename     = File.basename(source).split("_").first
+  #   require "rmonitor/tasks/#{filename}_worker"
+  #   task_name = "RMonitor::Tasks::#{filename.camelize}Worker"
+  #   task      = (task_name.constantize).new unless defined?(task_name.constantize.to_s).nil?
+
+  #   if task
+  #     src = <<-END_SRC
+  #     desc "#{task.desc}"
+  #     task :#{filename} => :environment do
+  #       require 'rmonitor/tasks/#{filename}_worker'
+  #       #{task.class.name.to_s}.perform_async
+  #     end
+  #     END_SRC
+  #     class_eval src, __FILE__, __LINE__
+  #   end
+  # end
 
 end

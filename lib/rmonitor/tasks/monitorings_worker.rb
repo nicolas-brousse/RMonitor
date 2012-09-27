@@ -7,6 +7,10 @@ module RMonitor
     class MonitoringsWorker
       include Sidekiq::Worker
 
+      def desc
+        "Execute monitoring for all servers"
+      end
+
       def perform
         puts ""
 

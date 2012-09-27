@@ -23,7 +23,8 @@ module RMonitor
             m.protocol = protocol.to_s
             m.status = status
             m.save
-            alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP
+
+            alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP # Send an email OR prepare an email (Use a thread — if use thread, send the name in perform)
           end
           puts " ---- #{protocol.to_s} = #{status}"
           # TODO, write into rmonitor_{env}.log
