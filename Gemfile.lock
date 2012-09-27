@@ -38,7 +38,6 @@ GEM
     celluloid (0.12.0)
       timers (>= 1.0.0)
     chronic (0.6.7)
-    cli-colorize (2.0.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -143,7 +142,6 @@ PLATFORMS
 DEPENDENCIES
   RailsRRDTool
   cancan
-  cli-colorize
   coffee-rails (~> 3.2.1)
   devise
   formatize
@@ -154,6 +152,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   sidekiq
   sqlite3
+  thor
   uglifier (>= 1.0.3)
   whenever
   whois
