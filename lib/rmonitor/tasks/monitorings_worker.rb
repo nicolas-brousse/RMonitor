@@ -1,5 +1,8 @@
 require 'rmonitor/modules/monitorings/ping'
 require 'rmonitor/modules/monitorings/http'
+require 'rmonitor/modules/monitorings/dns'
+require 'rmonitor/modules/monitorings/ssh'
+require 'rmonitor/modules/monitorings/ftp'
 require 'rmonitor/tasks/monitorings/server_worker'
 
 module RMonitor

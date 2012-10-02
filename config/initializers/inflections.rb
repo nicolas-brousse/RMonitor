@@ -15,5 +15,8 @@
 # end
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'HTTP'
+  inflect.acronym 'DNS'
+  inflect.acronym 'SSH'
+  inflect.acronym 'FTP'
   inflect.acronym 'RMonitor'
 end
