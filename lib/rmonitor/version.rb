@@ -2,7 +2,7 @@ module RMonitor
   module VERSION #:nodoc:
     MAJOR = 0
     MINOR = 1
-    TINY  = 0
+    TINY  = 1
 
     def self.revision
       revision = nil

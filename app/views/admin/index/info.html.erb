@@ -1,7 +1,5 @@
 <% content_for :title, "Informations" %>
 
-<h2><%# l(:label_information_plural)%></h2>
-
 <div class="alert alert-info">
     <strong><%= RMonitor::Info.versioned_name %></strong>
 </div>
@@ -9,5 +7,3 @@
 <div class="box">
     <pre><%= RMonitor::Info.environment %></pre>
 </div>
-
-<%# html_title(l(:label_information_plural)) -%>

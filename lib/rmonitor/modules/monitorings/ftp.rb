@@ -6,16 +6,16 @@ require "rmonitor/modules/monitorings/abstract_protocol"
 module RMonitor
   module Modules
     module Monitorings
-      class Ping < AbstractProtocol #:nodoc:
+      class FTP < AbstractProtocol #:nodoc:
 
         def self.execute(host)
           begin
             Timeout.timeout(15) do 
-              s = TCPSocket.new(host, 'echo')
+              s = TCPSocket.new(host, 21)
               s.close
             end
           rescue Errno::ECONNREFUSED
-            return true
+            return false
           rescue Timeout::Error
             return false
           rescue Exception

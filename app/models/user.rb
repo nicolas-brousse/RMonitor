@@ -22,6 +22,6 @@ class User < ActiveRecord::Base
   before_create :initalize_settings
 
   def initalize_settings
-    UserPrenference.create(:user_id => self.id)
+    UserPreference.create(:user_id => self.id)
   end
 end

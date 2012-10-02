@@ -1,2 +1,13 @@
+@import "mixins.css.scss";
+
 .invisible { visibility: hidden; }
 .hide { display: none; }
+
+.spinner {
+    position: absolute;
+    top: 0; right: 0;
+    width: 100%;
+    height: 100%;
+    background: #000 image-url("ajax-loader.gif") no-repeat center center;
+    @include opacity(.8);
+}

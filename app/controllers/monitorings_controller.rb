@@ -3,10 +3,14 @@ class MonitoringsController < ApplicationController
 
   # GET /servers/:server_id/monitorings
   def index
-    @monitorings = Monitoring.where("server_id = ?", @server.id)
-                             .where("protocol IN (?)", @server.preferences.monitorings)
-                             .group("protocol")
-                             .order("created_at DESC")
+    @monitorings = []
+    @server.preferences.monitorings.each do |p|
+      m = Monitoring.where("server_id = ?", @server.id)
+                    .where("protocol = ?", p)
+                    .order("created_at DESC")
+                    .first
+      @monitorings << m unless m.nil?
+    end
 
     @incidents = Incident.includes(:monitoring)
                          .includes(:server)

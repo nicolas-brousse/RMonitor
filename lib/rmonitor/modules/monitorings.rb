@@ -17,7 +17,7 @@ module RMonitor
 
       class << self
         def protocol_list
-          ['ping', 'http']
+          ['ping', 'http', 'dns', 'ftp', 'ssh']
         end
 
         def protocol_exists?(protocol)

@@ -1,0 +1,16 @@
+
+@mixin opacity($value: 0.5) {
+    opacity: $value;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=” $value * 100 “);
+    filter: alpha(opacity= $value * 100 );
+    zoom: 1;
+}
+
+@mixin transparent($color, $alpha) {
+    $rgba: rgba($color, $alpha);
+    $ie-hex-str: ie-hex-str($rgba);
+    background-color: transparent;
+    background-color: $rgba;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+    zoom: 1;
+}

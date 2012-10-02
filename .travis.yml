@@ -1,0 +1,5 @@
+before_script:
+  - "script/rmonitor setup"
+
+rvm:
+  - 1.9.3
