@@ -12,6 +12,11 @@
             <i class="icon-hdd"></i> Servers
         <% end %>
     </li>
+    <li<%= " class=\"active\"".html_safe if current_page?(admin_users_path()) %>>
+        <%= link_to :admin_users do %>
+            <i class="icon-user"></i> Users
+        <% end %>
+    </li>
     <li<%= " class=\"active\"".html_safe if current_page?(admin_settings_path()) %>>
         <%= link_to :admin_settings do %>
             <i class="icon-wrench"></i> Settings

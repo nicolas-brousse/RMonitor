@@ -7,6 +7,10 @@ class Admin::IndexController < ApplicationController
   def info
   end
 
+  def users
+    @users = User.order(sort_column + " " + sort_direction)
+  end
+
   def servers
     @servers = Server.all
   end

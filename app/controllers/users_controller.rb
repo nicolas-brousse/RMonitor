@@ -1,15 +1,28 @@
 class UsersController < ApplicationController
 
-  def index
+  # GET /servers/new
+  def new
+    @user = User.new
   end
 
+  # GET /servers/:id
   def show
+    @user = User.find(params[:id])
   end
 
+  # GET /servers/:id/edit
   def edit
+    @user = User.find(params[:id])
   end
 
+  # PUT /servers/:id
   def update
+    @user = User.find(params[:id])
+  end
+
+  # DELETE /servers/:id
+  def destroy
+    @user = User.find(params[:id])
   end
 
   # GET /my/settings

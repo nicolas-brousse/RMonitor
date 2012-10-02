@@ -3,10 +3,10 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th width="5">#</th>
-      <th width="">Name</th>
-      <th width="">Host</th>
-      <th width="">Last synchronization</th>
+      <th width="30"><%= sortable "id", "#" %></th>
+      <th width=""><%= sortable "Name" %></th>
+      <th width=""><%= sortable "Host" %></th>
+      <th width=""><%= sortable "synchronized_at", "Last synchronization" %></th>
       <th width=""></th>
     </tr>
   </thead>
