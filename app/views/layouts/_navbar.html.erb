@@ -8,27 +8,29 @@
             </a>
             <%= link_to h(Setting.app_title), :root, :class => "brand" %>
 
-        <% if user_signed_in? %>
-            <div class="btn-group pull-right">
-                <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="icon-user icon-white"></i> <%= current_user.email %>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><%= link_to "My account", :edit_user_registration %></li>
-                    <li><%= link_to "Preferences", :user_preferences %></li>
-                    <li class="divider"></li>
-                    <li><%= link_to "Administration", :admin %></li>
-                    <li class="divider"></li>
-                    <li><%= link_to "Sign out", :destroy_user_session, :method => :delete %></li>
-                </ul>
-            </div>
+            <ul class="nav pull-right">
+            <% if user_signed_in? %>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="icon-user icon-white"></i> <%= current_user.email %>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><%= link_to "My account", :edit_user_registration %></li>
+                        <li><%= link_to "Preferences", :user_preferences %></li>
+                        <li class="divider"></li>
+                        <li><%= link_to "Administration", :admin %></li>
+                        <li class="divider"></li>
+                        <li><%= link_to "Sign out", :destroy_user_session, :method => :delete %></li>
+                    </ul>
+                </li>
 
-        <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
-            <ul class="nav pull-right"><li><%= link_to "Sign up", :new_user_registration %></li></ul>
-        <% else %>
-            <ul class="nav pull-right"><li><%= link_to "Sign in", :new_user_session %></li></ul>
-        <% end %>
+            <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
+                <li><%= link_to "Sign up", :new_user_registration %></li>
+            <% else %>
+                <li><%= link_to "Sign in", :new_user_session %></li>
+            <% end %>
+            </ul>
 
         <% if user_signed_in? %>
             <div class="nav-collapse">
@@ -48,35 +50,52 @@
 
 
 <% if current_server %>
-<div class="subnav subnav-fixed">
-    <div class="container">
-        <ul class="nav nav-pills">
-            <li class="brand invisible"><%= link_to h(Setting.app_title), "#" %></li>
-            <li class="invisible"><%= link_to t(:dashboard), "#" %></li>
-            <li class="server"><%= link_to h(current_server.name), server_path(current_server) %></li>
-            <li class="divider-vertical"></li>
-            <li<%= nav_class :servers, :show %>>
-                <%= link_to server_path(current_server) do %>
-                    <i class="icon-time"></i> Overview
-                <% end %>
-            </li>
-            <li<%= nav_class [:monitorings, :incidents] %>>
-                <%= link_to servers_monitorings_path(current_server) do %>
-                    <i class="icon-signal"></i> Monitorings
-                <% end %>
-            </li>
-            <li<%= nav_class nil %>>
-                <a href="#graphs"><i class="icon-tasks"></i> Graphs or Activity</a>
-            </li>
-            <li<%= nav_class nil %>>
-                <a href="#backups"><i class="icon-hdd"></i> Backups</a>
-            </li>
-            <li<%= nav_class :servers, :edit %>>
-                <%= link_to edit_server_path(current_server) do %>
-                    <i class="icon-wrench"></i> Settings
-                <% end %>
-            </li>
-        </ul>
+<div class="subnav navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <%= link_to h(Setting.app_title), "#", :class => "brand invisible" %>
+
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li class="invisible"><%= link_to t(:dashboard), "#" %></li>
+                    <li class="server-name">
+                        <%= link_to server_path(current_server) do %>
+                            &raquo; <%= h(current_server.name) %>
+                        <% end %>
+                    </li>
+
+                    <li class="divider-vertical"></li>
+
+                    <li<%= nav_class :servers, :show %>>
+                        <%= link_to server_path(current_server) do %>
+                            <i class="icon-time"></i> Overview
+                        <% end %>
+                    </li>
+                    <li<%= nav_class [:monitorings, :incidents] %>>
+                        <%= link_to servers_monitorings_path(current_server) do %>
+                            <i class="icon-signal"></i> Monitorings
+                        <% end %>
+                    </li>
+                    <li<%= nav_class nil %>>
+                        <a href="#graphs"><i class="icon-tasks"></i> Graphs or Activity</a>
+                    </li>
+                    <li<%= nav_class nil %>>
+                        <a href="#backups"><i class="icon-hdd"></i> Backups</a>
+                    </li>
+                    <li<%= nav_class :servers, :edit %>>
+                        <%= link_to edit_server_path(current_server) do %>
+                            <i class="icon-wrench"></i> Settings
+                        <% end %>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <% end %>
