@@ -13,7 +13,6 @@ module RMonitor
             Timeout.timeout(15) do 
               s = TCPSocket.new(host, 'echo')
               s.close
-              return true
             end
           rescue Errno::ECONNREFUSED
             return true
@@ -22,6 +21,7 @@ module RMonitor
           rescue Exception
             return false
           end
+          return true
         end
 
       end

@@ -10,10 +10,16 @@ class IndexController < ApplicationController
   end
 
   def dashboard
-    @monitorings =  Monitoring.includes(:server)
-                              .group("protocol")
-                              .order("created_at DESC")
-                    .delete_if {|m| m if m.status != false }
+    @monitorings = []
+    Server.publics.each do |s|
+      s.preferences.monitorings.each do |p|
+        m = Monitoring.where("server_id = ?", s.id)
+                      .where("protocol = ?", p)
+                      .order("created_at DESC")
+                      .first
+        @monitorings << m if !m.nil? && m.status == false
+      end
+    end
   end
 
 private
