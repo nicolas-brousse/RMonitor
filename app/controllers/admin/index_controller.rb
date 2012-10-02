@@ -12,7 +12,7 @@ class Admin::IndexController < ApplicationController
   end
 
   def servers
-    @servers = Server.all
+    @servers = Server.order(sort_column + " " + sort_direction)
   end
 
   def settings
