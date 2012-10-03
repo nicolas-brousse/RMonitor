@@ -11,3 +11,6 @@
     background: #000 image-url("ajax-loader.gif") no-repeat center center;
     @include opacity(.8);
 }
+
+table.table th a { color: $text_color; }
+table.table th a:hover { color: lighten($text_color, 20%); text-decoration: none; }
