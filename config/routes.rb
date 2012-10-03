@@ -4,12 +4,14 @@ RMonitor::Application.routes.draw do
 
   get "/my/preferences" => "users#settings",      :as => :user_preferences
   put "/my/preferences" => "users#settings_save"
+  get "/my/account"     => "users#edit",          :as => :user_account, :defaults => {:id => 'my'}
 
-  get    "/users/new"       => "users#new",  :as => :new_user
-  get    "/users/:id"       => "users#show", :as => :user
-  get    "/users/:id/edit"  => "users#edit", :as => :edit_user
-  put    "/users/:id"       => "users#update"
-  delete "/users/:id"       => "users#destroy"
+  get    "/users/new"       => "users#new",    :as => :new_user
+  post   "/users/create"    => "users#create", :as => :create_user
+  # get    "/users/:id"       => "users#show",   :as => :user
+  get    "/users/:id/edit"  => "users#edit",   :as => :edit_user
+  # put    "/users/:id"       => "users#update"
+  # delete "/users/:id"       => "users#destroy"
 
   resources :servers, :path_names => {:edit => "settings"} do
     resources :incidents, :path_names => {:edit => "edit"}
