@@ -22,7 +22,7 @@ module RMonitor
             m.server   = server
             m.protocol = protocol.to_s
             m.status = status
-            m.save!
+            m.save
 
             alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP # Send an email OR prepare an email (Use a thread — if use thread, send the name in perform)
           end
@@ -42,7 +42,7 @@ module RMonitor
           server.status = 1 if server_status > 0 && server_status < protocols.count #=> yellow
           server.status = 2 if server_status == 0 #=> green
 
-          server.save!
+          server.save
 
         end
       end

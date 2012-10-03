@@ -28,7 +28,7 @@ class Setting < ActiveRecord::Base
   def self.[]=(name, v)
     setting = find_or_default(name)
     setting.value = (v ? v : "")
-    setting.save!
+    setting.save
     setting.value
   end
 

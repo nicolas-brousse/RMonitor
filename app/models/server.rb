@@ -93,7 +93,7 @@ private
       unless monitorings.map(&:protocol).include? p
         m = Monitoring.new(:protocol => p)
         m.server = self
-        m.save!
+        m.save
       end
     end
   end

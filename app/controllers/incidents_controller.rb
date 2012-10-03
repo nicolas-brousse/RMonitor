@@ -18,7 +18,7 @@ class IncidentsController < ApplicationController
     @incident = @server.incidents.create(params[:incident])
 
     respond_to do |format|
-      if @incident.save!
+      if @incident.save
         format.html { redirect_to edit_server_incident_path(@server, @incident), :notice => :incident_added }
       else
         flash.now[:error] = @incident.errors.full_messages
