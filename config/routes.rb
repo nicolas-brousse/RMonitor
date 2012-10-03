@@ -1,14 +1,16 @@
 RMonitor::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users#, :skip =>  [:registrations, :confirmations]
 
-  get "/my/preferences" => "users#settings",      :as => :user_preferences
+  get "/my/preferences" => "users#settings",        :as => :user_preferences
   put "/my/preferences" => "users#settings_save"
-  get "/my/account"     => "users#edit",          :as => :user_account, :defaults => {:id => 'my'}
+  get "/my/account"     => "users#edit",            :as => :user_account, :defaults => {:id => 'my'}
+  get "/my/password"    => "devise/passwords#edit", :as => :edit_user_password
+  put "/my/password"    => "devise/passwords#update"
 
   get    "/users/new"       => "users#new",    :as => :new_user
   post   "/users/create"    => "users#create", :as => :create_user
-  # get    "/users/:id"       => "users#show",   :as => :user
+  get    "/users/:id"       => "users#show",   :as => :user
   get    "/users/:id/edit"  => "users#edit",   :as => :edit_user
   # put    "/users/:id"       => "users#update"
   # delete "/users/:id"       => "users#destroy"
