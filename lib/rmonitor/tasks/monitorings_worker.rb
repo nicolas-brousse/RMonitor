@@ -45,7 +45,7 @@ module RMonitor
               m.server   = server
               m.protocol = p
               m.status = status
-              m.save
+              m.save!
 
               alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP
             end
@@ -63,7 +63,7 @@ module RMonitor
           end
 
           server.synchronized_at = Time.current
-          server.save
+          server.save!
 
           puts " ------ Current uptime = #{server.uptime.round(2)}%"
           puts ""
