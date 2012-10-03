@@ -1,7 +1,7 @@
-<% content_for :title, "Settings" %>
+<% content_for :title, "My settings" %>
 
 <div class="page-header">
-    <h1>Settings</h1>
+    <h1><%= yield :title %></h1>
 </div>
 
 <%= form_for(@settings, :url => user_preferences_path(), :html => {:class => "form-horizontal"}, :remote => true) do |f| %>
@@ -10,6 +10,13 @@
         <%= f.label :time_zone, :class => "control-label" %>
         <div class="controls">
             <%= f.time_zone_select :time_zone, nil, {}, :class => "input-xlarge" %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :language, :class => "control-label" %>
+        <div class="controls">
+            <%# f.select :language, Setting.options_for(:default_language), :class => "input-xlarge" %>
         </div>
     </div>
 
