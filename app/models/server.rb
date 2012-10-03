@@ -3,6 +3,7 @@ class Server < ActiveRecord::Base
 
   friendly_id :name, :use => :slugged
 
+  after_save     :initialize_monitorings
   before_destroy :before_destroy
 
   serialize :preferences, OpenStruct
@@ -84,6 +85,17 @@ private
     # errors.add(:host, "server_form.host_invalid") unless r.registered?
   # rescue Whois::Error => e
   #   errors.add(:host, "server_form.host_not_found")
+  end
+
+  def initialize_monitorings
+    monitorings = self.monitorings.group(:protocol)
+    self.preferences.monitorings.each do |p|
+      unless monitorings.map(&:protocol).include? p
+        m = Monitoring.new(:protocol => p)
+        m.server = self
+        m.save!
+      end
+    end
   end
 
   def before_destroy
