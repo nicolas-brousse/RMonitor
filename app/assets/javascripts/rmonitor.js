@@ -10,6 +10,8 @@
 
         navTabs: '.nav.nav-tabs.nav-js a',
 
+        rightClickElements: "*[data-dropdown-menu]",
+
         modal: function(options)
         {
             var $modal, $html;
@@ -148,6 +150,17 @@
         $(document).delegate(document, 'rmonitor:modal:new', function(e, data) {
             e.preventDefault();
             rmonitor.modal(data);
+        });
+
+        //
+        // Dropdown menu element
+        // Inspiration: http://www.abeautifulsite.net/blog/2008/05/jquery-right-click-plugin/
+        //
+        $(document).delegate(rmonitor.rightClickElements, 'mousedown', function(e) {
+            if (e.which !== 3) return;
+            $(this)[0].oncontextmenu = function() { return false; };
+
+            console.log("You right click!");
         });
 
         //
