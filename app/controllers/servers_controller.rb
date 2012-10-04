@@ -9,7 +9,8 @@ class ServersController < ApplicationController
   # GET /servers/:id
   def show
     @monitorings = []
-    @server.preferences.monitorings.each do |p|
+    protocols    = @server.preferences.try(:monitorings) || Array.new
+    protocols.each do |p|
       m = Monitoring.where("server_id = ?", @server.id)
                     .where("protocol = ?", p)
                     .order("created_at DESC")

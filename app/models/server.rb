@@ -89,10 +89,11 @@ private
 
   def initialize_monitorings
     monitorings = self.monitorings.group(:protocol)
-    self.preferences.monitorings.each do |p|
+    protocols   = self.preferences.try(:monitorings) || Array.new
+    protocols.each do |p|
       unless monitorings.map(&:protocol).include? p
         m = Monitoring.new(:protocol => p)
-        m.server = self
+        m.server_id = self.id
         m.save
       end
     end
