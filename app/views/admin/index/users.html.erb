@@ -1,34 +1,37 @@
 <% content_for :title, "Servers" %>
 
 <table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th width="30"><%= sortable "id", "#" %></th>
-      <th width=""><%= sortable "Email" %></th>
-      <th width=""><%= sortable "last_sign_in_at", "Last connection" %></th>
-      <th width=""><%= sortable "created_at", "Created at" %></th>
-      <th width=""></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-    <tr id="line_<%= user.id %>">
-      <td><%= user.id %></td>
-      <td><%= link_to user.email, user_path(user) %></td>
-      <td><i class="icon-time"></i> <%= user.last_sign_in_at.blank? ? "Never" : user.last_sign_in_at %></td>
-      <td><i class="icon-time"></i> <%= user.created_at.blank? ? "Never" : user.created_at %></td>
-      <td>
-        <%= link_to edit_user_path(user) do -%><i class="icon-wrench"></i>Edit<%- end -%>
-        -
-        <%= link_to user_path(user), :data => {:confirm => "Are you sure?", :message => "Do you want to delete user <b>\"#{user.email}\"</b> ?"}, :method => :delete, :remote => true do -%><i class="icon-trash"></i>Delete<%- end -%>
-        <%# <i class="icon-trash"></i> %>
-        <%# button_to 'Delete', server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete, :remote => true, :disable_with => 'loading...', :class => "btn btn-link" %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
+    <thead>
+        <tr>
+            <th width="30"><%= sortable "id", "#" %></th>
+            <th width=""><%= sortable "Email" %></th>
+            <th width=""><%= sortable "last_sign_in_at", "Last connection" %></th>
+            <th width=""><%= sortable "created_at", "Created at" %></th>
+            <th width=""></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+        <tr id="line_<%= user.id %>">
+            <td><%= user.id %></td>
+            <td>
+                <%= image_tag(gravatar_url(user, 15), :size => "15x15", :alt => "Avatar", :class => "img-polaroid") %>
+                <%= link_to user.email, user_path(user) %>
+            </td>
+            <td><i class="icon-time"></i> <%= user.last_sign_in_at.blank? ? "Never" : user.last_sign_in_at %></td>
+            <td><i class="icon-time"></i> <%= user.created_at.blank? ? "Never" : user.created_at %></td>
+            <td>
+                <%= link_to edit_user_path(user) do -%><i class="icon-wrench"></i>Edit<%- end -%>
+                -
+                <%= link_to user_path(user), :data => {:confirm => "Are you sure?", :message => "Do you want to delete user <b>\"#{user.email}\"</b> ?"}, :method => :delete, :remote => true do -%><i class="icon-trash"></i>Delete<%- end -%>
+                <%# <i class="icon-trash"></i> %>
+                <%# button_to 'Delete', server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete, :remote => true, :disable_with => 'loading...', :class => "btn btn-link" %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
 </table>
 
 <%= link_to new_user_path(), :class => "btn btn-success" do %>
-  <i class="icon-plus icon-white"></i> New user
+    <i class="icon-plus icon-white"></i> New user
 <% end %>

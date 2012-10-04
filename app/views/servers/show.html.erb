@@ -53,3 +53,24 @@
         </table>
     </div>
 </div>
+
+<div class="row">
+    <div class="span4">
+        <h2>Users</h2>
+
+        <table class="table table-striped table-hover">
+            <tbody>
+                <%- ['Administrators', 'Customers'].each do |r| %>
+                <tr>
+                    <th><%= r %></th>
+                    <td><%= User.all.map{|u| link_to u.email, user_path(u)}.join(', ').html_safe %></td>
+                </tr>
+                <% end -%>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="span8">
+        <p>&nbsp;</p>
+    </div>
+</div>
