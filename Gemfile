@@ -23,10 +23,14 @@ gem 'formatize'
 
 gem 'sidekiq'
 gem 'whenever', :require => false
+# gem "redis-server", "~> 0.0.5"
 
 gem 'thor'
 
-gem 'RailsRRDTool'
+# gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
+
+# gem 'RubyRRDtool', :git => 'git://github.com/gebi/rubyrrdtool.git'
+# gem 'RailsRRDTool'
 
 # gem 'audited-activerecord'
 # https://github.com/collectiveidea/audited
