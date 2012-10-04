@@ -19,8 +19,13 @@ class User < ActiveRecord::Base
 
   default_scope includes(:preferences)
 
-  before_create :initalize_settings
+  after_create :initalize_settings
 
+  def is_admin?
+    self.id == 1 ? true : false
+  end
+
+private
   def initalize_settings
     p = UserPreference.new
     p.user_id = self.id

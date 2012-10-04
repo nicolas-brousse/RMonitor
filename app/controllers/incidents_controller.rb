@@ -1,4 +1,6 @@
 class IncidentsController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :init_current_server
 
   # GET /servers/:server_id/incidents/:id

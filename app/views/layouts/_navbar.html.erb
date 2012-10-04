@@ -19,8 +19,10 @@
                     <ul class="dropdown-menu">
                         <li><%= link_to "My account", :user_account %></li>
                         <li><%= link_to "My preferences", :user_preferences %></li>
+                    <% if can? :administrate, :all %>
                         <li class="divider"></li>
                         <li><%= link_to "Administration", :admin %></li>
+                    <% end %>
                         <li class="divider"></li>
                         <li><%= link_to "Sign out", :destroy_user_session, :method => :delete %></li>
                     </ul>

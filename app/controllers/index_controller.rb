@@ -12,7 +12,8 @@ class IndexController < ApplicationController
   def dashboard
     @monitorings = []
     Server.publics.each do |s|
-      s.preferences.monitorings.each do |p|
+      protocols    = s.preferences.try(:monitorings) || Array.new
+      protocols.each do |p|
         m = Monitoring.where("server_id = ?", s.id)
                       .where("protocol = ?", p)
                       .order("created_at DESC")
