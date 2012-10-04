@@ -1,12 +1,10 @@
 class UsersController < ApplicationController
+  before_filter :clean_param_id, :only => [:show, :edit, :update]
+  load_and_authorize_resource
 
   # GET /servers/:id
   def show
-    if params[:id] == 'my'
-      @user = current_user
-    else
-      @user = User.find(params[:id])
-    end
+    @user = User.find(params[:id])
   end
 
   # GET /servers/new
@@ -16,11 +14,7 @@ class UsersController < ApplicationController
 
   # GET /servers/:id/edit
   def edit
-    if params[:id] == 'my'
-      @user = current_user
-    else
-      @user = User.find(params[:id])
-    end
+    @user = User.find(params[:id])
   end
 
   # POST /servers/
@@ -39,11 +33,7 @@ class UsersController < ApplicationController
 
   # PUT /servers/:id
   def update
-    if params[:id] == 'my'
-      @user = current_user
-    else
-      @user = User.find(params[:id])
-    end
+    @user = User.find(params[:id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -83,4 +73,8 @@ class UsersController < ApplicationController
     end
   end
 
+private
+  def clean_param_id
+    params[:id] = current_user.id if params[:id] == "my"
+  end
 end

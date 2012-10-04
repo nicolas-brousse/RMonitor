@@ -1,4 +1,6 @@
 class ServersController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :init_current_server, :except => [:index, :new, :create, :destroy]
 
   # GET /servers/
