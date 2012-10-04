@@ -7,6 +7,7 @@
             <th width=""><%= sortable "Email" %></th>
             <th width=""><%= sortable "last_sign_in_at", "Last connection" %></th>
             <th width=""><%= sortable "created_at", "Created at" %></th>
+            <th width="">Is admin?</th>
             <th width=""></th>
         </tr>
     </thead>
@@ -20,6 +21,7 @@
             </td>
             <td><i class="icon-time"></i> <%= user.last_sign_in_at.blank? ? "Never" : user.last_sign_in_at %></td>
             <td><i class="icon-time"></i> <%= user.created_at.blank? ? "Never" : user.created_at %></td>
+            <td><%= '<i class="icon-ok"></i>'.html_safe if user.is_admin? %></td>
             <td>
                 <%= link_to edit_user_path(user) do -%><i class="icon-wrench"></i>Edit<%- end -%>
                 -
