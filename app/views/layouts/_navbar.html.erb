@@ -12,7 +12,8 @@
             <% if user_signed_in? %>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="icon-user icon-white"></i> <%= current_user.email %>
+                        <%= image_tag(gravatar_url(@user, 18), :size => "18x18", :alt => "Avatar") %>
+                        <%= current_user.email %>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
