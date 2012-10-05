@@ -33,6 +33,15 @@ class Server < ActiveRecord::Base
   end
 
 
+  def self.search(search)
+    if search
+      where('name LIKE ? OR host LIKE ? OR slug LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+    else
+      scoped
+    end
+  end
+
+
   # Job methods
   def uptime(protocol="ping", started=nil, ended=nil)
     100.0 - downtime = downtime(protocol, started, ended)

@@ -1,4 +1,6 @@
 class Admin::IndexController < ApplicationController
+  before_filter :authorize!
+  before_filter :pre_filter, :only => [:users, :servers]
   layout "admin"
 
   def index
@@ -8,11 +10,19 @@ class Admin::IndexController < ApplicationController
   end
 
   def users
-    @users = User.order(sort_column + " " + sort_direction)
+    @users = User.order(sort_order).page(params[:page])
+
+    if !@filter.blank? && @filter.kind_of?(Hash)
+      @users = @users.search(@filter[:search]) unless @filter[:search].blank?
+    end
   end
 
   def servers
-    @servers = Server.order(sort_column + " " + sort_direction)
+    @servers = Server.order(sort_order).page(params[:page])
+
+    if !@filter.blank? && @filter.kind_of?(Hash)
+      @servers = @servers.search(@filter[:search]) unless @filter[:search].blank?
+    end
   end
 
   def settings
@@ -30,4 +40,15 @@ class Admin::IndexController < ApplicationController
     end
   end
 
+private
+  def pre_filter
+    params[:filter]    = {}  unless params[:reset].nil?
+    params[:sort]      = nil unless params[:reset].nil?
+    params[:direction] = nil unless params[:reset].nil?
+    @filter = params[:filter]
+  end
+
+  def authorize!
+    raise CanCan::AccessDenied unless can? :administrate, :all
+  end
 end

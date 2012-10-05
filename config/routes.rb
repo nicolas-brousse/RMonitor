@@ -12,7 +12,7 @@ RMonitor::Application.routes.draw do
   post   "/users/create"    => "users#create", :as => :create_user
   get    "/users/:id"       => "users#show",   :as => :user
   get    "/users/:id/edit"  => "users#edit",   :as => :edit_user
-  # put    "/users/:id"       => "users#update"
+  put    "/users/:id"       => "users#update"
   # delete "/users/:id"       => "users#destroy"
 
   resources :servers, :path_names => {:edit => "settings"} do

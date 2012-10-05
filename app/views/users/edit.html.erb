@@ -7,14 +7,14 @@
         <div class="control-group">
             <%= f.label :firstname, :class => "control-label" %>
             <div class="controls">
-                <%# f.text_field :firstname, :class => "input-xlarge" %>
+                <%= f.text_field :firstname, :class => "input-xlarge" %>
             </div>
         </div>
 
         <div class="control-group">
             <%= f.label :lastname, :class => "control-label" %>
             <div class="controls">
-                <%# f.text_field :lastname, :class => "input-xlarge" %>
+                <%= f.text_field :lastname, :class => "input-xlarge" %>
             </div>
         </div>
 
@@ -24,6 +24,17 @@
                 <%= f.text_field :email, :class => "input-xlarge" %>
             </div>
         </div>
+
+    <% if can? :administrate, :all %>
+        <hr />
+
+        <div class="control-group">
+            <%= f.label :is_admin?, :class => "control-label" %>
+            <div class="controls">
+                <%= f.check_box :is_admin? %>
+            </div>
+        </div>
+    <% end %>
 
         <hr />
 

@@ -1,39 +1,36 @@
-<% content_for :title, "Servers" %>
+<% content_for :title, t(:server).pluralize %>
 
-<div class="well">
-    Filter
-</div>
+<% content_for :javascript do %>
+<script type="text/javascript">
+    $(function() {
+        $("#servers th a, #servers .pagination a").live("click", function() {
+            $.getScript(this.href);
+            return false;
+        });
+        $("#servers_search input").keyup(function() {
+            delay(function(){
+                $("#servers_search input[name='commit']").first().click();
+            }, 100 );
+            return false;
+        });
+    });
+</script>
+<% end %>
 
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th width="30"><%= sortable "id", "#" %></th>
-            <th width=""><%= sortable "Name" %></th>
-            <th width=""><%= sortable "Host" %></th>
-            <th width=""><%= sortable "created_at", "Created at" %></th>
-            <th width="">Is public?</th>
-            <th width=""></th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @servers.each do |server| %>
-        <tr id="line_<%= server.id %>">
-            <td><%= server.id %></td>
-            <td><%= link_to server.name, server_path(server) %></td>
-            <td><i class="icon-hdd"></i> <%= server.host %></td>
-            <td><i class="icon-time"></i> <%= server.created_at.blank? ? "Never" : server.created_at %></td>
-            <td><%= '<i class="icon-ok"></i>'.html_safe if server.is_public? %></td>
-            <td>
-                <%= link_to edit_server_path(server) do -%><i class="icon-wrench"></i>Edit<%- end -%>
-                -
-                <%= link_to server_path(server), :data => {:confirm => "Are you sure?", :message => "Do you want to delete server named <b>\"#{server.name}\"</b> ?"}, :method => :delete, :remote => true do -%><i class="icon-trash"></i>Delete<%- end -%>
-                <%# <i class="icon-trash"></i> %>
-                <%# button_to 'Delete', server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete, :remote => true, :disable_with => 'loading...', :class => "btn btn-link" %>
-            </td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
+<%= form_tag(admin_servers_path(), :class => "form-search well", :method => :get, :id => :servers_search, :remote => true) do %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+
+    <%= fields_for :filter, OpenStruct.new(params[:filter]) do |f| %>
+            <%= f.label :search, :class => "control-label" %>
+            <%= f.text_field :search, :class => "input-medium" %>
+    <% end %>
+
+    <%= submit_tag "Apply", :class => "btn" %>
+    <%= submit_tag "Reset", :name => "reset", :class => "btn btn-link" %>
+<% end %>
+
+<%= render "servers" %>
 
 <%= link_to new_server_path(), :class => "btn btn-success" do %>
     <i class="icon-plus icon-white"></i> New server

@@ -1,0 +1,34 @@
+<div id="servers">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th width="30"><%= sortable "id", "#" %></th>
+                <th width=""><%= sortable "Name" %></th>
+                <th width=""><%= sortable "Host" %></th>
+                <th width=""><%= sortable "created_at", "Created at" %></th>
+                <th width="">Is public?</th>
+                <th width=""></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @servers.each do |server| %>
+            <tr id="line_<%= server.id %>">
+                <td><%= server.id %></td>
+                <td><%= link_to server.name, server_path(server) %></td>
+                <td><i class="icon-hdd"></i> <%= server.host %></td>
+                <td><i class="icon-time"></i> <%= server.created_at.blank? ? "Never" : server.created_at %></td>
+                <td><%= '<i class="icon-ok"></i>'.html_safe if server.is_public? %></td>
+                <td>
+                    <%= link_to edit_server_path(server) do -%><i class="icon-wrench"></i>Edit<%- end -%>
+                    -
+                    <%= link_to server_path(server), :data => {:confirm => "Are you sure?", :message => "Do you want to delete server named <b>\"#{server.name}\"</b> ?"}, :method => :delete, :remote => true do -%><i class="icon-trash"></i>Delete<%- end -%>
+                    <%# <i class="icon-trash"></i> %>
+                    <%# button_to 'Delete', server_path(server), :data => {:confirm => "Are you sure?"}, :method => :delete, :remote => true, :disable_with => 'loading...', :class => "btn btn-link" %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+    <%= paginate @servers %>
+</div>
