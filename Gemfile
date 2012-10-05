@@ -14,6 +14,7 @@ gem 'friendly_id'
 
 gem 'devise'
 gem 'cancan'
+gem 'kaminari'
 
 gem 'whois'
 
