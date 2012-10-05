@@ -22,8 +22,12 @@ protected
     # Time.zone = nil
   end
 
+  def sort_order
+    sort_column + " " + sort_direction
+  end
+
   def sort_column
-    params[:sort] ? params[:sort] : "id"
+    !params[:sort].blank? ? params[:sort] : "id"
   end
   
   def sort_direction

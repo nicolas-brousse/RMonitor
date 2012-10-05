@@ -31,7 +31,7 @@ module ApplicationHelper
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
 
-    link_to({:sort => column, :direction => direction}) do
+    link_to params.merge({:sort => column, :direction => direction, :page => nil}) do
       "#{title} ".html_safe + (sort_column == column ? content_tag("i", nil, :class => "icon-chevron-#{direction == "asc" ? "down" : "up"}") : '')
     end
   end

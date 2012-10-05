@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   # PUT /servers/:id
   def update
     @user = User.find(params[:id])
+    params[:user].delete('password') and params[:user].delete('password_confirmation') if params[:user][:delete].blank?
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
