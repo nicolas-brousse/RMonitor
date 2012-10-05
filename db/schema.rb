@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823193209) do
+ActiveRecord::Schema.define(:version => 20121005183110) do
 
   create_table "incidents", :force => true do |t|
     t.string   "name"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20120823193209) do
   add_index "user_preferences", ["user_id"], :name => "index_user_preferences_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -77,6 +77,9 @@ ActiveRecord::Schema.define(:version => 20120823193209) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.boolean  "is_admin",                              :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

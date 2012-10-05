@@ -8,4 +8,4 @@
 
 # Create a default User
     # User.create(:username => "admin", :email => "admin@admin.com", :password => "password")
-	User.create(:email => "admin@admin.com", :password => "password")
+    User.create(:email => "admin@rmonitor.com", :password => "password", :is_admin? => true, :firstname => "Admin", :lastname => "ADMIN")
