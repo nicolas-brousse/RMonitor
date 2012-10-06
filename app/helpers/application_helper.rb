@@ -25,13 +25,14 @@ module ApplicationHelper
     textilize(text)
   end
 
-  def sortable(column, title = nil)
+  def sortable(column, title = nil, opts = {})
     title ||= column.titleize
     column = column.downcase
+    remote = opts[:remote] || false
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
 
-    link_to params.merge({:sort => column, :direction => direction, :page => nil}) do
+    link_to params.merge({:sort => column, :direction => direction, :page => nil}), :remote => remote do
       "#{title} ".html_safe + (sort_column == column ? content_tag("i", nil, :class => "icon-chevron-#{direction == "asc" ? "down" : "up"}") : '')
     end
   end

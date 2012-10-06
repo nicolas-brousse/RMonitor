@@ -2,11 +2,11 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th width="30"><%= sortable "id", "#" %></th>
-                <th width=""><%= sortable "Email" %></th>
-                <th width=""><%= sortable "last_sign_in_at", "Last connection" %></th>
-                <th width=""><%= sortable "created_at", "Created at" %></th>
-                <th width=""><%= sortable "is_admin", "Is admin?" %></th>
+                <th width="30"><%= sortable "id", "#", :remote => true %></th>
+                <th width=""><%= sortable "Email", nil, :remote => true %></th>
+                <th width=""><%= sortable "last_sign_in_at", "Last connection", :remote => true %></th>
+                <th width=""><%= sortable "created_at", "Created at", :remote => true %></th>
+                <th width=""><%= sortable "is_admin", "Is admin?", :remote => true %></th>
                 <th width=""></th>
             </tr>
         </thead>
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <%= paginate @users %>
+    <%= paginate @users, :remote => true, :position => :right %>
 </div>

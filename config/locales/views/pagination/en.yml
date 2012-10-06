@@ -1,4 +1,4 @@
 en:
-  previous: "&lt; Previous"
-  next: "Next &gt;"
+  previous: "&lt;"
+  next: "&gt;"
   truncate: "..."

@@ -8,9 +8,13 @@
 
         remoteLinks: 'a[data-remote]',
 
+        searchInputs: 'input[data-search]',
+
         navTabs: '.nav.nav-tabs.nav-js a',
 
         rightClickElements: "*[data-dropdown-menu]",
+
+        timer: 0,
 
         modal: function(options)
         {
@@ -102,6 +106,12 @@
             else {
                 return $('div.modal-backdrop.spinner');
             }
+        },
+
+        delay: function(callback, ms)
+        {
+            clearTimeout(rmonitor.timer);
+            rmonitor.timer = setTimeout(callback, ms);
         }
 
     };
@@ -132,13 +142,30 @@
         });
 
         //
+        // Optimize input search forms
+        //
+        $(document).delegate(rmonitor.searchInputs, 'keyup', function(e) {
+            var $this = $(this);
+            e.preventDefault();
+
+            rmonitor.delay(function(){
+                $this.closest('form').find("input[name='commit']").first().click();
+            }, 100 );
+        });
+
+        //
         // Show spinner on remote link loading
         //
         $(document).delegate(rmonitor.remoteLinks, 'click', function(e) {
             var $this = $(this);
-            rmonitor.spinner($this, 'show');
 
-            $this.on('ajax:complete', function() {
+            rmonitor.spinner($this, 'show');
+            rmonitor.delay(function() {
+                rmonitor.spinner($this, 'hide');
+            }, 10000);
+
+            $this.on('ajax:complete, ajaxComplete', function() {
+                console.log('ajax:complete');
                 rmonitor.spinner($this, 'hide');
                 $this.off('ajax:complete');
             })

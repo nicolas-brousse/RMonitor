@@ -1,29 +1,12 @@
 <% content_for :title, t(:user).pluralize %>
 
-<% content_for :javascript do %>
-<script type="text/javascript">
-    $(function() {
-        $("#users th a, #users .pagination a").live("click", function() {
-            $.getScript(this.href);
-            return false;
-        });
-        $("#users_search input").keyup(function() {
-            delay(function(){
-                $("#users_search input[name='commit']").first().click();
-            }, 100 );
-            return false;
-        });
-    });
-</script>
-<% end %>
-
 <%= form_tag(admin_users_path(), :class => "form-search well", :method => :get, :id => :users_search, :remote => true) do %>
     <%= hidden_field_tag :direction, params[:direction] %>
     <%= hidden_field_tag :sort, params[:sort] %>
 
     <%= fields_for :filter, OpenStruct.new(params[:filter]) do |f| %>
             <%= f.label :search, :class => "control-label" %>
-            <%= f.text_field :search, :class => "input-medium" %>
+            <%= f.text_field :search, :class => "input-medium", :data => {:search => true} %>
     <% end %>
 
     <%= submit_tag "Apply", :class => "btn" %>
