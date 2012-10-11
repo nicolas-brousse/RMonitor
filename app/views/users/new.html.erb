@@ -2,7 +2,21 @@
 
 <%= form_for(@user, :url => create_user_path(), :html => {:class => "form-horizontal"}) do |f| %>
     <fieldset>
-        <legend>New user</legend>
+        <legend><%= yield :title %></legend>
+
+        <div class="control-group">
+            <%= f.label :firstname, :class => "control-label" %>
+            <div class="controls">
+                <%= f.text_field :firstname, :class => "input-xlarge" %>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <%= f.label :lastname, :class => "control-label" %>
+            <div class="controls">
+                <%= f.text_field :lastname, :class => "input-xlarge" %>
+            </div>
+        </div>
 
         <div class="control-group">
             <%= f.label :email, :class => "control-label" %>
@@ -10,6 +24,17 @@
                 <%= f.text_field :email, :class => "input-xlarge" %>
             </div>
         </div>
+
+        <hr />
+
+        <div class="control-group">
+            <%= f.label :is_admin?, :class => "control-label" %>
+            <div class="controls">
+                <%= f.check_box :is_admin? %>
+            </div>
+        </div>
+
+        <hr />
 
         <div class="control-group">
             <%= f.label :password, :class => "control-label" %>

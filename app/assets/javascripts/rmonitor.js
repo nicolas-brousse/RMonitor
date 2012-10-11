@@ -150,7 +150,7 @@
 
             rmonitor.delay(function(){
                 $this.closest('form').find("input[name='commit']").first().click();
-            }, 100 );
+            }, 250 );
         });
 
         //
