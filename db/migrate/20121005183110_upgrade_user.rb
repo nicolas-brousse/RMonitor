@@ -4,6 +4,8 @@ class UpgradeUser < ActiveRecord::Migration
     add_column :users, :lastname, :string
     add_column :users, :is_admin, :boolean, {:default => false}
 
+    User.new({:email => "admin@rmonitor.com", :password => "password"}).save(:validate => false)
+
     say_with_time "Upgrade User #1 to admin" do
       u = User.find(1)
       u.is_admin  = true

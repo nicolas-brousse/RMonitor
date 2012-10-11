@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
 
   default_scope includes(:preferences)
 
-  before_create :before_create
   after_create  :initalize_settings
 
   # Validators
@@ -29,10 +28,6 @@ class User < ActiveRecord::Base
   end
 
 private
-  def before_create
-    self.is_admin ||= false
-  end
-
   def initalize_settings
     p = UserPreference.new
     p.user_id = self.id
