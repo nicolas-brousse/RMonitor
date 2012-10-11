@@ -35,7 +35,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
 
       # Uncomment below if timestamps were not included in your original model.
-      # t.timestamps
+      t.timestamps
     end
 
     add_index :users, :email,                :unique => true
@@ -43,6 +43,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true
+
+    User.create(:email => "admin@rmonitor.com", :password => "password")
   end
 
   def self.down
