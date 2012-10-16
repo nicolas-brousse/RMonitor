@@ -2,7 +2,7 @@ class UpgradeUser < ActiveRecord::Migration
   def up
     add_column :users, :firstname, :string
     add_column :users, :lastname, :string
-    add_column :users, :is_admin, :boolean, {:default => false}
+    add_column :users, :is_admin, :boolean, :default => false
 
     User.new({:email => "admin@rmonitor.com", :password => "password"}).save(:validate => false)
 
