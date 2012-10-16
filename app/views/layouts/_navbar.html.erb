@@ -39,7 +39,7 @@
             <div class="nav-collapse navbar-collapse">
                 <ul class="nav">
                     <li<%= nav_class :index, :dashboard %>><%= link_to t(:dashboard), :dashboard %></li>
-                    <li<%= nav_class %w{ servers monitorings incidents } %>><%= link_to "Servers", :servers %></li>
+                    <li<%= nav_class %w{ servers monitorings incidents } %>><%= link_to t(:server).pluralize, :servers %></li>
                 </ul>
 
                 <%# form_tag(nil, :method => :get, :class => "navbar-search pull-left") do %>
@@ -91,11 +91,13 @@
                     <!-- <li<%= nav_class nil %>>
                         <a href="#backups"><i class="icon-hdd"></i> Backups</a>
                     </li> -->
+                <% if can? :update, current_server %>
                     <li<%= nav_class :servers, :edit %>>
                         <%= link_to edit_server_path(current_server) do %>
                             <i class="icon-wrench"></i> Settings
                         <% end %>
                     </li>
+                <% end %>
                 </ul>
             </div>
         </div>
