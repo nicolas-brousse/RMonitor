@@ -8,19 +8,20 @@ class ApplicationController < ActionController::Base
     redirect_to :dashboard
   end
 
-
   before_filter :authenticate_user!,
-                :set_locale
+                :set_locale_and_time_zone
 
   helper_method :sort_column, :sort_direction
 
 protected
-  def set_locale
-    # TODO, verif if the language exist
-    # locales = Setting.options_for(:default_language)
-    # I18n.locale = current_user.locale.to_sym || Setting.default_language.to_sym || I18n.locale
+  def set_locale_and_time_zone
+    if current_user && Setting.options_for(:default_language).include?(current_user.language)
+      I18n.locale = current_user.language.to_sym
+    else
+      I18n.locale = Setting.default_language.to_sym || I18n.locale
+    end
+
     Time.zone = current_user.preferences.try(:time_zone) if user_signed_in?
-    # Time.zone = nil
   end
 
   def sort_order

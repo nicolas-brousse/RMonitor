@@ -55,15 +55,18 @@ class UsersController < ApplicationController
 
   # GET /my/settings
   def settings
-    @settings = current_user.preferences
+    @user     = current_user
+    @settings = @user.preferences
   end
 
   # PUT /my/settings
   def settings_save
-    settings = current_user.preferences
+    user     = current_user
+    user.assign_attributes(params[:user])
+    user.preferences.assign_attributes(params[:user_preferences])
 
     respond_to do |format|
-      if settings.update_attributes(params[:user_preference])
+      if user.save
         format.html { redirect_to user_preferences_path(), :notice => :settings_updated }
         format.js   { flash.now[:notice] = :server_updated }
       else
