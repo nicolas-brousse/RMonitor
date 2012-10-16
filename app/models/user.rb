@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   after_create  :initalize_settings
 
   # Validators
-  validates_uniqueness_of :email, :firstname, :lastname
+  validates_uniqueness_of :email
   validates_presence_of   :email, :firstname, :lastname
 
   def self.search(search)
