@@ -1,17 +1,21 @@
 <% content_for :title, t(:user).pluralize %>
 
-<%= form_tag(admin_users_path(), :class => "form-search well", :method => :get, :id => :users_search, :remote => true) do %>
-    <%= hidden_field_tag :direction, params[:direction] %>
-    <%= hidden_field_tag :sort, params[:sort] %>
+<div class="navbar">
+    <div class="navbar-inner">
+<%= form_tag(admin_users_path(), :class => "navbar-form pull-left", :method => :get, :id => :users_search, :remote => true) do %>
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>
 
     <%= fields_for :filter, OpenStruct.new(params[:filter]) do |f| %>
-            <%= f.label :search, :class => "control-label" %>
-            <%= f.text_field :search, :class => "input-medium", :data => {:search => true} %>
+        <%# f.label :search, :class => "control-label" %>
+        <%= f.text_field :search, :class => "input-medium", :data => {:search => true} %>
     <% end %>
 
-    <%= submit_tag "Apply", :class => "btn" %>
-    <%= submit_tag "Reset", :name => "reset", :class => "btn btn-link" %>
+        <%= submit_tag "Apply", :class => "btn" %>
+        <%= submit_tag "Reset", :name => "reset", :class => "btn btn-link" %>
 <% end %>
+  </div>
+</div>
 
 <%= render "users" %>
 
