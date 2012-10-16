@@ -27,8 +27,10 @@ Create the bases of the application
 
 ## 0.3
 
-- Implement `gem sidekiq` to start jobs in async mode
+- Add roles between users and servers
 
 ## 0.2
 
-- Add roles between users and servers
+- Fix User CRUD
+- Implement `gem sidekiq` and `gem redis-server` to start jobs in async mode
+- Hide links unattainable in the nav-bar
