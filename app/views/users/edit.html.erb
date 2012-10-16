@@ -25,7 +25,7 @@
             </div>
         </div>
 
-    <% if can? :administrate, :all %>
+    <% if current_user != @user && can?(:administrate, :all) %>
         <hr />
 
         <div class="control-group">
