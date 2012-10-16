@@ -50,6 +50,10 @@ body { font-size: .8em; }
   }
 }
 
+@media (max-width: 979px) {
+  .navbar-fixed-top { margin-bottom: 0; }
+}
+
 @media (max-width: 768px) {
 
   /* Remove any padding from the body */
