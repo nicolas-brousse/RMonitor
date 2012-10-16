@@ -1,5 +1,4 @@
-# source 'https://rubygems.org'
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
 
@@ -28,7 +27,7 @@ gem 'whenever', :require => false
 
 gem 'thor'
 
-# gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
+gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
 
 # gem 'RubyRRDtool', :git => 'git://github.com/gebi/rubyrrdtool.git'
 # gem 'RailsRRDTool'
