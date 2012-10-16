@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121005183110) do
+ActiveRecord::Schema.define(:version => 20121016191237) do
 
   create_table "incidents", :force => true do |t|
     t.string   "name"
@@ -77,9 +77,11 @@ ActiveRecord::Schema.define(:version => 20121005183110) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "firstname"
-    t.string   "lastname"
-    t.boolean  "is_admin",                              :default => false
+    t.string   "firstname",              :limit => 30,  :default => "",    :null => false
+    t.string   "lastname",               :limit => 30,  :default => "",    :null => false
+    t.boolean  "is_admin",                              :default => false, :null => false
+    t.string   "language",               :limit => 2,   :default => ""
+    t.boolean  "email_notification",                    :default => true,  :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

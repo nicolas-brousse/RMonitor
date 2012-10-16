@@ -7,9 +7,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :firstname, :lastname, :is_admin
+                  :firstname, :lastname, :is_admin, :email_notification, :language,
+                  :preferences_attributes
 
   has_one :preferences, :class_name => "UserPreference"
+  accepts_nested_attributes_for :preferences, :allow_destroy => false
 
   default_scope includes(:preferences)
 
