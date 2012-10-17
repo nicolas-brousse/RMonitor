@@ -3,4 +3,5 @@ if defined?(Footnotes) && Rails.env.development?
 
   # ... other init code
   Footnotes::Filter.prefix = 'subl://open?url=file://%s&line=%d&column=%d'
+  Footnotes::Filter.no_style = true
 end
