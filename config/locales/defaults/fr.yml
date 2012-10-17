@@ -5,3 +5,9 @@ fr:
   server: "Serveur"
   user: "Utilisateur"
   dashboard: "Dashboard"
+
+  views:
+    pagination:
+      previous: "&laquo;"
+      next: "&raquo;"
+      truncate: "..."
