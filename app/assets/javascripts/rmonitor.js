@@ -159,7 +159,7 @@
         $(document).delegate(rmonitor.remoteLinks, 'click', function(e) {
             var $this = $(this);
 
-            rmonitor.spinner($this, 'show');
+            // rmonitor.spinner($this, 'show');
             rmonitor.delay(function() {
                 rmonitor.spinner($this, 'hide');
             }, 10000);
