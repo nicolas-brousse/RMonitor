@@ -23,7 +23,7 @@ gem 'formatize'
 
 gem 'sidekiq'
 gem 'whenever', :require => false
-# gem "redis-server", "~> 0.0.5"
+gem "redis-server", :git => 'git://github.com/nicolas-brousse/redis-server-gem.git'
 
 gem 'thor'
 
