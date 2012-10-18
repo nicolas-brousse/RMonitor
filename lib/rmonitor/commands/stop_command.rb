@@ -32,11 +32,21 @@ module RMonitor
       end
 
     private
-      def sidekiq_daemon
+      # def redis_daemon(port=6379)
+      #   @redis_daemon ||= DaemonController.new(
+      #     :identifier => 'Redis server',
+      #     :start_command => "bundle exec redis run",
+      #     :ping_command => lambda { TCPSocket.new('localhost', port) },
+      #     :pid_file => "#{Rails.root}/tmp/pids/sidekiq.pid",
+      #     :log_file => "#{Rails.root}/log/sidekiq.log",
+      #   )
+      # end
+
+      def sidekiq_daemon(port=3000)
         @sidekiq_daemon ||= DaemonController.new(
           :identifier => 'Sidekiq server',
           :start_command => "bundle exec sidekiq -",
-          :ping_command => lambda { TCPSocket.new('localhost', @port) },
+          :ping_command => lambda { TCPSocket.new('localhost', port) },
           :pid_file => "#{Rails.root}/tmp/pids/sidekiq.pid",
           :log_file => "#{Rails.root}/log/sidekiq.log",
         )
@@ -47,8 +57,8 @@ module RMonitor
           :identifier => 'Rails server',
           :start_command => "bundle exec rails s -p #{port}",
           :ping_command => lambda { TCPSocket.new('localhost', port) },
-          :pid_file => "#{Rails.root}/tmp/pids/sidekiq.pid",
-          :log_file => "#{Rails.root}/log/sidekiq.log",
+          :pid_file => "#{Rails.root}/tmp/pids/rails.pid",
+          :log_file => "#{Rails.root}/log/rails.log",
         )
       end
 
