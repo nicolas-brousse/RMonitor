@@ -158,6 +158,7 @@ PLATFORMS
 DEPENDENCIES
   cancan
   coffee-rails (~> 3.2.1)
+  daemon_controller (~> 0.2.6)
   devise
   formatize
   friendly_id
