@@ -17,7 +17,7 @@
 config/database.yml
 *.sqlite3
 
-.pig
-.log
-.pid.lock
-.rdb
+*.pid
+*.log
+*.pid.lock
+*.rdb
