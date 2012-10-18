@@ -1,6 +1,5 @@
 # RMonitor Changelog
 
-
 ## 0.1.1
 
 - Implement User CRUD
@@ -31,6 +30,8 @@ Create the bases of the application
 
 ## 0.2
 
-- Fix User CRUD
+- Fix and upgrade User CRUD
 - Implement `gem sidekiq` and `gem redis-server` to start jobs in async mode
 - Hide links unattainable in the nav-bar
+- Bases for I18n
+- Assets are now lazily compiled in production
