@@ -112,6 +112,8 @@ module RMonitor
     extend Thor::Shell
     extend Thor::Base
 
+    @@commands = Array.new
+
     def self.boot_commands
       self.write_commands
     end
@@ -130,10 +132,17 @@ module RMonitor
         require "rmonitor/commands/#{filename}_command"
         command_name = "RMonitor::Commands::#{filename.camelize}Command"
         command      = (command_name.constantize).new unless defined?(command_name.constantize.to_s).nil?
+        @@commands   << command
 
         if command && filename != 'application'
+          options = ""
+          # command.arguments.each do |a|
+          #   options += "method_option #{a.inspect}\n"
+          # end
+
           src = <<-END_SRC
           desc "#{command.name}", "#{command.description}"
+          #{options}
           def #{command.name}
             #{command.class.name.to_s}.run
           end
@@ -144,34 +153,17 @@ module RMonitor
     end
 
     def help
-      RMonitor::CLICommands.write_banner
-      super
+      list
     end
 
-
-    # default_task :list
+    default_task :list
 
     # Prints help information for this class.
-    #
-    # ==== Parameters
-    # shell<Thor::Shell>
-    #
     desc :list, "List commands"
-    method_options :substring => :boolean,
-                   :group => :string,
-                   :all => :boolean,
-                   :debug => :boolean
-    def list(search="", subcommand=false)
-
-      search = ".*#{search}" if options["substring"]
-      search = /^#{search}.*/i
-      group  = options[:group] || "standard"
-
-      puts self.methods
-
-      list = Thor.printable_tasks(true, subcommand)
-      Thor::Util.thor_classes_in(self).each do |klass|
-        list += klass.printable_tasks(false)
+    def list
+      list = [["list", "# List commands"]]
+      @@commands.each do |command|
+        list << [command.name, "# #{command.description}"]
       end
       list.sort!{ |a,b| a[0] <=> b[0] }
       list.map!{ |c| [ shell.set_color(c[0], :green) , c[1]] }

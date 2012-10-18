@@ -2,16 +2,6 @@
 
 require_relative '../lib/rmonitor/cli'
 
-# begin
-#   require "rmonitor"
-# rescue LoadError
-#   Dir[File.expand_path('../../lib', __FILE__)+"/**/"].each do |source|
-#     $:.unshift(source)
-#   end
-#   require "rmonitor"
-#   require "rmonitor/cli"
-# end
-
 begin
   cli = RMonitor::CLI.instance
   cli.start
@@ -21,25 +11,3 @@ rescue => e
   STDERR.puts e.backtrace.join("\n")
   exit 1
 end
-
-
-# class RMonitorCli < Thor
-#   Dir["#{File.dirname(__FILE__)}/../lib/rmonitor/commands/*.{rb}"].each do |source|
-#     filename     = File.basename(source).split("_").first
-#     require "rmonitor/commands/#{filename}_command"
-#     command_name = "RMonitor::Commands::#{filename.camelize}Command"
-#     command      = (command_name.constantize).new unless defined?(command_name.constantize.to_s).nil?
-
-#     if command && filename != 'application'
-#       src = <<-END_SRC
-#       desc "#{command.name}", "#{command.description}"
-#       def #{command.name}
-#         #{command.class.name.to_s}.run
-#       end
-#       END_SRC
-#       class_eval src, __FILE__, __LINE__
-#     end
-#   end
-# end
-
-# RMonitorCli.start

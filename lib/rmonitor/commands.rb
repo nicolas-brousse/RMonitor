@@ -18,11 +18,30 @@ module RMonitor
           define_method(:description) { options[:description] }
         end
 
+        def register_argument(*resources)
+          # options = arguments
+          # options << option
+          # define_method(:arguments) { options }
+          option = resources.size == 1 ? {} : resources.extract_options!
+          define_method(:arguments) { option }
+        end
 
         def run
           obj = self.new
           obj.run
         end
+      end
+
+      def name
+        nil
+      end
+
+      def description
+        nil
+      end
+
+      def arguments
+        Array.new
       end
 
       def shell
