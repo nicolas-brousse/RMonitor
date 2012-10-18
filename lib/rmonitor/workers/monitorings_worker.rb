@@ -3,10 +3,10 @@ require 'rmonitor/modules/monitorings/http'
 require 'rmonitor/modules/monitorings/dns'
 require 'rmonitor/modules/monitorings/ssh'
 require 'rmonitor/modules/monitorings/ftp'
-require 'rmonitor/tasks/monitorings/server_worker'
+require 'rmonitor/workers/monitorings/server_worker'
 
 module RMonitor
-  module Tasks
+  module Workers
     class MonitoringsWorker
       include Sidekiq::Worker
 
@@ -19,7 +19,7 @@ module RMonitor
 
         servers       = Server.includes(:monitorings).all
         servers.each do |server|
-          RMonitor::Tasks::Monitorings::ServerWorker.perform_async(server.id)
+          RMonitor::Workers::Monitorings::ServerWorker.perform_async(server.id)
         end
       end
 

@@ -2,7 +2,7 @@ require 'rmonitor/modules/monitorings/ping'
 require 'rmonitor/modules/monitorings/http'
 
 module RMonitor
-  module Tasks
+  module Workers
     module Monitorings
       class ProtocolWorker
         include Sidekiq::Worker
@@ -24,7 +24,7 @@ module RMonitor
             m.status = status
             m.save
 
-            alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP # Send an email OR prepare an email (Use a thread — if use thread, send the name in perform)
+            # alerts << m if !monitoring.nil? && monitoring.status != Monitoring::UP # Send an email OR prepare an email (Use a thread — if use thread, send the name in perform)
           end
           puts " ---- #{protocol.to_s} = #{status}"
           # TODO, write into rmonitor_{env}.log
