@@ -8,7 +8,9 @@
 
         remoteLinks: 'a[data-remote]',
 
-        searchInputs: 'input[data-search]',
+        searchFormInputs: 'input[data-search]',
+
+        resetFormInputs: 'input[data-reset-form], button[data-reset-form]',
 
         navTabs: '.nav.nav-tabs.nav-js a',
 
@@ -144,13 +146,23 @@
         //
         // Optimize input search forms
         //
-        $(document).delegate(rmonitor.searchInputs, 'keyup', function(e) {
+        $(document).delegate(rmonitor.searchFormInputs, 'keyup', function(e) {
             var $this = $(this);
             e.preventDefault();
 
             rmonitor.delay(function(){
                 $this.closest('form').find("input[name='commit']").first().click();
             }, 250 );
+        });
+
+        //
+        // Reset form, on click reset input/button
+        //
+        $(document).delegate(rmonitor.resetFormInputs, 'click', function(e) {
+            // e.preventDefault();
+            // console.log($(this).closest('form').get(0).reset());
+            // $(this).closest('form').reset();
+            $(this).closest('form').find("input[type='text']").val('');
         });
 
         //
