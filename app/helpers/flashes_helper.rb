@@ -11,7 +11,17 @@ module FlashesHelper
 
   def format_flash(type)
     flash_content  = link_to('&times;'.html_safe, "#", :class => "close", :data => {:dismiss => "alert"})
-    flash_content += t(flash[type])
+
+    if type == :error && flash[type].kind_of?(ActiveModel::Errors)
+      errors = ""
+      flash[type].full_messages.each {|msg| errors += content_tag :li, msg }
+
+      flash_content += content_tag :h4, t("Errors")
+      flash_content += content_tag :ul, errors.html_safe
+    else
+      flash_content += t(flash[type])
+    end
+
     content = content_tag(:div, flash_content, :class => "alert alert-block #{format_flash_class(type)} fade in", :data => {:alert => :alert})
     ERB::Util.html_escape(content).html_safe
   end

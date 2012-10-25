@@ -23,7 +23,7 @@ class IncidentsController < ApplicationController
       if @incident.save
         format.html { redirect_to edit_server_incident_path(@server, @incident), :notice => :incident_added }
       else
-        flash.now[:error] = @incident.errors.full_messages
+        flash.now[:error] = @incident.errors
         format.html { render :action => "new" }
       end
     end
@@ -42,7 +42,7 @@ class IncidentsController < ApplicationController
       if @incident.update_attributes(params[:incident])
         format.html { redirect_to edit_server_incident_path(@server, @incident), :notice => :incident_updated }
       else
-        flash.now[:error] = @incident.errors.full_messages
+        flash.now[:error] = @incident.errors
         format.html { render :action => "edit" }
       end
     end

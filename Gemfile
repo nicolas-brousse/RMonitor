@@ -4,6 +4,7 @@ gem 'rails', '3.2.6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails-i18n'
 
 gem 'mysql2'
 gem 'sqlite3'
@@ -24,7 +25,7 @@ gem 'formatize'
 gem 'sidekiq'
 gem 'whenever', :require => false
 # gem 'redis-server'
-gem 'redis-server', '>= 0.0.5', :git => 'git://github.com/nicolas-brousse/redis-server-gem.git' # Temporary Hotfix
+# gem 'redis-server', '>= 0.0.5', :git => 'git://github.com/nicolas-brousse/redis-server-gem.git' # Temporary Hotfix
 gem 'daemon_controller', '~> 0.2.6'
 
 gem 'thor'

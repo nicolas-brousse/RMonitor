@@ -2,22 +2,22 @@ class UsersController < ApplicationController
   before_filter :clean_param_id, :only => [:show, :edit, :update]
   load_and_authorize_resource
 
-  # GET /servers/:id
+  # GET /users/:id
   def show
     @user = User.find(params[:id])
   end
 
-  # GET /servers/new
+  # GET /users/new
   def new
     @user = User.new
   end
 
-  # GET /servers/:id/edit
+  # GET /users/:id/edit
   def edit
     @user = User.find(params[:id])
   end
 
-  # POST /servers/
+  # POST /users/
   def create
     @user = User.new(params[:user])
 
@@ -25,30 +25,30 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to edit_user_path(@user), :notice => :user_created }
       else
-        flash.now[:error] = @user.errors.full_messages
+        flash.now[:error] = @user.errors
         format.html { render :action => "new" }
       end
     end
   end
 
-  # PUT /servers/:id
+  # PUT /users/:id
   def update
     @user = User.find(params[:id])
     params[:user].delete('password') && params[:user].delete('password_confirmation') if params[:user][:password].blank?
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to edit_user_path(@user), :notice => :user_updated }
-        format.js   { flash.now[:notice] = :user_updated }
+        format.html { redirect_to edit_user_path(@user), :notice => :account_updated }
+        format.js   { flash.now[:notice] = :account_updated }
       else
-        flash.now[:error] = @user.errors.full_messages
+        flash.now[:error] = @user.errors
         format.html { render :action => "edit" }
         format.js
       end
     end
   end
 
-  # DELETE /servers/:id
+  # DELETE /users/:id
   # def destroy
   #   @user = User.find(params[:id])
   # end
@@ -68,9 +68,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if user.save
         format.html { redirect_to user_preferences_path(), :notice => :settings_updated }
-        format.js   { flash.now[:notice] = :server_updated }
+        format.js   { flash.now[:notice] = :settings_updated }
       else
-        flash.now[:error] = settings.errors.full_messages
+        flash.now[:error] = settings.errors
         format.html { render :action => "settings" }
         format.js
       end
