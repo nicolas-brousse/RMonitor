@@ -38,7 +38,7 @@ class ServersController < ApplicationController
       if @server.save
         format.html { redirect_to edit_server_path(@server), :notice => :server_created }
       else
-        flash.now[:error] = @server.errors.full_messages
+        flash.now[:error] = @server.errors
         format.html { render :action => "new" }
       end
     end
@@ -54,7 +54,7 @@ class ServersController < ApplicationController
         format.html { redirect_to edit_server_path(@server), :notice => :server_updated }
         format.js   { flash.now[:notice] = :server_updated }
       else
-        flash.now[:error] = @server.errors.full_messages
+        flash.now[:error] = @server.errors
         format.html { render :action => "edit" }
         format.js
       end
