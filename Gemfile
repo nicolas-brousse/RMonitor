@@ -31,7 +31,8 @@ gem 'thor'
 
 gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
 
-# gem 'RubyRRDtool', :git => 'git://github.com/gebi/rubyrrdtool.git'
+# gem 'RubyRRDtool'#, :git => 'git://github.com/gebi/rubyrrdtool.git'
+# gem 'rrdtool_lib', :git => 'git://github.com/nicolas-brousse/rrdtool_lib-gem.git'
 # gem 'RailsRRDTool'
 
 # gem 'audited-activerecord'
