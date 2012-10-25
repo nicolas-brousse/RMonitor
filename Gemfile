@@ -4,6 +4,7 @@ gem 'rails', '3.2.6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails-i18n'
 
 gem 'mysql2'
 gem 'sqlite3'

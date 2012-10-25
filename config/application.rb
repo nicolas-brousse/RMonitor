@@ -36,6 +36,7 @@ module RMonitor
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :en
+    config.i18n.available_locales = [:en, :fr]#Setting.options_for(:default_language)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
