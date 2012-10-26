@@ -5,6 +5,12 @@ en:
   server: "Server"
   user: "User"
   dashboard: "Dashboard"
+  my_account: "My account"
+  my_preferences: "My preferences"
+
+  sign_in: "Sign in"
+  sign_up: "Sign up"
+  sign_out: "Sign out"
 
   views:
     pagination:

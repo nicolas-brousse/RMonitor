@@ -17,21 +17,21 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><%= link_to "My account", :user_account %></li>
-                        <li><%= link_to "My preferences", :user_preferences %></li>
+                        <li><%= link_to t(:my_account), :user_account %></li>
+                        <li><%= link_to t(:my_preferences), :user_preferences %></li>
                     <% if can? :administrate, :all %>
                         <li class="divider"></li>
                         <li><%= link_to "Administration", :admin %></li>
                     <% end %>
                         <li class="divider"></li>
-                        <li><%= link_to "Sign out", :destroy_user_session, :method => :delete %></li>
+                        <li><%= link_to t(:sign_out), :destroy_user_session, :method => :delete %></li>
                     </ul>
                 </li>
 
             <% elsif controller_name == 'sessions' && devise_mapping.registerable? %>
-                <li><%= link_to "Sign up", :new_user_registration %></li>
+                <li><%= link_to t(:sign_up), :new_user_registration %></li>
             <% else %>
-                <li><%= link_to "Sign in", :new_user_session %></li>
+                <li><%= link_to t(:sign_in), :new_user_session %></li>
             <% end %>
             </ul>
 
