@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
 protected
   def set_locale_and_time_zone
-    if current_user && Setting.options_for(:default_language).include?(current_user.language)
+    if current_user && I18n.available_locales.include?(current_user.language)
       I18n.locale = current_user.language.to_sym
     else
       I18n.locale = Setting.default_language.to_sym || I18n.locale

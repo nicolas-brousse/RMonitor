@@ -14,8 +14,5 @@ text_formatting:
     - textile
 default_language:
   default: en
-  options:
-    - en
-    - fr
 ui_theme:
   default: base

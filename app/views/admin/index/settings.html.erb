@@ -36,7 +36,7 @@
             <div class="control-group">
                 <%= f.label :default_language, :class => "control-label" %>
                 <div class="controls">
-                    <%= f.select :default_language, Setting.options_for(:default_language), :class => "input-xlarge" %>
+                    <%= f.select :default_language, I18n.available_locales, :class => "input-xlarge" %>
                 </div>
             </div>
 
